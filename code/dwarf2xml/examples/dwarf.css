@@ -1,0 +1,51 @@
+BODY {
+  color: #33ff33; 
+  background-color: black;
+  /* font-family: monospace; */
+  font-family: "Console", monospace, sans-serif;
+  font-weight: 100;
+  /* font-size: 1.2em */
+}
+A:link { color: #ffff33 }       /* unvisited link */
+A:visited { color: #ffcc99 }   /* visited links */
+A:active { color: #99ffff }    /* active links */
+
+#toc {
+  font-family: helvetica, sans-serif; 
+  font-weight: 200; 
+}
+th {
+  background-color: #33ff33; 
+  color: black;
+}
+
+h1 { 
+  font-family: helvetica, sans-serif; 
+  font-weight: 200; 
+  background-color: #33ff33; 
+  color: black;
+  text-align: center
+}
+h2 { 
+  font-family: helvetica, sans-serif; 
+  font-weight: 200; 
+  background-color: #33ff33; 
+  color: black;
+  text-align: left;
+  margin-left: 12.5%;
+}
+h3 { 
+  font-family: helvetica, sans-serif; 
+  font-weight: 300; 
+  font-size: 1.5em;
+}
+h3 { 
+  font-family: helvetica, sans-serif; 
+  font-weight: 200; 
+}
+h4 { 
+  font-family: helvetica, sans-serif; 
+  font-weight: 200; 
+}
+
+

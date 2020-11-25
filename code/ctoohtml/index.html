@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
+  <title>ctoohtml LANC= C, presentation tool</title>
+  <meta content="Emmanuel AZENCOT" name="author">
+  <meta content="convert c to html" name="description">
+  <meta name="keywords" content="C, conversion, HTML, C to html, source code, documentation">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<table bgcolor="#ffffee" border="0" cellpadding="2" cellspacing="2"
+ width="100%">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><a href="http://www.gnu.org/" target="_blank">GNU
+      <img alt="gnu-head" src="images/gnu-head-mini.png" align="middle"
+ border="0" height="51" hspace="5" width="51"> ORG</a></td>
+      <td align="center" valign="top"><a href="http://www.perl.org" target="_blank">PERL
+      <img alt="perl org" src="images/perl_camel_small.png"
+ align="middle" border="0" height="53" hspace="5" width="67"> ORG</a><br>
+      </td>
+      <td align="center" valign="top"><a
+ href="http://ctags.sourceforge.net/" target="_blank"><b><img alt="ctags"
+ src="images/ctags.png" align="middle" border="0" height="51" width="97"></b></a></td>
+      <td valign="top">
+      <div align="center"><b><a href="../../index.html"><big><big><big><font
+ color="#666666">machin</font><font color="#000000">man</font></big></big></big></a><br>
+      <a href="../../pol/stars_or_end.html">The stars ASAP</a><br>
+      <big><a href="../../"> </a></big></b> </div>
+      <b><big> </big></b></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<div style="text-align: center;"><font
+ face="Courier New, Courier, monospace">LANG=C presentation
+tool, <br>
+</font>
+<h1 style="font-weight: bold;"><font
+ face="Courier New, Courier, monospace"><big><big>c<span
+ style="color: rgb(51, 51, 255);">to</span><span
+ style="color: rgb(255, 0, 0);">o</span><span
+ style="color: rgb(0, 153, 0);">html</span></big></big></font></h1>
+&nbsp;
+<font face="Courier New, Courier, monospace">convert c to html, <br>
+</font><font face="Courier New, Courier, monospace"><a
+ href="history.htm">since 1995</a></font><br>
+<br>
+</div>
+<br>
+<br>
+<br>
+<br>
+Early versions of this software from, <a
+ href="http://www.cs.ou.edu/~fagg/" target="_blank">Andrew H. Fagg</a>&nbsp; were
+released around 1995.
+At this time, it was already able to produce usage-to-definition links
+and definitions
+lists. This feature was achieved with simple perl scripts and an
+external software, ctags.<br>
+<br>
+Important note :<br>
+At that time, Andrew, was a code addict. A terrible disease that is
+still ravaging many, especially among computer science students. When I
+asked him on what he thinks now about what he have done at this time <span
+ id="result_box" class="short_text"><span
+ style="background-color: rgb(255, 255, 255);" title="il m'a avou&eacute; que">he
+told me that :<br>
+<br>
+</span></span>
+<div align="left">
+<div align="center"><i>"ctoohtml was born in the bowels of the Hedco <br>
+Neuroscience Building at the University of Southern California<br>
+</i></div>
+<div align="center"><i>&nbsp;at a time when <a
+ href="http://www.cs.ou.edu/%7Efagg/" target="_blank">Andrew Fagg</a> <u>should have
+instead been working on his dissertation</u>.". <b><br>
+</b></i><br>
+</div>
+</div>
+Listen
+to the advice of a repented. If I can also give an advice, I would say,
+keep away from Perl, its the worst.<br>
+<span id="result_box" class="short_text"><span
+ style="background-color: rgb(255, 255, 255);" title="il m'a avou&eacute; que"></span></span><br>
+There is now plenty of code source presentation tools for C/C++, and it
+was time for ctoohtml to have a new release that provides some y2k
+features :<br>
+<br>
+<br>
+<table align="center" border="0" cellpadding="5" cellspacing="0"
+ width="650">
+  <tbody>
+    <tr>
+      <td align="right" bgcolor="#333333" nowrap="nowrap" valign="top"
+ width="20"><b><font color="#ffff33"><br>
+      </font></b> </td>
+      <td align="left" bgcolor="#666666" nowrap="nowrap" valign="top"
+ width="80"> <b><br>
+      </b> </td>
+      <td bgcolor="#666666" nowrap="nowrap" valign="top" width="5"> <b><br>
+      </b> </td>
+      <td bgcolor="#999999" nowrap="nowrap" valign="top" width="20"><b><br>
+      </b> </td>
+      <td nowrap="nowrap" valign="top" width="20"><b><br>
+      </b> </td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#333333" nowrap="nowrap" valign="top"
+ width="20"><b><font color="#ffff33">new<br>
+new<br>
+new<br>
+new<br>
+      </font></b> </td>
+      <td align="left" bgcolor="#666666" nowrap="nowrap" valign="top"
+ width="80">
+      <ul>
+        <li><b><font color="#33ff33">&nbsp;&nbsp; code source
+colourization,</font></b></li>
+        <li><b><font color="#33ff33">&nbsp;&nbsp; caller reference list</font></b></li>
+        <li><b><font color="#33ff33">&nbsp;&nbsp; up to date CLI
+interface </font></b></li>
+        <li><b><font color="#33ff33">&nbsp;&nbsp; 0 install process </font></b></li>
+        <ul>
+        </ul>
+      </ul>
+      <ul>
+      </ul>
+      </td>
+      <td bgcolor="#666666" nowrap="nowrap" valign="top" width="5">
+      <ul>
+        <li><b>&nbsp;</b></li>
+        <li><b>&nbsp;</b></li>
+        <li><b>&nbsp;</b></li>
+        <li><b><br>
+          </b> </li>
+      </ul>
+      </td>
+      <td bgcolor="#999999" nowrap="nowrap" valign="top" width="20"><b><br>
+      </b> </td>
+      <td nowrap="nowrap" valign="top" width="20"><b><br>
+      </b> </td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#333333" nowrap="nowrap" valign="top"
+ width="20"><b><font color="#ffff33"><br>
+      </font></b> </td>
+      <td align="left" bgcolor="#666666" nowrap="nowrap" valign="top"
+ width="80">
+      <ul>
+        <li><b><font color="#ff9900">&nbsp;&nbsp; index file list</font></b></li>
+        <li><b><font color="#ff9900">&nbsp;&nbsp; references sorted</font></b></li>
+        <li><b><font color="#ff9900">&nbsp;&nbsp; page customization</font></b></li>
+        <li><b><font color="#ff9900">&nbsp;&nbsp; a lot of links</font></b></li>
+      </ul>
+      </td>
+      <td bgcolor="#666666" nowrap="nowrap" valign="top" width="5">
+      <ul>
+        <li><b>&nbsp;</b></li>
+        <li><b>&nbsp;</b></li>
+        <li><b>&nbsp;</b></li>
+        <li><b><br>
+          </b> </li>
+        <b><br>
+        </b>
+      </ul>
+      </td>
+      <td bgcolor="#999999" nowrap="nowrap" valign="top" width="20"><b><br>
+      </b> </td>
+      <td nowrap="nowrap" valign="top" width="20"><b><br>
+      </b> </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+As an example, you can quikly obtain this result presented with <b><big><a
+ href="../ring/src/index.html">rings code demo</a></big></b> with this
+shell command :<br>
+<code> </code>
+<blockquote>
+  <blockquote><big><big><code><span
+ title="Path to command, dont forget chmod a+x ./ctoohtml.pl">./ctoohtml</span>
+    <span title="Its nice to have real time news">-v1 \</span></code><br>
+    <code> <span
+ title="Link to upper level, usualy project documentation">-u"../index.html"</span>
+    <span title="Text for this link">-U "To rings Doc++"</span>\</code><br>
+    <code> <span title="meta-content author HTML header tag value">-O
+"Emmanuel
+Azencot" </span>\</code><br>
+    <code> <span title="HTML header title, project title">-P "Ring
+containers
+source code" </span>\</code><br>
+    <code> <span
+ title="Raw HTML insertion at bottom of pages, possible in header and to of each pages">-B'Hosted
+by the courtesy of &amp;nbsp; &lt;a
+href="http://www.espace-gratuit.org/" target="_blank" title="Hebergeur
+Gratuit"&gt;&lt;img
+src="http://www.espace-gratuit.org/pub/espace-gratuit.org_userbar.gif"
+alt="Hebergeur Gratuit" border="0" height="20"
+width="350"&gt;&lt;/a&gt;' </span>\<br>
+    <span title="Chose destination directory">-d doc++/html </span>\<br>
+    </code><code> <span
+ title="no worries, a clear error message is printed if void.">*.c
+*.h excp/*.[ch]</span></code><br>
+    </big></big></blockquote>
+</blockquote>
+<big><big><code> </code></big></big>To quickly obtain a resulkt on
+your own code, just download the script :<br>
+<blockquote>
+  <blockquote><big><big><big><code>wget
+http://machinman.net/code/ctoohtml/<b><a href="ctoohtml">ctoohtml</a><br>
+    </b>chmod a+x<b> </b></code></big></big></big><big><big><big><code><b><a
+ href="ctoohtml">./ctoohtml</a></b></code></big></big></big> </blockquote>
+</blockquote>
+in your working directory and run :<br>
+<br>
+<blockquote>
+  <blockquote><big><big><big><code><b><a href="ctoohtml">./ctoohtml</a></b></code></big></big></big><big><big><big><code>
+-v1 $(find . -name '*.[ch]')</code></big></big></big><br>
+  </blockquote>
+</blockquote>
+That it ! Enjoy browsing in <b>./htm</b> directory.<br>
+<br>
+Later you can move it to /usr/bin to make it system width. You can also
+<b><a href="ctoohtml.1.5.tgz">download</a></b> an little <b>tar.gz</b>
+that will install for you the <b>man page</b> and the <b>script</b>.<br>
+<br>
+<br>
+<table bgcolor="#ffffee" border="0" cellpadding="2" cellspacing="2"
+ width="100%">
+  <tbody>
+    <tr>
+      <td align="center" valign="top"><big><big><b><a
+ href="copyleft.html">License</a></b></big></big></td>
+      <td align="center" valign="top"><big><big> <a href="manual.html"><b>Manual</b></a></big></big><br>
+      </td>
+      <td align="center" valign="top"><a href="ctoohtml.1.5.tgz"><big><big><b>Download</b></big></big></a><br>
+      </td>
+      <td align="center" valign="top"><big><big><b>
+      <script type="text/javascript">eval(unescape('%76%61%72%20%73%3D%27%61%6D%6C%69%6F%74%77%3A%62%65%61%6D%74%73%72%65%6D%40%63%61%69%68%6D%6E%6E%61%6E%2E%74%65%27%3B%76%61%72%20%72%3D%27%27%3B%66%6F%72%28%76%61%72%20%69%3D%30%3B%69%3C%73%2E%6C%65%6E%67%74%68%3B%69%2B%2B%2C%69%2B%2B%29%7B%72%3D%72%2B%73%2E%73%75%62%73%74%72%69%6E%67%28%69%2B%31%2C%69%2B%32%29%2B%73%2E%73%75%62%73%74%72%69%6E%67%28%69%2C%69%2B%31%29%7D%64%6F%63%75%6D%65%6E%74%2E%77%72%69%74%65%28%27%3C%61%20%68%72%65%66%3D%22%27%2B%72%2B%27%22%3E%43%6F%6E%74%61%63%74%3C%2F%61%3E%27%29%3B'))</script><br>
+      </b></big></big></td>
+      <td align="center" valign="top"><big><big><b><a href="history.htm">History</a></b></big></big></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<h3>Others products in the same area :<br>
+</h3>
+<ul>
+  <li><a href="http://www.bedaux.net/cpp2html/" target="_blank">cpp2html</a> "Paste
+your C++ code into the box below and
+press the <i>Convert</i> button." online service available <span
+ class="indexlink">(JavaScript).</span></li>
+  <li><span class="indexlink"><a href="http://docpp.sourceforge.net/" target="_blank">DOC++</a>
+"</span>DOC++ is a documentation system for C, C++, IDL and Java
+generating (...) HTML output (...). The documentation is extracted
+directly from (...) source files (...).". Nothing new released since
+2002, but most distros support it. I use it for <a
+ href="../ring/index.html">rings documentation</a>.</li>
+  <li><a href="http://www.stack.nl/%7Edimitri/doxygen/" target="_blank">doxygen</a>
+: "Source code documentation generator tool", you should check this one.</li>
+  <li><a
+ href="http://www.hypernews.org/HyperNews/get/www/html/converters.html" target="_blank">Converters
+to and from HTML</a> - section - "Programming Languages"</li>
+</ul>
+<br>
+<br>
+<hr size="2" width="100%"><b>machinman, Wed Nov 18 23:22:42 CET 2009</b><br>
+
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

@@ -1,1 +1,286 @@
-<html><head></head><body>Hello world ! </body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="fr"><head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>The machine man</title>
+<meta content="Emmanuel Azencot" name="author">
+<meta content="The machinman home page" name="description">
+<meta name="keywords" content="machinman, libelf, dwarf2xml, interstellar">
+<link rel="stylesheet" type="text/css" href="./machinman.css">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head><body>
+<div style="text-align: center;">
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<hr style="width: 100%; height: 2px;">
+</div>
+<table border="0" cellpadding="2" cellspacing="2" width="100%"><tbody>
+ <tr>
+  <td valign="top"><pre>Translation : Emmanuel Azencot
+Author : Emmanuel Azencot
+Creation : Sun Jan 10 09:23:42 CET 2016
+Update: Sun Jun  2 16:49:43 CEST 2019</pre></td>
+  <td width="8%"><a href="/index.html"><img alt="English" src="/flags/flag_medium_english.png" border="0" height="100%" width="100%"></a></td>
+  <td width="8%"><a href="/index.fr.html"><img alt="Français" src="/flags/flag_medium_france.png" border="0" height="100%" width="100%"></a></td>
+  <td width="8%"><a href="/index.es.html"><img alt="Espagnol" src="/flags/flag_medium_spain.png" border="0" height="100%" width="100%"></a></td>
+ </tr>
+</tbody></table>
+<h1>The machine man</h1>
+<h2><a href="#Origins">Origins</a></h2>
+<h2><a href="#Politics">Politics</a></h2>
+<blockquote>
+  <p><a href="/pol/stars_or_end.html">Collective goal</a></p>
+  <p><a href="/pol/population_decrease.html">Population decrease</a></p>
+  <p><a href="/pol/southern_wasteland.html">Southern wastelands</a></p>
+  <p><a href="/pol/solutions_comparison.html">Solutions comparison</a></p>
+  <p><a href="/pol/elderly_in_sos.html">Elderly in Solar Orbital Station</a></p>
+  <br>
+  <p>French version of <a href="/un/index.html">UN security council resolutions <img style="border: 0px solid ; width: 25px; height: 16px;" alt="Francais" src="/flags/flag_small_france.png"></a>&nbsp; in HTML.</p>
+</blockquote>
+<h2><a href="#Interstellar">Interstellar</a></h2>
+<blockquote>
+  <p><a href="/intersideral/durees/index.html">Table of trip time for the 50 nearest stars <img style="border: 0px solid ; width: 25px; height: 16px;" alt="Francais" src="/flags/flag_small_france.png"></a></a></p>
+  <p><a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"> Ideal Bussard Ramjet Motion</a></p>
+  <p><a href="/intersideral/bussard_ramjet/bussard_ramjet.en.html">Other bussards ramjets motion</a></p>
+</blockquote>
+<h2><a href="#Computer">Computer </a></h2>
+<blockquote>
+  <p><a href="/code/dwarf2xml/index.html">DWARF to XML converter</a></p>
+  <p><a href="/elf_examples/index.html">Libelf sample programs</a></p>
+  <p><a href="/code/ring/index.html">C ring containers</a></p>
+  <p><a href="code/ctoohtml/index.html">C to HTML converter</a></p>
+</blockquote>
+<hr size="2" width="100%">
+
+<h2><a name="Politics"></a>Politics</h2>
+<p>
+Giving a common long term goal to Humanity is an utopia, yet another. 
+Practically, it is about thinking our political choices as if we wanted to 
+go to a nearby star, which is very far from what humanity is able to 
+achieve:<a href="/pol/stars_or_end.html"></a></p>
+<blockquote>
+  <p><a href="/pol/stars_or_end.html">Collective goal</a></p>
+</blockquote>
+<p>
+Since I have written it down, given this aim, I spent time to find answers 
+compared to the usual ones. From LTG (Long Term Goal), we should survive
+ and stay active in scientific research. 
+This last activity should be maximized, but first, let's 
+concentrate on survival.</p>
+<p>
+Part of our present and future concern come from human foot print, which
+ is population time its consumption, and thus is directly related to 
+overcrowding. The impact of man is also related to its geographical 
+extend, as being too numerous should add an other floor to house instead
+ of covering the whole garden.</p>
+<p>
+Then straightforward solutions that address them, is demographic decrease 
+and leave south of Cancer tropic as wasteland. </p>
+
+<blockquote>
+  <p><a href="/pol/population_decrease.html">Population decrease</a></p>
+  <p><a href="/pol/southern_wasteland.html">Southern wastelands</a></p>
+  <p><a href="/pol/solutions_comparison.html">Solutions comparison</a></p>
+</blockquote>
+<p>
+<i>"I believe alien life is quite common in the universe, 
+although intelligent life is less so. Some say it has yet to appear on 
+planet Earth". </i><i>(<a href="http://www.brainyquote.com/quotes/authors/s/stephen_hawking.html" target="_blank">Stephen Hawking</a>)</i></p>
+<p>I think this idea would have pleased him :</p>
+<blockquote>
+  <p><a href="/pol/elderly_in_sos.html">Elderly in Solar Orbital Station</a></p>
+</blockquote>
+
+<p><div align="center">*<br>*&nbsp;&nbsp;&nbsp;*</div></p>
+<p>
+Most of original French UN "<a href="/un/index.html">Résolutions et décisions du Conseil de Sécurité <img style="border: 0px solid ; width: 25px; height: 16px;" alt="Francais" src="/flags/flag_small_france.png"></a>" more or less well translated to HTML from scans.</p>
+
+<h2><a name="Interstellar"></a>Interstellar</h2>
+<p>
+To figure how difficult is interstellar trip, it is convenient to 
+have hard data. Having not found many, I thought it would be a good idea
+ to publish them for everyone to choose their favorite star and realize 
+the enormity of the distance and speed to be achieved. Keep memory that 
+<a href="http://voyager.jpl.nasa.gov/" target="_blank">voyager probes</a> speed is <a href="http://fr.wikipedia.org/wiki/Programme_Voyager" target="_blank">17 km / s</a>, which is not so bad, but not enough to go to an other star.</p>
+<blockquote>
+  <p><a href="./intersideral/durees/index.html">Table of trip time for the 50 nearest stars <img style="border: 0px solid ; width: 25px; height: 16px;" alt="Francais" src="/flags/flag_small_france.png"></a></p>
+</blockquote>
+<p>
+I got the <a href="https://en.wikipedia.org/wiki/List_of_nearest_stars_and_brown_dwarfs">50 nearest stars from wikipedia</a>.</p>
+<p>
+I heard (1) that the idea of capturing the material on the medium to propel
+ had already been proposed by Dr. <a href="http://en.wikipedia.org/wiki/Robert_W._Bussard" target="_blank">Robert Bussard</a> in the article "<a href="http://www.askmar.com/Robert%20Bussard/Galactic%20Matter%20and%20Interstellar%20Flight.pdf" target="_blank">Galactic Matter and Interstellar Flight</a>" publish in 1960 (there is a good 
+<a href="http://www.askmar.com/Bussard/Robert_Bussard.html" target="_blank">bibliography Robert Bussard on this site</a>) with <a href="http://www.daviddarling.info/encyclopedia/I/interstellar_ramjet.html" target="_blank">RamJet</a>. This vessel 
+implements the protons capture and nuclear fusion. The result produces 
+high-energy particles that enable propulsion.</p>
+<p>
+Subsequently, I dig the principle of Bussard Ramjet and focused on 
+publications about it. Many of them state the impossibility of such a 
+device due to an unfavorable energy balance when protons are used in 
+fusion reaction. We can also conclude that hydrogen fusion does not 
+give enough energy to meet the needs of interstellar travel, at least 
+for human transportation (See here for an <a href="http://www.projectrho.com/public_html/rocket/slowerlight.php" target="_blank">inventory</a>). </p>
+<p>
+Anyway, I started 
+recklessly in equation of motion in relativistic way for this device and
+ finish a year later with two pages of calculations, one on ideal  bussard 
+ramjet, and the other on various models bussard ramjet that 
+introduce inefficiencies.</p>
+<blockquote>
+  <p><a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Ideal Bussard Ramjet Motion</a></p>
+  <p><a href="/intersideral/bussard_ramjet/bussard_ramjet.en.html">Other bussards ramjets motion</a></p>
+</blockquote>
+<p>
+(1) Thank to <a href="http://forums.futura-sciences.com/astronautique/329564-impossibilite-voyage-intersideral-10.html" target="_blank">
+http://forums.futura-sciences.com - rubrique "impossibilite voyage intersideral"</a></p>
+
+<h2><a name="Computer"></a>Computer </h2>
+<p>
+<a href="http://dwarfstd.org/" target="_blank">DWARF (Debug With Arbitrary Record Format)</a> is the preferred format for
+storing debug information in the <a href="http://refspecs.freestandards.org/elf/" target="_blank">ELF</a> executable format. It is part of most Unixies like system ABI. The information is used by debuggers, lets say <a href="http://www.gnu.org/software/gdb/" target="_blank">GDB</a>, to achieve the magic debugging at source level. </p>
+<blockquote>
+  <p><a href="/code/dwarf2xml/index.html">Here is a new DWARF to XML converter</a></p>
+  <p><a href="https://github.com/ppenzin/dwarf2xml">Dwarf2xml on GitHub by ppenzin</a></p>
+</blockquote>
+<p>
+At the time I have writen a simple object relocation program
+(<a href="/elf_examples/elf_obj_loc.c">elf_obj_loc.c</a>), I have found very few code dealing with Elf format
+with libelf and gelf. One of them was the excellent 
+  <a href="http://sourceforge.net/projects/elftoolchain/files/Documentation/libelf-by-example/" target="_blank">
+libelf by Example</a> writen by Joseph Koshy.
+I hope these two libelf code example will help.</p>
+<blockquote>
+  <p><a href="/elf_examples/index.html">Libelf sample programs</a></p>
+</blockquote>
+<p>
+Basically rings are a small and simple C library that provides simple or
+ double linked list. Interesting things comes with a set of preprocessor
+ macros that take in account nodes typing
+to handle several issues.</p>
+<blockquote>
+  <p><a href="./code/ring/index.html">The ring containers</a></p>
+</blockquote>
+<p style="font-weight: bold;">
+  <font face="Courier New, Courier, monospace">LANG=C presentation
+tool, <big><big>c<span style="color: rgb(51, 51, 255);">to</span><span style="color: rgb(255, 0, 0);">o</span><span style="color: rgb(0, 153, 0);">html</span></big></big></font>&nbsp;
+convert c to html, since 1995.</p>
+<blockquote>
+  <p><a href="code/ctoohtml/index.html">C to HTML converter</a></p>
+</blockquote>
+
+<h2><a name="Origins"></a>Origins</h2>
+<p>
+One morning, like many others, I am installed in the train with my 
+coffee. On the way to 45 minutes of peace after the subway and hallways.
+ I prepare myself mentally to face the "<a href="https://fr.wikipedia.org/wiki/20_minutes">20 Minuten</a>" sudoku and crossword. If I can do them fast enough, I'll continue with those <a href="https://en.wikipedia.org/wiki/Metro_International">Metro</a> that I managed to nab today. The Grand Slam ...</p>
+<p>
+Just before departure, arrive two Africans. They should not have arrived
+ for a long because they speak loud in this cozy atmosphere, especially,
+ one of them. He asks a lot of questions and the other reply with great 
+assurance. I start the crossword.</p>
+<p>
+&nbsp; - .... And him ?<br>
+&nbsp; - Him ? it is a machine man ...</p>
+<p>
+<i>&nbsp; He lowers his voice suddenly on end, as if afraid to be understood and go on in his native language</i>.</p>
+<p>
+A man machine? It's me he talking about ? They are behind on other side 
+of the corridor and I'm leaning on the newspaper. A man machine ? that's 
+what I've become ? It is true that from their point of view, my kind of 
+character, "salary man", it may seem unlikely.</p>
+<p>
+Well, I have a new status now. Troubled, the weekend there, I 
+tell it to Katrin. Against all odds, she like a lot I am sawn as this character. So, I reconsidered the thing and I am the 
+machine man. Machin-man, <a href="http://forum.wordreference.com/threads/avoir-la-patate-banane-p%C3%AAche-frite.1569389/" target="_blank">I'm straining at the bit</a> !</p>
+<blockquote>
+  <p><a href="/20141205_index.html">Previous version <img style="border: 0px solid ; width: 25px; height: 16px;" alt="Francais" src="/flags/flag_small_france.png"></a></p>
+</blockquote>
+
+<br>
+<br>
+<h4>The machine man.</h4>
+<br>
+<!-- postprod:signature:start -->
+<hr size="2" width="100%"> 
+<b><small>web design : <a href="http://www.machinman.net">machinman.net</a> all right reserved, update Tue Nov 24 11:56:00 CET 2020</small></b><br>
+<!-- postprod:signature:end -->
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br>
+</body></html>

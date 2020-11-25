@@ -1,0 +1,60 @@
+
+body { 
+   background-color: black;
+   color: white;
+   font-family: "Garamond", serif; 
+   font-size: medium;
+}
+code { 
+   font-size: 100%;
+   font-family: "Mono", monospace;
+   color: white;
+}
+/*
+table {
+   border-collapse:collapse;
+}
+table, th, td {
+   border: solid yellow;
+   border-color: yellow;
+table {
+   background-color: #663300;
+}
+th, td {
+   background-color: black;
+}
+}*/
+
+body { color: #66ff99; }
+p { text-align: justify; }
+/* A:link    { color: #33aaff }   unvisited link */
+/* A:visited { color: #ff99ff }   visited links */
+/* A:active  { color: #9999ff }   active links */
+A:link    { color: #ffffff }   /* unvisited link */
+A:visited { color: #999999 }   /* visited links */
+A:active  { color: #ff0000 }   /* active links */
+h1 { color: rgb(255, 255, 153); text-align: center; }
+h2 { color: rgb(255, 255, 102); margin-left: 18%; margin-right: 5%; }
+h3 { color: rgb(255, 238, 85);  margin-left: 15%; margin-right: 5%; }
+h4 { color: rgb(255, 221, 68);  margin-left: 12%; margin-right: 5%; }
+h5 { color: rgb(255, 204, 51);  margin-left:  9%; margin-right: 5%; }
+h6 { color: rgb(255, 187, 34);  margin-left:  6%; margin-right: 5%; }
+
+.navbar table {
+   background-color: #aaaa00;
+   text-align: center; 
+   /* font-size: large; */
+   font-family:  cursive; 
+   font-weight:  bold; 
+}
+.navbar * td, th {
+   background-color: #660000;
+}
+
+.t_green { color: rgb(52, 255, 66); }
+.t_red   { color: #ff6010; }
+.t_yellow { color: rgb(255, 255, 102); }
+
+.t_img_flag_small { border: 0px; width: 25px; height: 16px; }
+
+

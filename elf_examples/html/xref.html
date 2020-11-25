@@ -1,0 +1,397 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>Elf sample code: </title>
+   <meta name="Description" content="Elf sample code">
+   <meta name="Author" content="Emmanuel Azencot">
+   <meta name="GENERATOR" content="ctoohtml 1.5.0">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">Elf sample home</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<HR>
+<h2>Cross reference index</h2>
+<h3><A NAME="endian_to_target"></A><span style="color: rgb(204, 0, 0);">macro : </span><A HREF="elf_obj_loc.c.html#endian_to_target">endian_to_target</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_367">367</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>endian_to_target</b>(target_is_big_endian,(uint32_t)(sym.st_value&nbsp;+&nbsp;&nbsp;shaddr));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_372">372</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>endian_to_target</b>(target_is_big_endian,(uint32_t)(sym.st_value&nbsp;+&nbsp;shaddr&nbsp;-&nbsp;(shdr_out.sh_addr&nbsp;+&nbsp;rel.r_offset)&nbsp;-&nbsp;4));</tt></td></tr>
+</tr></table>
+<h3><A NAME="errx"></A><span style="color: rgb(204, 0, 0);">macro : </span><A HREF="elf_copy.c.html#errx">errx</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_100">100</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_OSERR,&nbsp;"open&nbsp;\"%s\"&nbsp;failed",&nbsp;argv[2]);</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_103">103</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_begin()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_107">107</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_newehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_109">109</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_117">117</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_update_ehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_124">124</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_newphdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_130">130</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getphdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_133">133</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getphdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_137">137</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_update_phdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_143">143</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_145">145</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_newscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_147">147</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"melf_cpy_scn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_155">155</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_newphdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_160">160</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getphdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_163">163</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getphdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_168">168</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_offscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_174">174</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_182">182</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_update_phdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_186">186</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_update()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_73">73</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_USAGE,&nbsp;"USAGE:&nbsp;%s&nbsp;in-file-name&nbsp;out-file-name",&nbsp;argv[0]);</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_76">76</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"ELF&nbsp;library&nbsp;initialization&nbsp;failed:&nbsp;%s",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_82">82</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_begin()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_85">85</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_89">89</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"getshstrndx()&nbsp;failed:&nbsp;%s,&nbsp;%d.",&nbsp;elf_errmsg(-1),&nbsp;shstrndx);</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_383">383</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_update_shdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_403">403</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_472">472</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_506">506</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_USAGE,&nbsp;"USAGE:&nbsp;%s&nbsp;in-file-name&nbsp;out-file-name",&nbsp;argv[0]);</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_509">509</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"ELF&nbsp;library&nbsp;initialization&nbsp;failed:&nbsp;%s",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_516">516</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_begin()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_519">519</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_548">548</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"malloc&nbsp;\"%s\"&nbsp;failed",&nbsp;strerror(errno));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_551">551</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"getshstrndx()&nbsp;failed:&nbsp;%s,&nbsp;%d.",&nbsp;elf_errmsg(-1),&nbsp;shstrndx);</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_555">555</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_558">558</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_561">561</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_strptr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_566">566</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_OSERR,&nbsp;"open&nbsp;\"%s\"&nbsp;failed",&nbsp;argv[2]);</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_570">570</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_begin()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_574">574</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_newehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_577">577</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_580">580</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_update_ehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_584">584</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"malloc&nbsp;\"%s\"&nbsp;failed",&nbsp;strerror(errno));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_587">587</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"melf_rel_scn_layout()&nbsp;failed.");</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_605">605</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_609">609</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_612">612</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_newscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_616">616</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_newdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_622">622</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_630">630</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_update_shdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_638">638</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"gelf_update_ehdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_641">641</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_update()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_649">649</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_begin()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_652">652</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"melf_scn_sym_shconv&nbsp;failled");</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_654">654</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_update()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_658">658</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"melf_scn_sym_lnk()&nbsp;failed");</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_660">660</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_update()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_679">679</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;-1:&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"melf_find_rel_section()&nbsp;failed");&nbsp;break;</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_685">685</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"melf_scn_reloc()&nbsp;failed");</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_692">692</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_update(NULL)&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_695">695</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>errx</b>(EX_SOFTWARE,&nbsp;"elf_update()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+</tr></table>
+<h3><A NAME="hello"></A><span style="color: rgb(204, 0, 0);">variable : </span><A HREF="sample.c.html#hello">hello</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>sample.c</td><td><A HREF="sample.c.html#line_10">10</A></td><td></td><td><tt> &nbsp;&nbsp;return&nbsp;<b>hello</b>;</tt></td></tr>
+</tr></table>
+<h3><A NAME="melf_cpy_scn"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="elf_copy.c.html#melf_cpy_scn">melf_cpy_scn</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_146">146</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(&nbsp;<b>melf_cpy_scn</b>&nbsp;(elf_out,&nbsp;scn_out,&nbsp;elf_in,&nbsp;scn_in)&nbsp;==&nbsp;0&nbsp;)&nbsp;</tt></td></tr>
+</tr></table>
+<h3><A NAME="melf_find_rel_section"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="elf_obj_loc.c.html#melf_find_rel_section">melf_find_rel_section</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_678">678</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch&nbsp;(&nbsp;(scn_rel_i&nbsp;=&nbsp;<b>melf_find_rel_section</b>(elf_in,&nbsp;scn_ndx_in))&nbsp;)&nbsp;{</tt></td></tr>
+</tr></table>
+<h3><A NAME="melf_rel_scn_layout"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="elf_obj_loc.c.html#melf_rel_scn_layout">melf_rel_scn_layout</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_586">586</A></td><td></td><td><tt> &nbsp;&nbsp;if&nbsp;(&nbsp;(ssize_t)(scn_ndx_out&nbsp;=&nbsp;<b>melf_rel_scn_layout</b>(elf_in,&nbsp;v_scn_in_2_out))&nbsp;&lt;&nbsp;0&nbsp;)</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_97">97</A></td><td></td><td><tt> *&nbsp;@param&nbsp;conv_tbl&nbsp;a&nbsp;section&nbsp;table&nbsp;conversion&nbsp;(see&nbsp;<b>melf_rel_scn_layout</b>)</tt></td></tr>
+</tr></table>
+<h3><A NAME="melf_scn_by_name"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="elf_obj_loc.c.html#melf_scn_by_name">melf_scn_by_name</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_108">108</A></td><td></td><td><tt> &nbsp;&nbsp;if&nbsp;(&nbsp;(scn_ndx_sym&nbsp;=&nbsp;<b>melf_scn_by_name</b>(__elf,&nbsp;".symtab"))&nbsp;&lt;=&nbsp;0)&nbsp;</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_154">154</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(&nbsp;(scn_ndx&nbsp;=&nbsp;<b>melf_scn_by_name</b>(__elf,&nbsp;scn_name))&nbsp;&lt;=&nbsp;0)&nbsp;</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_196">196</A></td><td></td><td><tt> &nbsp;&nbsp;if&nbsp;(&nbsp;(scn_ndx_sym&nbsp;=&nbsp;<b>melf_scn_by_name</b>(__elf,&nbsp;".symtab"))&nbsp;&lt;=&nbsp;0)&nbsp;</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_199">199</A></td><td></td><td><tt> &nbsp;&nbsp;if&nbsp;(&nbsp;(scn_ndx_str&nbsp;=&nbsp;<b>melf_scn_by_name</b>(__elf,&nbsp;".strtab"))&nbsp;&lt;=&nbsp;0)&nbsp;</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_243">243</A></td><td></td><td><tt> &nbsp;&nbsp;if&nbsp;(&nbsp;(scn_ndx_sym&nbsp;=&nbsp;<b>melf_scn_by_name</b>(__elf,&nbsp;".symtab"))&nbsp;&lt;=&nbsp;0)&nbsp;</tt></td></tr>
+</tr></table>
+<h3><A NAME="melf_scn_dump"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="elf_obj_loc.c.html#melf_scn_dump">melf_scn_dump</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_663">663</A></td><td></td><td><tt>// &nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(<b>melf_scn_dump</b>(elf_out,&nbsp;0,&nbsp;".symtab")&nbsp;&lt;0&nbsp;)&nbsp;exit(1);</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_664">664</A></td><td></td><td><tt>// &nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(<b>melf_scn_dump</b>(elf_out,&nbsp;0,&nbsp;".shstrtab")&nbsp;&lt;0&nbsp;)&nbsp;exit(1);</tt></td></tr>
+</tr></table>
+<h3><A NAME="melf_scn_rel"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="elf_obj_loc.c.html#melf_scn_rel">melf_scn_rel</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_684">684</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(&nbsp;<b>melf_scn_rel</b>(elf_out,&nbsp;scn_ndx_out,&nbsp;elf_in,&nbsp;scn_rel_i,&nbsp;elf_out,&nbsp;scn_ndx_sym)&nbsp;&lt;&nbsp;0&nbsp;)&nbsp;</tt></td></tr>
+</tr></table>
+<h3><A NAME="melf_scn_sym_list"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="elf_obj_loc.c.html#melf_scn_sym_list">melf_scn_sym_list</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_662">662</A></td><td></td><td><tt>// &nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(<b>melf_scn_sym_list</b>(elf_out)&nbsp;&lt;&nbsp;0&nbsp;)&nbsp;exit(1);</tt></td></tr>
+</tr></table>
+<h3><A NAME="melf_scn_sym_lnk"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="elf_obj_loc.c.html#melf_scn_sym_lnk">melf_scn_sym_lnk</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_657">657</A></td><td></td><td><tt> &nbsp;&nbsp;if&nbsp;(&nbsp;(scn_ndx_sym&nbsp;=&nbsp;<b>melf_scn_sym_lnk</b>(elf_out))&nbsp;&lt;&nbsp;0)&nbsp;</tt></td></tr>
+</tr></table>
+<h3><A NAME="melf_scn_sym_shconv"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="elf_obj_loc.c.html#melf_scn_sym_shconv">melf_scn_sym_shconv</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_651">651</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;if&nbsp;(&nbsp;<b>melf_scn_sym_shconv</b>(elf_out,&nbsp;v_scn_in_2_out,&nbsp;ehdr_in.e_shnum)&nbsp;&lt;&nbsp;0)</tt></td></tr>
+</tr></table>
+<h3><A NAME="merrx"></A><span style="color: rgb(204, 0, 0);">macro : </span><A HREF="elf_copy.c.html#merrx">merrx</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_177">177</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"gelf_getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_42">42</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_47">47</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_newdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_52">52</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"gelf_getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_copy.c</td><td><A HREF="elf_copy.c.html#line_57">57</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"gelf_update_shdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_109">109</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"melf_scn_by_name()&nbsp;failed&nbsp;to&nbsp;find&nbsp;section&nbsp;.symtab.");</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_112">112</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_115">115</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_getdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_122">122</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"Can't&nbsp;convert&nbsp;section&nbsp;(0x%x)&nbsp;for&nbsp;symbol&nbsp;index&nbsp;%d",&nbsp;sym.st_shndx,&nbsp;ndx_sym);</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_125">125</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"gelf_update_sym()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_130">130</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_flagdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_153">153</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"Both&nbsp;name&nbsp;and&nbsp;scn&nbsp;handle&nbsp;are&nbsp;nul");</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_155">155</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"melf_scn_by_name()&nbsp;failed&nbsp;to&nbsp;find&nbsp;section&nbsp;%s.",&nbsp;scn_name);</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_157">157</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_161">161</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshstrndx()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_164">164</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr(shstrndx)&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_166">166</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_strptr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_168">168</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_getdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_197">197</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"melf_scn_by_name()&nbsp;failed&nbsp;to&nbsp;find&nbsp;section&nbsp;.symtab.");</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_200">200</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"melf_scn_by_name()&nbsp;failed&nbsp;to&nbsp;find&nbsp;section&nbsp;.symtab.");</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_203">203</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_206">206</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_getdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_214">214</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_strptr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_244">244</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"melf_scn_by_name()&nbsp;failed&nbsp;to&nbsp;find&nbsp;section&nbsp;.symtab.");</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_246">246</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_249">249</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_getdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_256">256</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"gelf_getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_266">266</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_flagshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_268">268</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"gelf_update_shdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_279">279</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"gelf_update_sym()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_284">284</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_flagdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_316">316</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_318">318</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_320">320</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_323">323</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_325">325</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_327">327</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_330">330</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_335">335</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_340">340</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_355">355</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"gelf_getsym()&nbsp;failed:&nbsp;%s.&nbsp;Symbol&nbsp;%lld&nbsp;not&nbsp;found",&nbsp;elf_errmsg(-1),&nbsp;GELF_R_SYM(rel.r_info));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_359">359</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_361">361</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_376">376</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"Can&nbsp;you&nbsp;help&nbsp;me&nbsp;to&nbsp;about&nbsp;this&nbsp;type&nbsp;of&nbsp;reloc&nbsp;(%lld)&nbsp;?&nbsp;Oh&nbsp;I&nbsp;would&nbsp;do&nbsp;much&nbsp;you&nbsp;tacke&nbsp;care&nbsp;of&nbsp;this&nbsp;...&nbsp;please&nbsp;...\n",&nbsp;GELF_R_TYPE(rel.r_info));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_380">380</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_flagdata()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_410">410</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_417">417</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_444">444</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshstrndx()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_446">446</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getscn()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_448">448</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_450">450</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_strptr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_455">455</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_460">460</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_strptr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_76">76</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"getshstrndx()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_81">81</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"gelf_getshdr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_84">84</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>merrx</b>(EX_SOFTWARE,&nbsp;"elf_strptr()&nbsp;failed:&nbsp;%s.",&nbsp;elf_errmsg(-1));</tt></td></tr>
+</tr></table>
+<h3><A NAME="target_is_big_endian"></A><span style="color: rgb(204, 0, 0);">variable : </span><A HREF="elf_obj_loc.c.html#target_is_big_endian">target_is_big_endian</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_367">367</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endian_to_target(<b>target_is_big_endian</b>,(uint32_t)(sym.st_value&nbsp;+&nbsp;&nbsp;shaddr));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_372">372</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endian_to_target(<b>target_is_big_endian</b>,(uint32_t)(sym.st_value&nbsp;+&nbsp;shaddr&nbsp;-&nbsp;(shdr_out.sh_addr&nbsp;+&nbsp;rel.r_offset)&nbsp;-&nbsp;4));</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_531">531</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>target_is_big_endian</b>&nbsp;=&nbsp;0;</tt></td></tr>
+<tr><td></td><td>elf_obj_loc.c</td><td><A HREF="elf_obj_loc.c.html#line_535">535</A></td><td></td><td><tt> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>target_is_big_endian</b>&nbsp;=&nbsp;1;</tt></td></tr>
+</tr></table>
+<h3><A NAME="what"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="sample.c.html#what">what</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>sample.c</td><td><A HREF="sample.c.html#line_14">14</A></td><td></td><td><tt> &nbsp;printf("%s&nbsp;%s\n",&nbsp;<b>what</b>(),&nbsp;whois());</tt></td></tr>
+</tr></table>
+<h3><A NAME="who"></A><span style="color: rgb(204, 0, 0);">variable : </span><A HREF="sample.c.html#who">who</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>sample.c</td><td><A HREF="sample.c.html#line_7">7</A></td><td></td><td><tt> &nbsp;&nbsp;return&nbsp;<b>who</b>;</tt></td></tr>
+</tr></table>
+<h3><A NAME="whois"></A><span style="color: rgb(204, 0, 0);">function : </span><A HREF="sample.c.html#whois">whois</A></h3>
+<table border="0" cellpadding="2" cellspacing="2">
+<tr style="color: rgb(153, 153, 153); font-weight: bold;"><td width="20">&nbsp;</td>
+<td width="100"><b><u>File</b></u></td>
+<td width="20"><b><u>Line</b></u></td>
+<td width="20">&nbsp;</td>
+<td width="800"><b><u>Context</b></u></td></tr>
+<tr><td></td><td>sample.c</td><td><A HREF="sample.c.html#line_14">14</A></td><td></td><td><tt> &nbsp;printf("%s&nbsp;%s\n",&nbsp;what(),&nbsp;<b>whois</b>());</tt></td></tr>
+</tr></table>
+<P>
+<HR>
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">Elf sample home</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H5>C to HTML Conversion by <I><A HREF="http://www.machinman.net/code/ctoohtml/index.html">ctoohtml</A></I></H5>
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></body>
+</HTML>

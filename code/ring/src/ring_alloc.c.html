@@ -1,0 +1,922 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>Ring containers source code: ring_alloc.c</title>
+   <meta name="Description" content="Project Description">
+   <meta name="Author" content="Emmanuel Azencot">
+   <meta name="GENERATOR" content="ctoohtml 1.5.0">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H2>file: ring_alloc.c</H2>
+
+
+<HR>
+<tt>
+ &nbsp;&nbsp;1
+<span style="color: rgb(102, 102, 102);">/* <br>
+ &nbsp;&nbsp;2
+ * Copyright (C) 2008-2009 by Emmanuel Azencot under the GNU LGPL<br>
+ &nbsp;&nbsp;3
+ * license version 2.0 or 2.1. &nbsp;You should have received a copy of the<br>
+ &nbsp;&nbsp;4
+ * LGPL license along with this library if you did not you can find it<br>
+ &nbsp;&nbsp;5
+ * at http://www.gnu.org/.<br>
+ &nbsp;&nbsp;6
+ */</span><br>
+ &nbsp;&nbsp;7
+<span style="color: rgb(102, 102, 102);">/*<br>
+ &nbsp;&nbsp;8
+ * Azencot : Sat Dec &nbsp;6 02:31:40 CET 2008<br>
+ &nbsp;&nbsp;9
+ * &nbsp;Creation<br>
+ &nbsp;10
+ */</span><br>
+ &nbsp;11
+<br>
+ &nbsp;12
+<span style="color: rgb(102, 102, 102);">/*<br>
+ &nbsp;13
+ gcc -g -I. -I./excp -o ring_alloc ./ring.c ring_alloc.c<br>
+ &nbsp;14
+ */</span><br>
+ &nbsp;15
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;stdlib.h&gt;</span><br>
+ &nbsp;16
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;string.h&gt;</span><br>
+ &nbsp;17
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;errno.h&gt;</span><br>
+ &nbsp;18
+<br>
+ &nbsp;19
+<span style="color: rgb(204, 102, 0);">#<b>include</b> "<A HREF="config.h.html">config.h</A>"</span><br>
+ &nbsp;20
+<span style="color: rgb(204, 102, 0);">#<b>include</b> "<A HREF="ring.h.html">ring.h</A>"</span><br>
+ &nbsp;21
+<span style="color: rgb(204, 102, 0);">#<b>include</b> "<A HREF="ring_alloc.h.html">ring_alloc.h</A>"</span><br>
+ &nbsp;22
+<br>
+ &nbsp;23
+<span style="color: rgb(204, 102, 0);">#<b>if</b> defined(<A NAME="line_23"></A><A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A>) || defined(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>)</span><br>
+ &nbsp;24
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;assert.h&gt;</span><br>
+ &nbsp;25
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;26
+<br>
+ &nbsp;27
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_27"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ &nbsp;28
+  <span style="color: rgb(204, 102, 0);">#<b>undef</b> <A NAME="line_28"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ &nbsp;29
+  <span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_29"></A><A HREF="xref.html#RING_ALLOC_POOL_CHK">X</A>*/ <B><A NAME="RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></B> &nbsp;0x37DB5104</span><br>
+ &nbsp;30
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;31
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_31"></A><A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A></span><br>
+ &nbsp;32
+  <span style="color: rgb(204, 102, 0);">#<b>undef</b> <A NAME="line_32"></A><A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A></span><br>
+ &nbsp;33
+  <span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_33"></A><A HREF="xref.html#RING_ALLOC_BLK_CHK">X</A>*/ <B><A NAME="RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A></B> &nbsp;0x37DB5104</span><br>
+ &nbsp;34
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;35
+<br>
+ &nbsp;36
+<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A NAME="line_36"></A><A HREF="xref.html#s_blk">X</A>*/ <B><A NAME="s_blk">s_blk</A></B> {<br>
+ &nbsp;37
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_37"></A><A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A></span><br>
+ &nbsp;38
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> chk_1[2];<br>
+ &nbsp;39
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;40
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_40"></A><A HREF="ring.h.html#s_ring">s_ring</A> brother;<br>
+ &nbsp;41
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> size;<br>
+ &nbsp;42
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_42"></A><A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A></span><br>
+ &nbsp;43
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> chk_2[2];<br>
+ &nbsp;44
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;45
+};<br>
+ &nbsp;46
+<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A NAME="line_46"></A><A HREF="xref.html#s_mempool">X</A>*/ <B><A NAME="s_mempool">s_mempool</A></B> {<br>
+ &nbsp;47
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_47"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ &nbsp;48
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> chk_1;<br>
+ &nbsp;49
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;50
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> size;<br>
+ &nbsp;51
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_51"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ &nbsp;52
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> chk_2;<br>
+ &nbsp;53
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;54
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_54"></A><A HREF="config.h.html#RING_ALLOC_STATS">RING_ALLOC_STATS</A></span><br>
+ &nbsp;55
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_55"></A><A HREF="ring_alloc.h.html#s_mempool_stats">s_mempool_stats</A> stats;<br>
+ &nbsp;56
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;57
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_57"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ &nbsp;58
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> chk_3;<br>
+ &nbsp;59
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;60
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_60"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *alloc;<br>
+ &nbsp;61
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_61"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ &nbsp;62
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> chk_4;<br>
+ &nbsp;63
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;64
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_64"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *<span style="color: rgb(204, 0, 0);">free</span>;<br>
+ &nbsp;65
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_65"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ &nbsp;66
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> chk_5;<br>
+ &nbsp;67
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ &nbsp;68
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_68"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> mem[0];<br>
+ &nbsp;69
+};<br>
+ &nbsp;70
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_70"></A><A HREF="xref.html#rotate">X</A>*/ <B><A NAME="rotate">rotate</A></B>(val32, bits) ( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span>)(val32))&lt;&lt;(bits) | ((<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span>)(val32))&gt;&gt;(32-(bits)))</span><br>
+ &nbsp;71
+<br>
+ &nbsp;72
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_72"></A><A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A></span><br>
+ &nbsp;73
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_73"></A><A HREF="xref.html#m_blk_setup">X</A>*/ <B><A NAME="m_blk_setup">m_blk_setup</A></B>(blk) { \<br>
+ &nbsp;74
+ &nbsp;&nbsp;blk-&gt;chk_1[0] = <A NAME="line_74"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A>,1) ; \<br>
+ &nbsp;75
+ &nbsp;&nbsp;blk-&gt;chk_1[1] = <A NAME="line_75"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A>,2) ; \<br>
+ &nbsp;76
+ &nbsp;&nbsp;blk-&gt;chk_2[0] = <A NAME="line_76"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A>,3) ; \<br>
+ &nbsp;77
+ &nbsp;&nbsp;blk-&gt;chk_2[1] = <A NAME="line_77"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A>,4) ; \<br>
+ &nbsp;78
+}</span><br>
+ &nbsp;79
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;stdio.h&gt;</span><br>
+ &nbsp;80
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_80"></A><A HREF="xref.html#f_mempool_check_blk">X</A>*/ <B><A NAME="f_mempool_check_blk">f_mempool_check_blk</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.c.html#s_mempool">s_mempool</A> *pool, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.c.html#s_blk">s_blk</A> *list, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.c.html#s_blk">s_blk</A> *blk) {<br>
+ &nbsp;81
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_81"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *mem;<br>
+ &nbsp;82
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> neibourgs = 0;<br>
+ &nbsp;83
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> saved_errno = <span style="color: rgb(204, 0, 0);">errno</span>;<br>
+ &nbsp;84
+<br>
+ &nbsp;85
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( blk );<br>
+ &nbsp;86
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( pool-&gt;mem &lt;= blk );<br>
+ &nbsp;87
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)blk + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_87"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>) + blk-&gt;size) &lt; ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)pool-&gt;mem + pool-&gt;size) );<br>
+ &nbsp;88
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( list );<br>
+ &nbsp;89
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( blk-&gt;chk_1[0] == <A NAME="line_89"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A>,1) );<br>
+ &nbsp;90
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( blk-&gt;chk_1[1] == <A NAME="line_90"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A>,2) );<br>
+ &nbsp;91
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( blk-&gt;chk_2[0] == <A NAME="line_91"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A>,3) );<br>
+ &nbsp;92
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( blk-&gt;chk_2[1] == <A NAME="line_92"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A>,4) );<br>
+ &nbsp;93
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* can use it cause brother is the 1st field */</span><br>
+ &nbsp;94
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_94"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(blk, list, brother) );<br>
+ &nbsp;95
+<br>
+ &nbsp;96
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102); font-weight: bold;">// assert ( (<A NAME="line_96"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(blk, pool->free, brother) ^ <A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(blk, pool->alloc, brother)) );</span><br>
+ &nbsp;97
+ &nbsp;&nbsp;neibourgs += <A NAME="line_97"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(blk, pool-&gt;alloc, brother);<br>
+ &nbsp;98
+ &nbsp;&nbsp;neibourgs += 2*<A NAME="line_98"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(blk, pool-&gt;free, brother);<br>
+ &nbsp;99
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( neibourgs == 2 || neibourgs == 1 );<br>
+ 100
+ &nbsp;&nbsp;neibourgs = 0;<br>
+ 101
+<br>
+ 102
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;printf("\nblk &nbsp;&nbsp;(%08x &lt;-> %08x)\n", &nbsp;blk, &nbsp;((char *)blk + blk->size + sizeof(struct <A NAME="line_102"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) );</span><br>
+ 103
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;printf("pool &nbsp;(%08x &lt;-> %08x)\n", &nbsp;pool->mem, &nbsp;((char *)pool->mem + pool->size - sizeof(struct <A NAME="line_103"></A><A HREF="ring_alloc.c.html#s_mempool">s_mempool</A>)) );</span><br>
+ 104
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> (mem = pool-&gt;alloc; mem; mem = <A NAME="line_104"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(pool-&gt;alloc, mem, brother)) {<br>
+ 105
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("alloc (%08x &lt;-> %08x)\n", &nbsp;mem, &nbsp;((char *)mem + mem->size + sizeof(struct <A NAME="line_105"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) );</span><br>
+ 106
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* bloc is behind this bloc ? */</span><br>
+ 107
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)mem + mem-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_107"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) == (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)blk ) neibourgs |= 1;<br>
+ 108
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* bloc is after the end of this bloc ? */</span><br>
+ 109
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)blk + blk-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_109"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) == (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)mem ) neibourgs |= 2;<br>
+ 110
+ &nbsp;&nbsp;}<br>
+ 111
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> (mem = pool-&gt;free; mem; mem = <A NAME="line_111"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(pool-&gt;free, mem, brother) ) {<br>
+ 112
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("free &nbsp;(%08x &lt;-> %08x)\n", &nbsp;mem, &nbsp;((char *)mem + mem->size + sizeof(struct <A NAME="line_112"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) );</span><br>
+ 113
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* bloc is behind this bloc ? */</span><br>
+ 114
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)mem + mem-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_114"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) == (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)blk ) neibourgs |= 1;<br>
+ 115
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* bloc is after the end of this bloc ? */</span><br>
+ 116
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)blk + blk-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_116"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) == (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)mem ) neibourgs |= 2;<br>
+ 117
+ &nbsp;&nbsp;}<br>
+ 118
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;printf("neibourgs = %d, ", neibourgs); </span><br>
+ 119
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( blk == pool-&gt;mem ) neibourgs |= 1;<br>
+ 120
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)blk + blk-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_120"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) == ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)pool-&gt;mem + pool-&gt;size - <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.c.html#s_mempool">s_mempool</A>)) ) neibourgs |= 2;<br>
+ 121
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;printf("neibourgs = %d\n", neibourgs); fflush(stdout);</span><br>
+ 122
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( neibourgs == 3 );<br>
+ 123
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">errno</span> = saved_errno;<br>
+ 124
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 125
+}<br>
+ 126
+<span style="color: rgb(204, 102, 0);">#<b>else</b></span><br>
+ 127
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_127"></A><A HREF="xref.html#f_mempool_check_blk">X</A>*/ <B><A NAME="f_mempool_check_blk">f_mempool_check_blk</A></B>(list, blk) (1)</span><br>
+ 128
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_128"></A><A HREF="xref.html#m_blk_setup">X</A>*/ <B><A NAME="m_blk_setup">m_blk_setup</A></B>(blk) ;</span><br>
+ 129
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 130
+<br>
+ 131
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_131"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ 132
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_132"></A><A HREF="xref.html#f_mempool_check">X</A>*/ <B><A NAME="f_mempool_check">f_mempool_check</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.c.html#s_mempool">s_mempool</A> *mempool) {<br>
+ 133
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> o_count_a = 0, b_count_a = 0;<br>
+ 134
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> o_count_f = 0, b_count_f = 0;<br>
+ 135
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_135"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *blk = mempool-&gt;free;<br>
+ 136
+ &nbsp;&nbsp;<br>
+ 137
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( mempool );<br>
+ 138
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( mempool-&gt;chk_1 == <A NAME="line_138"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,1) );<br>
+ 139
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( mempool-&gt;chk_2 == <A NAME="line_139"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,2) );<br>
+ 140
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( mempool-&gt;chk_3 == <A NAME="line_140"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,3) );<br>
+ 141
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( mempool-&gt;chk_4 == <A NAME="line_141"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,4) );<br>
+ 142
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( mempool-&gt;chk_5 == <A NAME="line_142"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,5) );<br>
+ 143
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( mempool-&gt;size != 0 && mempool-&gt;size &lt; 0x80000000 );<br>
+ 144
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_144"></A><A HREF="config.h.html#RING_ALLOC_STATS">RING_ALLOC_STATS</A></span><br>
+ 145
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( mempool-&gt;stats.instant.bytes.alloc &lt;= mempool-&gt;stats.cumul.bytes.alloc );<br>
+ 146
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( mempool-&gt;stats.instant.blocks.alloc &lt;= mempool-&gt;stats.cumul.blocks.alloc );<br>
+ 147
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_147"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>) * (<br>
+ 148
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;stats.instant.blocks.free + <br>
+ 149
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;stats.instant.blocks.alloc) +<br>
+ 150
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;stats.instant.bytes.free +<br>
+ 151
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;stats.instant.bytes.alloc)<br>
+ 152
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;== (mempool-&gt;size - <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_152"></A><A HREF="ring_alloc.c.html#s_mempool">s_mempool</A>)) );<br>
+ 153
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 154
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> (blk = mempool-&gt;free; blk; blk = <A NAME="line_154"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(mempool-&gt;free, blk, brother)) {<br>
+ 155
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_155"></A><A HREF="ring_alloc.c.html#f_mempool_check_blk">f_mempool_check_blk</A>(mempool, mempool-&gt;free, blk) );<br>
+ 156
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o_count_f += blk-&gt;size;<br>
+ 157
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++b_count_f;<br>
+ 158
+ &nbsp;&nbsp;}<br>
+ 159
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_159"></A><A HREF="config.h.html#RING_ALLOC_STATS">RING_ALLOC_STATS</A></span><br>
+ 160
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( o_count_f == mempool-&gt;stats.instant.bytes.free );<br>
+ 161
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( b_count_f == mempool-&gt;stats.instant.blocks.free );<br>
+ 162
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 163
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> (blk = mempool-&gt;alloc; blk; blk = <A NAME="line_163"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(mempool-&gt;alloc, blk, brother)) {<br>
+ 164
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_164"></A><A HREF="ring_alloc.c.html#f_mempool_check_blk">f_mempool_check_blk</A>(mempool, mempool-&gt;alloc, blk) );<br>
+ 165
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o_count_a += blk-&gt;size;<br>
+ 166
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++b_count_a;<br>
+ 167
+ &nbsp;&nbsp;}<br>
+ 168
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_168"></A><A HREF="config.h.html#RING_ALLOC_STATS">RING_ALLOC_STATS</A></span><br>
+ 169
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( o_count_a == mempool-&gt;stats.instant.bytes.alloc );<br>
+ 170
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( b_count_a == mempool-&gt;stats.instant.blocks.alloc );<br>
+ 171
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 172
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_172"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>) * (b_count_a + b_count_f) + o_count_a + o_count_f)<br>
+ 173
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;== (mempool-&gt;size - <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_173"></A><A HREF="ring_alloc.c.html#s_mempool">s_mempool</A>)) );<br>
+ 174
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 175
+}<br>
+ 176
+<span style="color: rgb(204, 102, 0);">#<b>else</b></span><br>
+ 177
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_177"></A><A HREF="xref.html#f_mempool_check">X</A>*/ <B><A NAME="f_mempool_check">f_mempool_check</A></B>(mempool) (1)</span><br>
+ 178
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 179
+<br>
+ 180
+<A NAME="line_180"></A><A HREF="ring_alloc.h.html#to_mempool">to_mempool</A>  /*<A HREF="xref.html#f_mempool_init">X</A>*/ <B><A NAME="f_mempool_init">f_mempool_init</A></B>(<span style="color: rgb(0, 153, 0);">size_t</span> size, <span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *start) {<br>
+ 181
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_181"></A><A HREF="ring_alloc.c.html#s_mempool">s_mempool</A> *pool = (<span style="color: rgb(204, 0, 0);">typeof</span>(pool))(start);<br>
+ 182
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !start ) { <span style="color: rgb(204, 0, 0);">errno</span> = EFAULT; <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0; }<br>
+ 183
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( size &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_183"></A><A HREF="ring_alloc.c.html#s_mempool">s_mempool</A>) + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) { <span style="color: rgb(204, 0, 0);">errno</span> = ENOMEM; <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0; }<br>
+ 184
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">memset</span>(pool, 0, <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_184"></A><A HREF="ring_alloc.c.html#s_mempool">s_mempool</A>));<br>
+ 185
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_185"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ 186
+ &nbsp;&nbsp;pool-&gt;chk_1 = <A NAME="line_186"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,1);<br>
+ 187
+ &nbsp;&nbsp;pool-&gt;chk_2 = <A NAME="line_187"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,2);<br>
+ 188
+ &nbsp;&nbsp;pool-&gt;chk_3 = <A NAME="line_188"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,3);<br>
+ 189
+ &nbsp;&nbsp;pool-&gt;chk_4 = <A NAME="line_189"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,4);<br>
+ 190
+ &nbsp;&nbsp;pool-&gt;chk_5 = <A NAME="line_190"></A><A HREF="ring_alloc.c.html#rotate">rotate</A>(<A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A>,5);<br>
+ 191
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 192
+ &nbsp;&nbsp;pool-&gt;size = size;<br>
+ 193
+ &nbsp;&nbsp;pool-&gt;alloc = 0;<br>
+ 194
+ &nbsp;&nbsp;pool-&gt;free = 0;<br>
+ 195
+ &nbsp;&nbsp;pool-&gt;free = <A NAME="line_195"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(pool-&gt;free, brother, pool-&gt;mem);<br>
+ 196
+ &nbsp;&nbsp;pool-&gt;free-&gt;size = pool-&gt;size -sizeof(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_196"></A><A HREF="ring_alloc.c.html#s_mempool">s_mempool</A>) -sizeof(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.c.html#s_blk">s_blk</A>) ;<br>
+ 197
+ &nbsp;&nbsp;<A NAME="line_197"></A><A HREF="ring_alloc.c.html#m_blk_setup">m_blk_setup</A>(pool-&gt;free);<br>
+ 198
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_198"></A><A HREF="config.h.html#RING_ALLOC_STATS">RING_ALLOC_STATS</A></span><br>
+ 199
+ &nbsp;&nbsp;pool-&gt;stats.instant.bytes.free = pool-&gt;free-&gt;size;<br>
+ 200
+ &nbsp;&nbsp;pool-&gt;stats.instant.blocks.free = 1;<br>
+ 201
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 202
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> pool;<br>
+ 203
+}<br>
+ 204
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_204"></A><A HREF="xref.html#f_mempool_info">X</A>*/ <B><A NAME="f_mempool_info">f_mempool_info</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.h.html#s_mempool_info">s_mempool_info</A> *info) {<br>
+ 205
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !info ) { <span style="color: rgb(204, 0, 0);">errno</span> = EFAULT; <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> -1; }<br>
+ 206
+ &nbsp;&nbsp;info-&gt;version = <A NAME="line_206"></A><A HREF="ring_alloc.h.html#RING_ALLOC_VERSION">RING_ALLOC_VERSION</A>;<br>
+ 207
+ &nbsp;&nbsp;info-&gt;release = <A NAME="line_207"></A><A HREF="ring_alloc.h.html#RING_ALLOC_RELEASE">RING_ALLOC_RELEASE</A>;<br>
+ 208
+ &nbsp;&nbsp;info-&gt;options.stats = 0; <br>
+ 209
+ &nbsp;&nbsp;info-&gt;options.chk_pool = 0;<br>
+ 210
+ &nbsp;&nbsp;info-&gt;options.chk_blk = 0;<br>
+ 211
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_211"></A><A HREF="config.h.html#RING_ALLOC_STATS">RING_ALLOC_STATS</A></span><br>
+ 212
+ &nbsp;&nbsp;info-&gt;options.stats = 1; <br>
+ 213
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 214
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_214"></A><A HREF="config.h.html#RING_ALLOC_POOL_CHK">RING_ALLOC_POOL_CHK</A></span><br>
+ 215
+ &nbsp;&nbsp;info-&gt;options.chk_pool = 1;<br>
+ 216
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 217
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_217"></A><A HREF="config.h.html#RING_ALLOC_BLK_CHK">RING_ALLOC_BLK_CHK</A></span><br>
+ 218
+ &nbsp;&nbsp;info-&gt;options.chk_blk = 1;<br>
+ 219
+<span style="color: rgb(204, 102, 0);">#<b>endif</b></span><br>
+ 220
+ &nbsp;&nbsp;info-&gt;pool_head_size = <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_220"></A><A HREF="ring_alloc.c.html#s_mempool">s_mempool</A>); <span style="color: rgb(102, 102, 102);">/* gcc bug ? */</span><br>
+ 221
+ &nbsp;&nbsp;info-&gt;block_head_size = <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_221"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>);<br>
+ 222
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 223
+}<br>
+ 224
+<br>
+ 225
+<span style="color: rgb(204, 102, 0);">#<b>ifdef</b> <A NAME="line_225"></A><A HREF="config.h.html#RING_ALLOC_STATS">RING_ALLOC_STATS</A></span><br>
+ 226
+<span style="color: rgb(102, 102, 102);">/* stats space is provided by caller */</span><br>
+ 227
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_227"></A><A HREF="xref.html#f_mempool_stats">X</A>*/ <B><A NAME="f_mempool_stats">f_mempool_stats</A></B>(<A HREF="ring_alloc.h.html#to_mempool">to_mempool</A> mempool, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.h.html#s_mempool_stats">s_mempool_stats</A> *stats) {<br>
+ 228
+ &nbsp;&nbsp;<A NAME="line_228"></A><A HREF="ring_alloc.c.html#f_mempool_check">f_mempool_check</A>(mempool);<br>
+ 229
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !stats ) { <span style="color: rgb(204, 0, 0);">errno</span> = EFAULT; <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> -1; }<br>
+ 230
+ &nbsp;&nbsp;*stats = mempool-&gt;stats;<br>
+ 231
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 232
+}<br>
+ 233
+<span style="color: rgb(102, 102, 102);">/* increment stats alloc counters */</span><br>
+ 234
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_234"></A><A HREF="xref.html#m_mempool_stats_alloc">X</A>*/ <B><A NAME="m_mempool_stats_alloc">m_mempool_stats_alloc</A></B>(mempool, size, split) { \<br>
+ 235
+ &nbsp;&nbsp;++mempool-&gt;stats.instant.blocks.alloc; \<br>
+ 236
+ &nbsp;&nbsp;mempool-&gt;stats.instant.bytes.alloc += (size); \<br>
+ 237
+ &nbsp;&nbsp;mempool-&gt;stats.instant.bytes.free -= (size); \<br>
+ 238
+ \<br>
+ 239
+ &nbsp;&nbsp;++mempool-&gt;stats.cumul.blocks.alloc; \<br>
+ 240
+ &nbsp;&nbsp;mempool-&gt;stats.cumul.bytes.alloc += (size); \<br>
+ 241
+ \<br>
+ 242
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !(split) ) { \<br>
+ 243
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--mempool-&gt;stats.instant.blocks.free; \<br>
+ 244
+ &nbsp;&nbsp;} <span style="color: rgb(204, 0, 0); font-weight: bold;">else</span> { \<br>
+ 245
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;stats.instant.bytes.free -= <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_245"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>); \<br>
+ 246
+ &nbsp;&nbsp;} &nbsp;\<br>
+ 247
+}</span><br>
+ 248
+<span style="color: rgb(102, 102, 102);">/* decrement stats alloc counters */</span><br>
+ 249
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_249"></A><A HREF="xref.html#m_mempool_stats_free">X</A>*/ <B><A NAME="m_mempool_stats_free">m_mempool_stats_free</A></B>(mempool, size, nb_cat) { \<br>
+ 250
+ &nbsp;&nbsp;--mempool-&gt;stats.instant.blocks.alloc; \<br>
+ 251
+ &nbsp;&nbsp;mempool-&gt;stats.instant.bytes.free += (size) + (nb_cat)*<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_251"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>); \<br>
+ 252
+ &nbsp;&nbsp;mempool-&gt;stats.instant.bytes.alloc -= (size); \<br>
+ 253
+ \<br>
+ 254
+ &nbsp;&nbsp;++mempool-&gt;stats.cumul.blocks.free; \<br>
+ 255
+ &nbsp;&nbsp;mempool-&gt;stats.cumul.bytes.free += (size); \<br>
+ 256
+ \<br>
+ 257
+ &nbsp;mempool-&gt;stats.instant.blocks.free += (1 -(nb_cat)); \<br>
+ 258
+}</span><br>
+ 259
+<span style="color: rgb(204, 102, 0);">#<b>else</b> <span style="color: rgb(102, 102, 102);">/* <A NAME="line_259"></A><A HREF="config.h.html#RING_ALLOC_STATS">RING_ALLOC_STATS</A> */</span></span><br>
+ 260
+<span style="color: rgb(102, 102, 102);">/* stats not available */</span><br>
+ 261
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_261"></A><A HREF="xref.html#f_mempool_stats">X</A>*/ <B><A NAME="f_mempool_stats">f_mempool_stats</A></B>(<A HREF="ring_alloc.h.html#to_mempool">to_mempool</A> mempool, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.h.html#s_mempool_stats">s_mempool_stats</A> *stats) {<br>
+ 262
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">memset</span>(stats, 0, <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(*stats));<br>
+ 263
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">errno</span> = ENOTSUP; <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> -1;<br>
+ 264
+}<br>
+ 265
+<span style="color: rgb(102, 102, 102);">/* internal use */</span><br>
+ 266
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_266"></A><A HREF="xref.html#m_mempool_stats_alloc">X</A>*/ <B><A NAME="m_mempool_stats_alloc">m_mempool_stats_alloc</A></B>(mempool, size, split) ;</span><br>
+ 267
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_267"></A><A HREF="xref.html#m_mempool_stats_free">X</A>*/ <B><A NAME="m_mempool_stats_free">m_mempool_stats_free</A></B>(mempool, size, nb_cat) ;</span><br>
+ 268
+<span style="color: rgb(204, 102, 0);">#<b>endif</b> <span style="color: rgb(102, 102, 102);">/* <A NAME="line_268"></A><A HREF="config.h.html#RING_ALLOC_STATS">RING_ALLOC_STATS</A> */</span></span><br>
+ 269
+<br>
+ 270
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_270"></A><A HREF="xref.html#f_mempool_malloc">X</A>*/ <B><A NAME="f_mempool_malloc">f_mempool_malloc</A></B>(<A HREF="ring_alloc.h.html#to_mempool">to_mempool</A> mempool, <span style="color: rgb(0, 153, 0);">size_t</span> size) {<br>
+ 271
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> split = 0; <span style="color: rgb(102, 102, 102);">/* stat */</span><br>
+ 272
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_272"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *blk = mempool-&gt;free, *best = 0;<br>
+ 273
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* can help, disable/enable at compile */</span><br>
+ 274
+ &nbsp;&nbsp;<A NAME="line_274"></A><A HREF="ring_alloc.c.html#f_mempool_check">f_mempool_check</A>(mempool);<br>
+ 275
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !blk ) { <span style="color: rgb(204, 0, 0);">errno</span> = ENOMEM; <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0; }<br>
+ 276
+<br>
+ 277
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* find smallest free block */</span><br>
+ 278
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> (blk = mempool-&gt;free; blk; blk = <A NAME="line_278"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(mempool-&gt;free, blk, brother)) {<br>
+ 279
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( blk-&gt;size &lt; size ) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 280
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( best && best-&gt;size &lt; blk-&gt;size) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 281
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;best = blk;<br>
+ 282
+ &nbsp;&nbsp;}<br>
+ 283
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* nothing bigger enougth */</span><br>
+ 284
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !best ) { <span style="color: rgb(204, 0, 0);">errno</span> = ENOMEM; <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0; }<br>
+ 285
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* if best is bigger enougth to contain an other bloc, split it */</span><br>
+ 286
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_286"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>) &lt; best-&gt;size - size ) {<br>
+ 287
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split = 1; <span style="color: rgb(102, 102, 102);">/* stat */</span><br>
+ 288
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* begin stays in free list, reduce size */</span><br>
+ 289
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;best-&gt;size -= (<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_289"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>) + size);<br>
+ 290
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* move to begin of new block */</span><br>
+ 291
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;best = (<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_291"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *)((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)best + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.c.html#s_blk">s_blk</A>) + best-&gt;size);<br>
+ 292
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* put new block in allocated */</span><br>
+ 293
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;best-&gt;size = size;<br>
+ 294
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_294"></A><A HREF="ring_alloc.c.html#m_blk_setup">m_blk_setup</A>(best);<br>
+ 295
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;alloc = <A NAME="line_295"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(mempool-&gt;alloc, brother, best);<br>
+ 296
+ &nbsp;&nbsp;} <span style="color: rgb(204, 0, 0); font-weight: bold;">else</span> {<br>
+ 297
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* it fits well enougth, just move it to allocated blocks */</span><br>
+ 298
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;free = <A NAME="line_298"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(best, brother);<br>
+ 299
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;alloc = <A NAME="line_299"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(mempool-&gt;alloc, brother, best);<br>
+ 300
+ &nbsp;&nbsp;}<br>
+ 301
+ &nbsp;&nbsp;<A NAME="line_301"></A><A HREF="ring_alloc.c.html#m_mempool_stats_alloc">m_mempool_stats_alloc</A>(mempool, best-&gt;size, split);<br>
+ 302
+ &nbsp;&nbsp;<A NAME="line_302"></A><A HREF="ring_alloc.c.html#f_mempool_check">f_mempool_check</A>(mempool);<br>
+ 303
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> best+1;<br>
+ 304
+}<br>
+ 305
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_305"></A><A HREF="xref.html#f_mempool_free">X</A>*/ <B><A NAME="f_mempool_free">f_mempool_free</A></B>(<A HREF="ring_alloc.h.html#to_mempool">to_mempool</A> mempool, <span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *mem) {<br>
+ 306
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> cat = 0, size;<br>
+ 307
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_307"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *blk = mempool-&gt;free;<br>
+ 308
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_308"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *umem = (<span style="color: rgb(204, 0, 0);">typeof</span>(blk))mem -1;<br>
+ 309
+<br>
+ 310
+ &nbsp;&nbsp;<A NAME="line_310"></A><A HREF="ring_alloc.c.html#f_mempool_check">f_mempool_check</A>(mempool);<br>
+ 311
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !mem ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 312
+<br>
+ 313
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span>( mempool-&gt;mem &gt; umem || <br>
+ 314
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)mempool-&gt;mem + mempool-&gt;size) &lt;= ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)umem + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_314"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>) + umem-&gt;size) ) {<br>
+ 315
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">errno</span> = ENOTDIR;<br>
+ 316
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> -1;<br>
+ 317
+ &nbsp;&nbsp;}<br>
+ 318
+<br>
+ 319
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* can use it cause brother is the 1st field */</span><br>
+ 320
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !<A NAME="line_320"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(umem, mempool-&gt;alloc, brother) ) {<br>
+ 321
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">errno</span> = ENOENT; <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> -1;<br>
+ 322
+ &nbsp;&nbsp;}<br>
+ 323
+ &nbsp;&nbsp;size = umem-&gt;size;<br>
+ 324
+ &nbsp;&nbsp;mempool-&gt;alloc = <A NAME="line_324"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(umem, brother);<br>
+ 325
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* find if this free bloc can be collapsed to a neibourg */</span><br>
+ 326
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> (blk = mempool-&gt;free; blk; blk = <A NAME="line_326"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(mempool-&gt;free, blk, brother)) {<br>
+ 327
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* freed bloc is behind this bloc ? */</span><br>
+ 328
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)umem + umem-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_328"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) == (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)blk ) {<br>
+ 329
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;free = <A NAME="line_329"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(blk, brother);<br>
+ 330
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;umem-&gt;size += blk-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_330"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>);<br>
+ 331
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++cat;<br>
+ 332
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 333
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 334
+ &nbsp;&nbsp;}<br>
+ 335
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> (blk = mempool-&gt;free; blk; blk = <A NAME="line_335"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(mempool-&gt;free, blk, brother)) {<br>
+ 336
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* freed bloc is at the end of this bloc ? */</span><br>
+ 337
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)blk + blk-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_337"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) == (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)umem ) {<br>
+ 338
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blk-&gt;size += umem-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_338"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>);<br>
+ 339
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++cat;<br>
+ 340
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">goto</span> stats;<br>
+ 341
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 342
+ &nbsp;&nbsp;}<br>
+ 343
+ &nbsp;&nbsp;mempool-&gt;free = <A NAME="line_343"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(mempool-&gt;free, brother, umem);<br>
+ 344
+stats:<br>
+ 345
+ &nbsp;&nbsp;<A NAME="line_345"></A><A HREF="ring_alloc.c.html#m_mempool_stats_free">m_mempool_stats_free</A>(mempool, size, cat);<br>
+ 346
+ &nbsp;&nbsp;<A NAME="line_346"></A><A HREF="ring_alloc.c.html#f_mempool_check">f_mempool_check</A>(mempool);<br>
+ 347
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 348
+}<br>
+ 349
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_349"></A><A HREF="xref.html#f_mempool_realloc">X</A>*/ <B><A NAME="f_mempool_realloc">f_mempool_realloc</A></B>(<A HREF="ring_alloc.h.html#to_mempool">to_mempool</A> mempool, <span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *mem, <span style="color: rgb(0, 153, 0);">size_t</span> size) {<br>
+ 350
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> split = 0;<br>
+ 351
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_351"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *blk = mempool-&gt;free;<br>
+ 352
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_352"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *umem = (<span style="color: rgb(204, 0, 0);">typeof</span>(blk))mem -1;<br>
+ 353
+<br>
+ 354
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !mem ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> <A NAME="line_354"></A><A HREF="ring_alloc.c.html#f_mempool_malloc">f_mempool_malloc</A>(mempool, size);<br>
+ 355
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span>( mempool-&gt;mem &gt; umem || <br>
+ 356
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)mempool-&gt;mem + mempool-&gt;size) &lt;= ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)umem + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_356"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>) + umem-&gt;size) ) {<br>
+ 357
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">errno</span> = ENOTDIR;<br>
+ 358
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 359
+ &nbsp;&nbsp;}<br>
+ 360
+<br>
+ 361
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( size &lt; umem-&gt;size ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> mem;<br>
+ 362
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* need blok after */</span><br>
+ 363
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> (blk = mempool-&gt;free; blk; blk = <A NAME="line_363"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(mempool-&gt;free, blk, brother)) {<br>
+ 364
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)umem + umem-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_364"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>)) == (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)blk ) {<br>
+ 365
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;free = <A NAME="line_365"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(blk, brother);<br>
+ 366
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;umem-&gt;size += blk-&gt;size + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_366"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>);<br>
+ 367
+<br>
+ 368
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_368"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>) &lt; umem-&gt;size - size ) {<br>
+ 369
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split = 1;<br>
+ 370
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* begin stays in free list, reduce size */</span><br>
+ 371
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;umem-&gt;size -= <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_371"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A>) + size;<br>
+ 372
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* move to begin of new block */</span><br>
+ 373
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;umem = (<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_373"></A><A HREF="ring_alloc.c.html#s_blk">s_blk</A> *)((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)umem + <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring_alloc.c.html#s_blk">s_blk</A>) + size);<br>
+ 374
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* put new block in allocated */</span><br>
+ 375
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;umem-&gt;size = size;<br>
+ 376
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;alloc = <A NAME="line_376"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(mempool-&gt;alloc, brother, umem);<br>
+ 377
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <span style="color: rgb(204, 0, 0); font-weight: bold;">else</span> {<br>
+ 378
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* it fits well enougth, just move it to allocated blocks */</span><br>
+ 379
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;free = <A NAME="line_379"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(umem, brother);<br>
+ 380
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mempool-&gt;alloc = <A NAME="line_380"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(mempool-&gt;alloc, brother, umem);<br>
+ 381
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 382
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> umem -1;<br>
+ 383
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 384
+ &nbsp;&nbsp;}<br>
+ 385
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !(umem = <A NAME="line_385"></A><A HREF="ring_alloc.c.html#f_mempool_malloc">f_mempool_malloc</A>(mempool, size)) ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 386
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">memcpy</span>(umem, mem, size);<br>
+ 387
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_387"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, mem) &lt; 0 ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 388
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> umem -1;<br>
+ 389
+}<br>
+ 390
+<br>
+ 391
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_391"></A><A HREF="xref.html#f_mempool_calloc">X</A>*/ <B><A NAME="f_mempool_calloc">f_mempool_calloc</A></B>(<A HREF="ring_alloc.h.html#to_mempool">to_mempool</A> mempool, <span style="color: rgb(0, 153, 0);">size_t</span> nmemb, <span style="color: rgb(0, 153, 0);">size_t</span> size) {<br>
+ 392
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *mem;<br>
+ 393
+<br>
+ 394
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !(mem = <A NAME="line_394"></A><A HREF="ring_alloc.c.html#f_mempool_malloc">f_mempool_malloc</A>(mempool, nmemb*size)) == 0) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 395
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">memset</span>(mem, 0, nmemb*size);<br>
+ 396
+<br>
+ 397
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> mem;<br>
+ 398
+}<br>
+ 399
+<br>
+<P></tt>
+<P>
+<HR>
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H5>C to HTML Conversion by <I><A HREF="http://www.machinman.net/code/ctoohtml/index.html">ctoohtml</A></I></H5>
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></body>
+</HTML>

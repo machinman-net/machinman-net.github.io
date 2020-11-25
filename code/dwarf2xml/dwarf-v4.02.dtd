@@ -1,0 +1,1902 @@
+<!--
+/* 
+ * Copyright (C) 2010 by Emmanuel Azencot under the GNU GPL license 2.
+ * You should have received a copy of the licence 
+ * 
+ *                          Version 2, June 1991
+ *      Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+ *      675 Mass Ave, Cambridge, MA 02139, USA
+ *      
+ * GPL license along with this software os. if you did not you can find it
+ * at http://www.gnu.org/.
+ *
+ * # 
+ * # # project hosted at http://machinman.net/code/dwarf2xml
+ * #
+ */
+
+    DTD for DWARF XML: An XML representation for DWARF debugging information
+-->
+<!-- AZT Sat Jan 16 11:48:29 CET 2016: added at_const_value to tag_member -->
+<!-- AZT Fri Jan 29 13:28:23 CET 2016: added inline CDATA "0" attribute to sl_file when comming from DW_LNE_define_file -->
+
+<!-- ================================================================== -->
+
+<!ENTITY  % AT_DECL    "at_decl_column | at_decl_file | at_decl_line" >
+<!ENTITY  % TAG_STD_TYPES "tag_array_type | tag_class_type |
+     tag_enumeration_type | tag_pointer_type | 
+     tag_reference_type | tag_string_type | 
+     tag_structure_type | tag_subroutine_type |
+     tag_typedef | tag_union_type | 
+     tag_ptr_to_member_type |
+     tag_set_type |
+     tag_subrange_type |
+     tag_base_type | 
+     tag_const_type | 
+     tag_file_type | 
+     tag_packed_type | 
+     tag_subprogram | 
+     tag_variable | 
+     tag_volatile_type" >
+<!-- ================================================================== -->
+
+<!ELEMENT dwarf (debug_aranges?, debug_pubnames?, debug_info?, debug_abbrev?, debug_line?, 
+                debug_frame?, eh_frame?, debug_loc?, debug_ranges?, debug_macinfo?, debug_pubtypes?, 
+                debug_weaknames?, debug_varnames?, debug_funcnames?, debug_typenames? ) >
+<!ATTLIST dwarf 
+    file CDATA #REQUIRED 
+    producer CDATA #IMPLIED 
+>
+
+<!-- =========================  ARANGES ============================ -->
+<!ELEMENT debug_aranges (arange)* >
+
+<!ELEMENT arange EMPTY >
+<!ATTLIST arange 
+    id ID #REQUIRED 
+    low_pc CDATA #REQUIRED 
+    length CDATA #REQUIRED 
+    ref IDREF #REQUIRED 
+>
+<!-- =========================  PUBNAMES============================ -->
+<!ELEMENT debug_pubnames (pubname)* >
+
+<!ELEMENT pubname (#PCDATA) >
+<!ATTLIST pubname 
+    id ID #REQUIRED 
+    cu IDREF #REQUIRED 
+    ref IDREF #REQUIRED 
+>
+<!-- =========================  INFO =============================== -->
+<!ELEMENT at_sibling (#PCDATA) >
+
+<!ELEMENT at_location (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_name (#PCDATA) >
+
+<!ELEMENT at_ordering (#PCDATA) >
+
+<!ELEMENT at_subscr_data (#PCDATA) >
+
+<!ELEMENT at_byte_size ( #PCDATA | loc_expr )* >
+<!ATTLIST at_byte_size 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_bit_size ( #PCDATA | loc_expr )* >
+<!ATTLIST at_bit_size 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_bit_offset ( #PCDATA | loc_expr )* >
+<!ATTLIST at_bit_offset 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_element_list (#PCDATA) >
+
+<!ELEMENT at_stmt_list (#PCDATA) >
+
+<!ELEMENT at_low_pc (#PCDATA) >
+
+<!ELEMENT at_high_pc (#PCDATA) >
+
+<!ELEMENT at_language (#PCDATA) >
+
+<!ELEMENT at_member (#PCDATA) >
+
+<!ELEMENT at_discr (#PCDATA) >
+
+<!ELEMENT at_discr_value (#PCDATA) >
+
+<!ELEMENT at_visibility (#PCDATA) >
+
+<!ELEMENT at_import (#PCDATA) >
+
+<!ELEMENT at_string_length (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_common_reference (#PCDATA) >
+
+<!ELEMENT at_comp_dir (#PCDATA) >
+
+<!ELEMENT at_const_value (#PCDATA) >
+
+<!ELEMENT at_containing_type (#PCDATA) >
+
+<!ELEMENT at_default_value (#PCDATA) >
+
+<!ELEMENT at_inline (#PCDATA) >
+
+<!ELEMENT at_is_optional (#PCDATA) >
+
+<!ELEMENT at_lower_bound ( #PCDATA | loc_expr )* >
+<!ATTLIST at_lower_bound 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_producer (#PCDATA) >
+
+<!ELEMENT at_prototyped (#PCDATA) >
+
+<!ELEMENT at_return_addr (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_start_scope (#PCDATA) >
+
+<!ELEMENT at_bit_stride ( #PCDATA | loc_expr )* >
+<!ATTLIST at_bit_stride 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_upper_bound ( #PCDATA | loc_expr )* >
+<!ATTLIST at_upper_bound 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_abstract_origin (#PCDATA) >
+
+<!ELEMENT at_accessibility (#PCDATA) >
+
+<!ELEMENT at_address_class (#PCDATA) >
+
+<!ELEMENT at_artificial (#PCDATA) >
+
+<!ELEMENT at_base_types (#PCDATA) >
+
+<!ELEMENT at_calling_convention (#PCDATA) >
+
+<!ELEMENT at_count ( #PCDATA | loc_expr )* >
+<!ATTLIST at_count 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_data_member_location (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_decl_column (#PCDATA) >
+
+<!ELEMENT at_decl_file (#PCDATA) >
+
+<!ELEMENT at_decl_line (#PCDATA) >
+
+<!ELEMENT at_declaration (#PCDATA) >
+
+<!ELEMENT at_discr_list (#PCDATA) >
+
+<!ELEMENT at_encoding (#PCDATA) >
+
+<!ELEMENT at_frame_base (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_friend (#PCDATA) >
+
+<!ELEMENT at_identifier_case (#PCDATA) >
+
+<!ELEMENT at_macro_info (#PCDATA) >
+
+<!ELEMENT at_namelist_item (#PCDATA) >
+
+<!ELEMENT at_priority (#PCDATA) >
+
+<!ELEMENT at_segment (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_specification (#PCDATA) >
+
+<!ELEMENT at_static_link (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_type (#PCDATA) >
+
+<!ELEMENT at_use_location (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_variable_parameter (#PCDATA) >
+
+<!ELEMENT at_virtuality (#PCDATA) >
+
+<!ELEMENT at_vtable_elem_location (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_allocated ( #PCDATA | loc_expr )* >
+<!ATTLIST at_allocated 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_associated ( #PCDATA | loc_expr )* >
+<!ATTLIST at_associated 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_data_location (loc_const | loc_expr | loc_ref) >
+
+<!ELEMENT at_byte_stride ( #PCDATA | loc_expr )* >
+<!ATTLIST at_byte_stride 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT at_entry_pc (#PCDATA) >
+
+<!ELEMENT at_use_UTF8 (#PCDATA) >
+
+<!ELEMENT at_ranges (#PCDATA) >
+
+<!ELEMENT at_trampoline (#PCDATA) >
+
+<!ELEMENT at_call_column (#PCDATA) >
+
+<!ELEMENT at_call_file (#PCDATA) >
+
+<!ELEMENT at_call_line (#PCDATA) >
+
+<!ELEMENT at_description (#PCDATA) >
+
+<!ELEMENT at_binary_scale (#PCDATA) >
+
+<!ELEMENT at_decimal_scale (#PCDATA) >
+
+<!ELEMENT at_small (#PCDATA) >
+
+<!ELEMENT at_decimal_sign (#PCDATA) >
+
+<!ELEMENT at_digit_count (#PCDATA) >
+
+<!ELEMENT at_picture_string (#PCDATA) >
+
+<!ELEMENT at_mutable (#PCDATA) >
+
+<!ELEMENT at_threads_scaled (#PCDATA) >
+
+<!ELEMENT at_explicit (#PCDATA) >
+
+<!ELEMENT at_object_pointer (#PCDATA) >
+
+<!ELEMENT at_endianity (#PCDATA) >
+
+<!ELEMENT at_elemental (#PCDATA) >
+
+<!ELEMENT at_pure (#PCDATA) >
+
+<!ELEMENT at_recursive (#PCDATA) >
+
+<!ELEMENT at_external (#PCDATA) >
+
+<!ELEMENT at_extension (#PCDATA) >
+
+<!ELEMENT at_linkage_name (#PCDATA) >
+
+
+<!ELEMENT at_user (#PCDATA) >
+<!ATTLIST at_user 
+    name CDATA #REQUIRED 
+>
+<!ELEMENT at_unk (#PCDATA) >
+<!ATTLIST at_unk 
+    name CDATA #REQUIRED 
+>
+
+<!ELEMENT tag_user ANY >
+<!ATTLIST tag_user 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+    name CDATA #REQUIRED 
+>
+
+<!ELEMENT tag_unk ANY >
+<!ATTLIST tag_unk 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+    name CDATA #REQUIRED 
+>
+
+
+<!ELEMENT loc_op (#PCDATA) >
+<!ATTLIST loc_op 
+    pos CDATA #REQUIRED 
+    op CDATA #REQUIRED 
+    p1 CDATA #IMPLIED 
+    p2 CDATA #IMPLIED 
+>
+
+<!ELEMENT loc_const (#PCDATA) >
+
+<!ELEMENT loc_expr (loc_op)* >
+<!ATTLIST loc_expr 
+    id ID #IMPLIED 
+    low_pc CDATA #IMPLIED 
+    high_pc CDATA #IMPLIED 
+>
+
+<!ELEMENT loc_ref EMPTY >
+<!ATTLIST loc_ref 
+    ref IDREF #REQUIRED 
+>
+
+<!ELEMENT debug_info (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    tag_compile_unit | 
+    tag_partial_unit )* >
+
+
+<!ELEMENT tag_access_declaration (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_accessibility | 
+    at_description | 
+    at_name | 
+    at_sibling )* >
+<!ATTLIST tag_access_declaration 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_array_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_bit_stride | 
+    at_byte_size | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_ordering | 
+    at_sibling | 
+    at_specification | 
+    at_start_scope | 
+    at_type | 
+    at_visibility | 
+    tag_subrange_type | 
+    tag_enumeration_type )* >
+<!ATTLIST tag_array_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_base_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_allocated | 
+    at_associated | 
+    at_binary_scale | 
+    at_bit_offset | 
+    at_bit_size | 
+    at_byte_size | 
+    at_data_location | 
+    at_decimal_scale | 
+    at_decimal_sign | 
+    at_description | 
+    at_digit_count | 
+    at_encoding | 
+    at_endianity | 
+    at_name | 
+    at_picture_string | 
+    at_sibling | 
+    at_small )* >
+<!ATTLIST tag_base_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_catch_block (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_abstract_origin | 
+    at_high_pc | 
+    at_low_pc | 
+    at_ranges | 
+    at_segment | 
+    at_sibling | 
+    tag_formal_parameter | 
+    tag_unspecified_parameters | 
+    tag_constant | 
+    %TAG_STD_TYPES;  )* >
+<!ATTLIST tag_catch_block 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_class_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_byte_size | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_specification | 
+    at_start_scope | 
+    at_visibility | 
+    tag_variable | 
+    tag_template_alias | 
+    tag_member | 
+    tag_inheritance | 
+    tag_access_declaration | 
+    tag_friend | 
+    tag_subprogram | 
+    tag_template_type_parameter | 
+    tag_template_value_parameter | 
+    %TAG_STD_TYPES;  )* >
+<!ATTLIST tag_class_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_common_block (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_declaration | 
+    at_description | 
+    at_location | 
+    at_name | 
+    at_segment | 
+    at_sibling | 
+    at_visibility | 
+    tag_variable )* >
+<!ATTLIST tag_common_block 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_common_inclusion (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_common_reference | 
+    at_declaration | 
+    at_sibling | 
+    at_visibility )* >
+<!ATTLIST tag_common_inclusion 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_compile_unit (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_base_types | 
+    at_comp_dir | 
+    at_identifier_case | 
+    at_high_pc | 
+    at_language | 
+    at_low_pc | 
+    at_macro_info | 
+    at_entry_pc | 
+    at_name | 
+    at_producer | 
+    at_ranges | 
+    at_segment | 
+    at_stmt_list | 
+    at_use_UTF8 | 
+    at_sibling | 
+    tag_imported_module | 
+    tag_imported_declaration | 
+    tag_namespace | 
+    tag_template_alias | 
+    tag_common_block | 
+    tag_inlined_subroutine | 
+    tag_module | 
+    tag_namelist | 
+    tag_constant | 
+    tag_unspecified_type | 
+    tag_subprogram | 
+    tag_variable | 
+    %TAG_STD_TYPES; )* >
+<!ATTLIST tag_compile_unit 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+    version CDATA #REQUIRED 
+    address_size CDATA #REQUIRED 
+    sl IDREF #IMPLIED 
+>
+
+
+<!ELEMENT tag_type_unit (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_language | 
+    tag_imported_declaration | 
+    tag_common_block | 
+    tag_inlined_subroutine | 
+    tag_module | 
+    tag_constant | 
+    tag_namelist | 
+    tag_namespace | 
+    tag_subprogram | 
+    tag_variable | 
+    tag_imported_module | 
+    tag_template_alias | 
+    %TAG_STD_TYPES;  )* >
+<!ATTLIST tag_type_unit 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_condition (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_name | 
+    at_sibling | 
+    tag_constant | 
+    tag_subrange_type )* >
+<!ATTLIST tag_condition 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_const_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_name | 
+    at_sibling | 
+    at_type )* >
+<!ATTLIST tag_const_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_constant (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_accessibility | 
+    at_const_value | 
+    at_declaration | 
+    at_description | 
+    at_endianity | 
+    at_external | 
+    at_name | 
+    at_sibling | 
+    at_start_scope | 
+    at_type | 
+    at_visibility )* >
+<!ATTLIST tag_constant 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_dwarf_procedure (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_location )* >
+<!ATTLIST tag_dwarf_procedure 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+           
+<!ELEMENT tag_entry_point (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_address_class | 
+    at_description | 
+    at_frame_base | 
+    at_low_pc | 
+    at_name | 
+    at_return_addr | 
+    at_segment | 
+    at_sibling | 
+    at_static_link | 
+    at_type | 
+    tag_formal_parameter | 
+    tag_unspecified_parameters | 
+    tag_common_inclusion )* >
+<!ATTLIST tag_entry_point 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+                      
+<!ELEMENT tag_enumeration_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_bit_stride | 
+    at_byte_size | 
+    at_byte_stride | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_specification | 
+    at_start_scope | 
+    at_type | 
+    at_visibility | 
+    tag_enumerator )* >
+<!ATTLIST tag_enumeration_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+       
+<!ELEMENT tag_enumerator (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_const_value | 
+    at_description | 
+    at_name | 
+    at_sibling )* >
+<!ATTLIST tag_enumerator 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+       
+<!ELEMENT tag_file_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_allocated | 
+    at_associated | 
+    at_byte_size | 
+    at_data_location | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_start_scope | 
+    at_type | 
+    at_visibility )* >
+<!ATTLIST tag_file_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+                       
+<!ELEMENT tag_formal_parameter (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_artificial | 
+    at_const_value | 
+    at_default_value | 
+    at_description | 
+    at_endianity | 
+    at_is_optional | 
+    at_location | 
+    at_name | 
+    at_segment | 
+    at_sibling | 
+    at_type | 
+    at_variable_parameter )* >
+<!ATTLIST tag_formal_parameter 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_friend (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_friend | 
+    at_sibling )* >
+<!ATTLIST tag_friend 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+      
+<!ELEMENT tag_imported_declaration (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_accessibility | 
+    at_description | 
+    at_import | 
+    at_name | 
+    at_sibling | 
+    at_start_scope | 
+    tag_subprogram )* >
+<!ATTLIST tag_imported_declaration 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_imported_module (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_import | 
+    at_sibling | 
+    at_start_scope )* >
+<!ATTLIST tag_imported_module 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_imported_unit (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_import )* >
+<!ATTLIST tag_imported_unit 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+                  
+<!ELEMENT tag_inheritance (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_accessibility | 
+    at_data_member_location | 
+    at_sibling | 
+    at_type | 
+    at_virtuality )* >
+<!ATTLIST tag_inheritance 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_inlined_subroutine (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_abstract_origin | 
+    at_call_column | 
+    at_call_file | 
+    at_call_line | 
+    at_entry_pc | 
+    at_high_pc | 
+    at_low_pc | 
+    at_ranges | 
+    at_return_addr | 
+    at_segment | 
+    at_sibling | 
+    at_start_scope | 
+    at_trampoline | 
+    tag_formal_parameter | 
+    tag_lexical_block | 
+    tag_inlined_subroutine | 
+    tag_variable | 
+    tag_label | 
+    tag_unspecified_parameters | 
+    tag_lexical_block | 
+    tag_constant | 
+    tag_namelist | 
+    tag_subprogram  )* >
+<!ATTLIST tag_inlined_subroutine 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_interface_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_accessibility | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_start_scope | 
+    tag_member | 
+    tag_subprogram )* >
+<!ATTLIST tag_interface_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_label (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_description | 
+    at_low_pc | 
+    at_name | 
+    at_segment | 
+    at_start_scope | 
+    at_sibling )* >
+<!ATTLIST tag_label 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_lexical_block (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_abstract_origin | 
+    at_description | 
+    at_high_pc | 
+    at_low_pc | 
+    at_name | 
+    at_ranges | 
+    at_segment | 
+    at_sibling | 
+    tag_formal_parameter | 
+    tag_inlined_subroutine | 
+    tag_lexical_block | 
+    tag_variable | 
+    tag_label | 
+    tag_imported_declaration | 
+    tag_module | 
+    tag_constant | 
+    tag_namelist | 
+    tag_subprogram | 
+    %TAG_STD_TYPES;  )* >
+<!ATTLIST tag_lexical_block 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_member (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_accessibility | 
+    at_bit_offset | 
+    at_bit_size | 
+    at_byte_size | 
+    at_data_member_location | 
+    at_declaration | 
+    at_description | 
+    at_mutable | 
+    at_name | 
+    at_sibling | 
+    at_type | 
+    at_visibility | 
+    at_artificial | 
+    at_external | 
+    at_const_value )* >
+<!ATTLIST tag_member 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_module (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_accessibility | 
+    at_declaration | 
+    at_description | 
+    at_entry_pc | 
+    at_high_pc | 
+    at_low_pc | 
+    at_name | 
+    at_priority | 
+    at_ranges | 
+    at_segment | 
+    at_sibling | 
+    at_specification | 
+    at_visibility )* >
+<!ATTLIST tag_module 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_namelist (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_declaration | 
+    at_name | 
+    at_sibling | 
+    at_visibility | 
+    tag_namelist_item )* >
+<!ATTLIST tag_namelist 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_namelist_item (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_namelist_item | 
+    at_sibling )* >
+<!ATTLIST tag_namelist_item 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_namespace (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_description | 
+    at_extension | 
+    at_name | 
+    at_sibling | 
+    at_start_scope | 
+    tag_namespace | 
+    tag_unspecified_type | 
+    tag_imported_declaration | 
+    tag_common_block | 
+    tag_inlined_subroutine | 
+    tag_module | 
+    tag_constant | 
+    tag_namelist | 
+    tag_imported_module | 
+    %TAG_STD_TYPES;  )* >
+<!ATTLIST tag_namespace 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_packed_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_name | 
+    at_sibling | 
+    at_type )* >
+<!ATTLIST tag_packed_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_partial_unit (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_comp_dir | 
+    at_description | 
+    at_identifier_case | 
+    at_high_pc | 
+    at_language | 
+    at_low_pc | 
+    at_macro_info | 
+    at_name | 
+    at_producer | 
+    at_ranges | 
+    at_segment | 
+    at_stmt_list | 
+    at_use_UTF8 | 
+    tag_imported_declaration | 
+    tag_common_block | 
+    tag_inlined_subroutine | 
+    tag_module | 
+    tag_constant | 
+    tag_namelist | 
+    %TAG_STD_TYPES;  )* >
+<!ATTLIST tag_partial_unit 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_pointer_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_address_class | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_name | 
+    at_sibling | 
+    at_specification | 
+    at_type | 
+    at_byte_size | 
+    tag_rvalue_reference_type | 
+    tag_reference_type | 
+    tag_restrict_type | 
+    tag_ptr_to_member_type )* >
+<!ATTLIST tag_pointer_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_ptr_to_member_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_address_class | 
+    at_allocated | 
+    at_associated | 
+    at_containing_type | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_type | 
+    at_use_location | 
+    at_visibility | 
+    tag_rvalue_reference_type | 
+    tag_reference_type | 
+    tag_restrict_type | 
+    tag_pointer_type )* >
+<!ATTLIST tag_ptr_to_member_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+  
+<!ELEMENT tag_reference_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_address_class | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_name | 
+    at_sibling | 
+    at_type | 
+    at_byte_size | 
+    tag_rvalue_reference_type | 
+    tag_reference_type | 
+    tag_restrict_type | 
+    tag_pointer_type | 
+    tag_ptr_to_member_type )* >
+<!ATTLIST tag_reference_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_rvalue_reference_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_address_class | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_name | 
+    at_sibling | 
+    at_type | 
+    tag_pointer_type | 
+    tag_restrict_type | 
+    tag_ptr_to_member_type | 
+    tag_reference_type )* >
+<!ATTLIST tag_rvalue_reference_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_restrict_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_name | 
+    at_sibling | 
+    at_type | 
+    tag_pointer_type | 
+    tag_ptr_to_member_type | 
+    tag_rvalue_reference_type )* >
+<!ATTLIST tag_restrict_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_set_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_byte_size | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_start_scope | 
+    at_sibling | 
+    at_type | 
+    at_visibility )* >
+<!ATTLIST tag_set_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_shared_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_count | 
+    at_name | 
+    at_sibling | 
+    at_type )* >
+<!ATTLIST tag_shared_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_string_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_byte_size | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_start_scope | 
+    at_string_length | 
+    at_visibility )* >
+<!ATTLIST tag_string_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_structure_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_byte_size | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_specification | 
+    at_start_scope | 
+    at_visibility | 
+    at_containing_type | 
+    tag_member | 
+    tag_template_type_parameter | 
+    tag_subprogram | 
+    tag_inheritance | 
+    tag_variable | 
+    tag_imported_declaration | 
+    tag_access_declaration | 
+    tag_friend | 
+    tag_variant_part | 
+    tag_template_value_parameter | 
+    tag_imported_declaration | 
+    tag_template_alias | 
+    at_linkage_name | 
+    %TAG_STD_TYPES;  )* >
+<!ATTLIST tag_structure_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_subprogram (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_address_class | 
+    at_artificial | 
+    at_calling_convention | 
+    at_declaration | 
+    at_description | 
+    at_elemental | 
+    at_entry_pc | 
+    at_explicit | 
+    at_external | 
+    at_frame_base | 
+    at_high_pc | 
+    at_inline | 
+    at_low_pc | 
+    at_name | 
+    at_object_pointer | 
+    at_prototyped | 
+    at_pure | 
+    at_ranges | 
+    at_recursive | 
+    at_return_addr | 
+    at_segment | 
+    at_sibling | 
+    at_specification | 
+    at_start_scope | 
+    at_static_link | 
+    at_trampoline | 
+    at_type | 
+    at_visibility | 
+    at_virtuality | 
+    at_vtable_elem_location | 
+    at_containing_type | 
+    at_external | 
+    tag_formal_parameter | 
+    tag_inlined_subroutine | 
+    tag_label | 
+    tag_lexical_block | 
+    tag_template_type_parameter | 
+    tag_template_value_parameter | 
+    tag_subprogram | 
+    tag_unspecified_parameters | 
+    tag_variable | 
+    tag_unspecified_parameters | 
+    tag_thrown_type | 
+    tag_common_inclusion | 
+    tag_common_block | 
+    tag_constant | 
+    tag_namelist | 
+    tag_imported_module | 
+    tag_imported_declaration | 
+    at_linkage_name | 
+    %TAG_STD_TYPES;  )* >
+<!ATTLIST tag_subprogram 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_subrange_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_bit_stride | 
+    at_byte_size | 
+    at_byte_stride | 
+    at_count | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_lower_bound | 
+    at_name | 
+    at_sibling | 
+    at_threads_scaled | 
+    at_type | 
+    at_upper_bound | 
+    at_visibility )* >
+<!ATTLIST tag_subrange_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_subroutine_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_address_class | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_prototyped | 
+    at_sibling | 
+    at_start_scope | 
+    at_type | 
+    at_visibility | 
+    tag_formal_parameter | 
+    tag_unspecified_parameters | 
+    tag_subroutine_type | 
+    tag_pointer_type )* >
+<!ATTLIST tag_subroutine_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_template_type_parameter (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_type )* >
+<!ATTLIST tag_template_type_parameter 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_template_value_parameter (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_const_value | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_type | 
+    at_location )* >
+<!ATTLIST tag_template_value_parameter 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_thrown_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_sibling | 
+    at_type )* >
+<!ATTLIST tag_thrown_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_try_block (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_abstract_origin | 
+    at_high_pc | 
+    at_low_pc | 
+    at_ranges | 
+    at_segment | 
+    at_sibling )* >
+<!ATTLIST tag_try_block 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_typedef (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_start_scope | 
+    at_type | 
+    at_visibility )* >
+<!ATTLIST tag_typedef 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_union_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_byte_size | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_specification | 
+    at_start_scope | 
+    at_visibility | 
+    tag_member | 
+    tag_friend | 
+    tag_template_type_parameter | 
+    tag_template_type_parameter | 
+    tag_subprogram | 
+    tag_inheritance | 
+    tag_variable | 
+    tag_imported_declaration | 
+    %TAG_STD_TYPES;  )* >
+<!ATTLIST tag_union_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_template_alias (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_declaration | 
+    at_description | 
+    at_name | 
+    at_sibling | 
+    at_signature | 
+    at_start_scope | 
+    at_type | 
+    at_visibility | 
+    tag_template_type_parameter | 
+    tag_template_value_parameter  )* >
+<!ATTLIST tag_template_alias 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_unspecified_parameters (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_artificial | 
+    at_sibling )* >
+<!ATTLIST tag_unspecified_parameters 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_unspecified_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_description | 
+    at_name )* >
+<!ATTLIST tag_unspecified_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_variable (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_const_value | 
+    at_declaration | 
+    at_description | 
+    at_endianity | 
+    at_external | 
+    at_location | 
+    at_name | 
+    at_segment | 
+    at_sibling | 
+    at_specification | 
+    at_artificial | 
+    at_external | 
+    at_type | 
+    at_visibility | 
+    at_byte_size | 
+    at_start_scope | 
+    at_linkage_name )* >
+<!ATTLIST tag_variable 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!ELEMENT tag_variant (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_accessibility | 
+    at_abstract_origin | 
+    at_declaration | 
+    at_discr_list | 
+    at_discr_value | 
+    at_sibling | 
+    tag_variant_part )* >
+<!ATTLIST tag_variant 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+                   
+<!ELEMENT tag_variant_part (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_abstract_origin | 
+    at_accessibility | 
+    at_declaration | 
+    at_discr | 
+    at_sibling | 
+    at_type )* >
+<!ATTLIST tag_variant_part 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+                    
+<!ELEMENT tag_volatile_type (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    %AT_DECL; | 
+    at_allocated | 
+    at_associated | 
+    at_data_location | 
+    at_name | 
+    at_sibling | 
+    at_type )* >
+<!ATTLIST tag_volatile_type 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+                
+<!ELEMENT tag_with_stmt (
+    tag_user | 
+    tag_unk | 
+    at_user | 
+    at_unk | 
+    at_accessibility | 
+    at_address_class | 
+    at_declaration | 
+    at_high_pc | 
+    at_location | 
+    at_low_pc | 
+    at_ranges | 
+    at_segment | 
+    at_sibling | 
+    at_type | 
+    at_visibility )* >
+<!ATTLIST tag_with_stmt 
+    id ID #REQUIRED 
+    ab IDREF #REQUIRED 
+>
+
+
+<!-- =========================  ABBREVS ============================ -->
+<!ELEMENT debug_abbrev (ab_table)* >
+
+<!ELEMENT ab_table (ab_tag)+ >
+<!ATTLIST ab_table 
+    id ID #REQUIRED 
+    ref IDREF #REQUIRED 
+>
+<!ELEMENT ab_tag (ab_attr*) >
+<!ATTLIST ab_tag 
+    name CDATA #REQUIRED 
+    id ID #REQUIRED 
+    children (true|false) #IMPLIED 
+>
+<!ELEMENT ab_attr EMPTY >
+<!ATTLIST ab_attr 
+    name CDATA #REQUIRED 
+    form CDATA #REQUIRED 
+>
+<!-- =========================   LINES  ============================ -->
+<!ELEMENT debug_line (sl_compile_unit)* >
+
+<!ELEMENT sl_compile_unit (sl_files, sl_lines) >
+<!ATTLIST sl_compile_unit 
+    id ID #REQUIRED 
+    ref IDREF #REQUIRED 
+>
+<!ELEMENT sl_files (sl_file)* >
+<!ATTLIST sl_files 
+    id ID #REQUIRED 
+>
+<!ELEMENT sl_file (#PCDATA)* >
+<!ATTLIST sl_file 
+    id ID #REQUIRED 
+    inline CDATA "0" 
+>
+<!ELEMENT sl_lines (sl_line)* >
+<!ATTLIST sl_lines 
+    id ID #REQUIRED 
+>
+<!ELEMENT sl_line (sl_low_pc, sl_decl, sl_properties)* >
+<!ATTLIST sl_line 
+    id ID #REQUIRED 
+    ref IDREF #IMPLIED 
+>
+<!ELEMENT sl_low_pc (#PCDATA)* >
+
+<!ELEMENT sl_decl EMPTY >
+<!ATTLIST sl_decl 
+    file CDATA #REQUIRED 
+    line CDATA #REQUIRED 
+    col CDATA #IMPLIED 
+>
+<!ELEMENT sl_properties EMPTY >
+<!ATTLIST sl_properties 
+    stm_start (true|false) #REQUIRED 
+    block_start (true|false) #REQUIRED 
+    seq_end (true|false) #REQUIRED 
+>
+<!-- ========================= FRAMES ============================ -->
+<!ELEMENT debug_frame (fr_cie)* >
+
+<!ELEMENT eh_frame (fr_cie)* >
+
+<!ELEMENT fr_cie (fr_alignment_factor, fr_return_address, fr_initial_instructions, fr_fde*) >
+<!ATTLIST fr_cie 
+    id ID #REQUIRED 
+    version CDATA #REQUIRED 
+    augmenter CDATA #REQUIRED 
+>
+<!ELEMENT fr_alignment_factor EMPTY >
+<!ATTLIST fr_alignment_factor 
+    code CDATA #REQUIRED 
+    data CDATA #REQUIRED 
+>
+<!ELEMENT fr_return_address EMPTY >
+<!ATTLIST fr_return_address 
+    register_rule CDATA #REQUIRED 
+>
+<!ELEMENT fr_initial_instructions (fr_instr*) >
+
+<!ELEMENT fr_instr EMPTY >
+<!ATTLIST fr_instr 
+    pc_off CDATA #REQUIRED 
+    op CDATA #REQUIRED 
+    p1 CDATA #IMPLIED 
+    p2 CDATA #IMPLIED 
+>
+<!ELEMENT fr_fde (fr_instr*) >
+<!ATTLIST fr_fde 
+    id ID #REQUIRED 
+    ref IDREF #IMPLIED 
+    low_pc CDATA #REQUIRED 
+    func_length CDATA #REQUIRED 
+>
+
+<!-- ========================= LOCATIONS ============================ -->
+<!ELEMENT debug_loc (loc_list*) >
+
+<!ELEMENT loc_list (loc_expr+) >
+<!ATTLIST loc_list 
+    id CDATA #REQUIRED 
+>
+<!-- =========================  RANGES  ============================ -->
+<!ELEMENT debug_ranges (rg_range)* >
+
+<!ELEMENT rg_range (rg_entry)* >
+<!ATTLIST rg_range 
+    id ID #REQUIRED 
+>
+<!ELEMENT rg_entry EMPTY >
+<!ATTLIST rg_entry 
+    low_pc CDATA #IMPLIED 
+    high_pc CDATA #IMPLIED 
+>
+
+<!-- ========================= MACROS ============================ -->
+<!ELEMENT debug_macinfo (mac_compile_unit)* >
+
+<!ELEMENT mac_compile_unit (macro)* >
+<!ATTLIST mac_compile_unit 
+    id ID #REQUIRED 
+    ref IDREF #REQUIRED 
+>
+<!ELEMENT macro (#PCDATA) >
+<!ATTLIST macro 
+    id ID #REQUIRED 
+    file CDATA #REQUIRED 
+    line CDATA #REQUIRED 
+    type CDATA #REQUIRED 
+>
+<!-- ========================= PUBTYPES ============================ -->
+<!ELEMENT debug_pubtypes (pubtype)* >
+
+<!ELEMENT pubtype (#PCDATA) >
+<!ATTLIST pubtype 
+    id ID #REQUIRED 
+    cu CDATA #REQUIRED 
+    ref CDATA #REQUIRED 
+>
+<!-- ========================= WEAKNAMES ============================ -->
+<!ELEMENT debug_weaknames (weakname)* >
+
+<!ELEMENT weakname (#PCDATA) >
+<!ATTLIST weakname 
+    id ID #REQUIRED 
+    cu CDATA #REQUIRED 
+    ref CDATA #REQUIRED 
+>
+<!-- ========================= VARNAMES ============================ -->
+<!ELEMENT debug_varnames (varname)* >
+
+<!ELEMENT varname (#PCDATA) >
+<!ATTLIST varname 
+    id ID #REQUIRED 
+    cu CDATA #REQUIRED 
+    ref CDATA #REQUIRED 
+>
+<!-- ========================= FUNCNAMES ============================ -->
+<!ELEMENT debug_funcnames (funcname)* >
+
+<!ELEMENT funcname (#PCDATA) >
+<!ATTLIST funcname 
+    id ID #REQUIRED 
+    cu CDATA #REQUIRED 
+    ref CDATA #REQUIRED 
+>
+<!-- ========================= TYPENAMES ============================ -->
+<!ELEMENT debug_typenames (typename)* >
+
+<!ELEMENT typename (#PCDATA) >
+<!ATTLIST typename 
+    id ID #REQUIRED 
+    cu CDATA #REQUIRED 
+    ref CDATA #REQUIRED 
+>
+
+
+
+

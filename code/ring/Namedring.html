@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML lang="en">
+<HEAD>
+   <TITLE> Named ring</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+  <meta content="machinman.net" name="author">
+  <meta content="The C ring container documentation." name="description">
+  <meta name="keywords" content="C, linked list, container">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<table class="navbar" style="width: 100%;" border="0" cellpadding="2" cellspacing="2">
+<td style="width: 15%; text-align: center; background-color: rgb(202, 202, 202); "><a href="./index.html">Top</a> </td>
+<td style="width: 25%; text-align: center; background-color: rgb(202, 202, 202); "><script type="text/javascript">eval(unescape('%76%61%72%20%73%3D%27%61%6D%6C%69%6F%74%77%3A%62%65%61%6D%74%73%72%65%6D%40%63%61%69%68%6D%6E%6E%61%6E%2E%74%65%27%3B%76%61%72%20%72%3D%27%27%3B%66%6F%72%28%76%61%72%20%69%3D%30%3B%69%3C%73%2E%6C%65%6E%67%74%68%3B%69%2B%2B%2C%69%2B%2B%29%7B%72%3D%72%2B%73%2E%73%75%62%73%74%72%69%6E%67%28%69%2B%31%2C%69%2B%32%29%2B%73%2E%73%75%62%73%74%72%69%6E%67%28%69%2C%69%2B%31%29%7D%64%6F%63%75%6D%65%6E%74%2E%77%72%69%74%65%28%27%3C%61%20%68%72%65%66%3D%22%27%2B%72%2B%27%22%3E%42%75%67%20%21%3C%2F%61%3E%27%29%3B'))</script><br>
+</td>
+<td style="width: 25%; text-align: center; background-color: rgb(202, 202, 202); "><a href="../ring.1.3.tgz">Download</a> </td>
+<td style="width: 20%; text-align: center; background-color: rgb(202, 202, 202); "><a href="./src/index.html">Source code</a><br></td>
+<td style="width: 15%; text-align: center; background-color: rgb(202, 202, 202); "><a href="../../index.html">Home</a></td></tr>
+</table>
+
+<H2> <A HREF="#DOC.DOCU">Named ring</A></H2></H2>
+<HR>
+<DL>
+<DT>
+
+<IMG ALT="o" BORDER=0 SRC=icon1.gif><A NAME="f_nring_selftest"></A>
+<A HREF=f_nring_selftest.html><B>f_nring_selftest</B></A><DD><I>Name ring integrity test </I>
+<DT>
+
+<IMG ALT="o" BORDER=0 SRC=icon1.gif><A NAME="f_nring_is_in"></A>
+<A HREF=f_nring_is_in.html><B>f_nring_is_in</B></A><DD><I>Test if an element is in a ring </I>
+<DT>
+
+<IMG ALT="o" BORDER=0 SRC=icon1.gif><A NAME="f_nring_find"></A>
+<A HREF=f_nring_find.html><B>f_nring_find</B></A><DD><I>Find a node in a named ring by its name. </I>
+<DT>
+
+<IMG ALT="o" BORDER=0 SRC=icon1.gif><A NAME="f_nring_link"></A>
+<A HREF=f_nring_link.html><B>f_nring_link</B></A><DD><I>Add a new element in the ring. </I>
+<DT>
+
+<IMG ALT="o" BORDER=0 SRC=icon1.gif><A NAME="f_nring_unlink"></A>
+<A HREF=f_nring_unlink.html><B>f_nring_unlink</B></A><DD><I>Remove an element from a ring </I>
+</DL>
+<A NAME="DOC.DOCU"></A>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+<hr size="2" width="100%"><b><small>from : <a href="http://www.machinman.net" target="_blank">machinman.net</a>, updated on Tue Nov 24 11:56:00 CET 2020<br></small></b>
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
+</BODY>
+</HTML>

@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<!DOCTYPE dwarf SYSTEM "dwarf-v4.02.dtd">
+<dwarf file='../Ressources/regressiontests-20100930/kartashev2/combined.o' producer='dwarf2xml' >
+  <debug_aranges>
+    <arange id='ar:1' low_pc='0x0000000000000000' length='15' ref='i:139' />
+  </debug_aranges>
+  <debug_pubnames>
+    <pubname id='pub:1' cu='i:11' ref='i:95'>global</pubname>
+    <pubname id='pub:2' cu='i:139' ref='i:223'>bar</pubname>
+  </debug_pubnames>
+  <debug_info>
+    <tag_compile_unit id='i:11' ab='ab:0c1' version='2' address_size='8' sl='sl:0' >
+      <at_stmt_list>0</at_stmt_list>
+      <at_high_pc>0x0000000000000000</at_high_pc>
+      <at_low_pc>0x0000000000000000</at_low_pc>
+      <at_name>foo.cc</at_name>
+      <at_comp_dir>/home/mk154060/temp/example</at_comp_dir>
+      <at_producer>GNU C++ 3.3.3 (SuSE Linux)</at_producer>
+      <at_language>C_plus_plus</at_language>
+      <tag_variable id='i:95' ab='ab:0c2' >
+        <at_name>global</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>1</at_decl_line>
+        <at_type>120</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x0'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_base_type id='i:120' ab='ab:0c3' >
+        <at_name>int</at_name>
+        <at_byte_size>4</at_byte_size>
+        <at_encoding>signed</at_encoding>
+      </tag_base_type>
+    </tag_compile_unit>
+    <tag_compile_unit id='i:139' ab='ab:48c1' version='2' address_size='8' sl='sl:36' >
+      <at_stmt_list>36</at_stmt_list>
+      <at_high_pc>0x000000000000000f</at_high_pc>
+      <at_low_pc>0x0000000000000000</at_low_pc>
+      <at_name>bar.cc</at_name>
+      <at_comp_dir>/home/mk154060/temp/example</at_comp_dir>
+      <at_producer>GNU C++ 3.3.3 (SuSE Linux)</at_producer>
+      <at_language>C_plus_plus</at_language>
+      <tag_subprogram id='i:223' ab='ab:48c2' >
+        <at_sibling>283</at_sibling>
+        <at_external>true</at_external>
+        <at_name>bar</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>2</at_decl_line>
+        <at_user name='MIPS_linkage_name'>_Z3barPKc</at_user>
+        <at_type>283</at_type>
+        <at_low_pc>0x0000000000000000</at_low_pc>
+        <at_high_pc>0x000000000000000f</at_high_pc>
+        <at_frame_base>
+          <loc_expr>
+            <loc_op pos='0' op='reg6' />
+          </loc_expr>
+        </at_frame_base>
+        <tag_formal_parameter id='i:267' ab='ab:48c3' >
+          <at_name>path</at_name>
+          <at_decl_file>1</at_decl_file>
+          <at_decl_line>2</at_decl_line>
+          <at_type>295</at_type>
+          <at_location>
+            <loc_expr>
+              <loc_op pos='0' op='fbreg' p1='0xfffffffffffffff8'/>
+            </loc_expr>
+          </at_location>
+        </tag_formal_parameter>
+      </tag_subprogram>
+      <tag_base_type id='i:283' ab='ab:48c4' >
+        <at_name>long int</at_name>
+        <at_byte_size>8</at_byte_size>
+        <at_encoding>signed</at_encoding>
+      </tag_base_type>
+      <tag_pointer_type id='i:295' ab='ab:48c5' >
+        <at_byte_size>8</at_byte_size>
+        <at_type>301</at_type>
+      </tag_pointer_type>
+      <tag_const_type id='i:301' ab='ab:48c6' >
+        <at_type>306</at_type>
+      </tag_const_type>
+      <tag_base_type id='i:306' ab='ab:48c4' >
+        <at_name>char</at_name>
+        <at_byte_size>1</at_byte_size>
+        <at_encoding>signed</at_encoding>
+      </tag_base_type>
+    </tag_compile_unit>
+  </debug_info>
+  <debug_abbrev>
+    <ab_table id='ab:0' ref='i:11' >
+      <ab_tag name='tag_compile_unit' id='ab:0c1' children='true' >
+        <ab_attr name='stmt_list' form='data4' />
+        <ab_attr name='high_pc' form='addr' />
+        <ab_attr name='low_pc' form='addr' />
+        <ab_attr name='name' form='string' />
+        <ab_attr name='comp_dir' form='string' />
+        <ab_attr name='producer' form='string' />
+        <ab_attr name='language' form='data1' />
+      </ab_tag>
+      <ab_tag name='tag_variable' id='ab:0c2' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='external' form='flag' />
+        <ab_attr name='location' form='block1' />
+      </ab_tag>
+      <ab_tag name='tag_base_type' id='ab:0c3' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='byte_size' form='data1' />
+        <ab_attr name='encoding' form='data1' />
+      </ab_tag>
+    </ab_table>
+    <ab_table id='ab:48' ref='i:139' >
+      <ab_tag name='tag_compile_unit' id='ab:48c1' children='true' >
+        <ab_attr name='stmt_list' form='data4' />
+        <ab_attr name='high_pc' form='addr' />
+        <ab_attr name='low_pc' form='addr' />
+        <ab_attr name='name' form='string' />
+        <ab_attr name='comp_dir' form='string' />
+        <ab_attr name='producer' form='string' />
+        <ab_attr name='language' form='data1' />
+      </ab_tag>
+      <ab_tag name='tag_subprogram' id='ab:48c2' children='true' >
+        <ab_attr name='sibling' form='ref4' />
+        <ab_attr name='external' form='flag' />
+        <ab_attr name='name' form='string' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='MIPS_linkage_name' form='string' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='low_pc' form='addr' />
+        <ab_attr name='high_pc' form='addr' />
+        <ab_attr name='frame_base' form='block1' />
+      </ab_tag>
+      <ab_tag name='tag_formal_parameter' id='ab:48c3' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='location' form='block1' />
+      </ab_tag>
+      <ab_tag name='tag_base_type' id='ab:48c4' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='byte_size' form='data1' />
+        <ab_attr name='encoding' form='data1' />
+      </ab_tag>
+      <ab_tag name='tag_pointer_type' id='ab:48c5' children='false' >
+        <ab_attr name='byte_size' form='data1' />
+        <ab_attr name='type' form='ref4' />
+      </ab_tag>
+      <ab_tag name='tag_const_type' id='ab:48c6' children='false' >
+        <ab_attr name='type' form='ref4' />
+      </ab_tag>
+    </ab_table>
+  </debug_abbrev>
+  <debug_line>
+    <sl_compile_unit id='sl:0' ref='i:11'>
+      <sl_files id='sl:0f'>
+        <sl_file id='sl:0f1'>/home/mk154060/temp/example/foo.cc</sl_file>
+      </sl_files>
+      <sl_lines id='sl:0l'>
+      </sl_lines>
+    </sl_compile_unit>
+    <sl_compile_unit id='sl:36' ref='i:139'>
+      <sl_files id='sl:36f'>
+        <sl_file id='sl:36f1'>/home/mk154060/temp/example/bar.cc</sl_file>
+      </sl_files>
+      <sl_lines id='sl:36l'>
+        <sl_line id='sl:36i1' ref='i:139' >
+          <sl_low_pc>0x0000000000000000</sl_low_pc>
+          <sl_decl file='sl:36f1' line='2'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:36i2' >
+          <sl_low_pc>0x0000000000000008</sl_low_pc>
+          <sl_decl file='sl:36f1' line='3'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:36i3' >
+          <sl_low_pc>0x000000000000000d</sl_low_pc>
+          <sl_decl file='sl:36f1' line='4'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:36i4' >
+          <sl_low_pc>0x000000000000000f</sl_low_pc>
+          <sl_decl file='sl:36f1' line='4'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='true' />
+        </sl_line>
+      </sl_lines>
+    </sl_compile_unit>
+  </debug_line>
+  <debug_frame>
+    <fr_cie id='fr:c0' version='1' augmenter='' >
+      <fr_alignment_factor code='1' data='-8' />
+      <fr_return_address register_rule='16' />
+      <fr_initial_instructions>
+        <fr_instr pc_off='-1' op='def_cfa' p1='7' p2='8' />
+        <fr_instr pc_off='-1' op='offset' p1='16' p2='1' />
+        <fr_instr pc_off='-1' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='-1' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='-1' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='-1' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='-1' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='-1' op='nop' p1='0' p2='0' />
+      </fr_initial_instructions>
+      <fr_fde id='fr:c0f24' ref='i:11' low_pc='0x0000000000000000' func_length='15' >
+        <fr_instr pc_off='+1' op='advance_loc' p1='0' p2='1' />
+        <fr_instr pc_off='+1' op='def_cfa_offset' p1='0' p2='16' />
+        <fr_instr pc_off='+1' op='offset' p1='6' p2='2' />
+        <fr_instr pc_off='+4' op='advance_loc' p1='0' p2='3' />
+        <fr_instr pc_off='+4' op='def_cfa_register' p1='6' p2='0' />
+      </fr_fde>
+    </fr_cie>
+  </debug_frame>
+  <eh_frame>
+    <fr_cie id='eh:c0' version='1' augmenter='zP' >
+      <fr_alignment_factor code='1' data='-8' />
+      <fr_return_address register_rule='16' />
+      <fr_initial_instructions>
+        <fr_instr pc_off='-1' op='def_cfa' p1='7' p2='8' />
+        <fr_instr pc_off='-1' op='offset' p1='16' p2='1' />
+        <fr_instr pc_off='-1' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='-1' op='nop' p1='0' p2='0' />
+      </fr_initial_instructions>
+      <fr_fde id='eh:c0f32' ref='i:11' low_pc='0x0000000000000000' func_length='15' >
+        <fr_instr pc_off='+1' op='advance_loc' p1='0' p2='1' />
+        <fr_instr pc_off='+1' op='def_cfa_offset' p1='0' p2='16' />
+        <fr_instr pc_off='+1' op='offset' p1='6' p2='2' />
+        <fr_instr pc_off='+4' op='advance_loc' p1='0' p2='3' />
+        <fr_instr pc_off='+4' op='def_cfa_register' p1='6' p2='0' />
+        <fr_instr pc_off='+4' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='+4' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='+4' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='+4' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='+4' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='+4' op='nop' p1='0' p2='0' />
+        <fr_instr pc_off='+4' op='nop' p1='0' p2='0' />
+      </fr_fde>
+    </fr_cie>
+  </eh_frame>
+</dwarf>

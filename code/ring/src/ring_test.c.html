@@ -1,0 +1,920 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>Ring containers source code: ring_test.c</title>
+   <meta name="Description" content="Project Description">
+   <meta name="Author" content="Emmanuel Azencot">
+   <meta name="GENERATOR" content="ctoohtml 1.5.0">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H2>file: ring_test.c</H2>
+
+
+<HR>
+<tt>
+ &nbsp;&nbsp;1
+<span style="color: rgb(102, 102, 102);">/* <br>
+ &nbsp;&nbsp;2
+ * Copyright (C) 2008-2009 by Emmanuel Azencot under the GNU GPL<br>
+ &nbsp;&nbsp;3
+ * license version 2.0 or 2.1. &nbsp;You should have received a copy of the<br>
+ &nbsp;&nbsp;4
+ * GPL license along with this library if you did not you can find it<br>
+ &nbsp;&nbsp;5
+ * at http://www.gnu.org/.<br>
+ &nbsp;&nbsp;6
+ */</span><br>
+ &nbsp;&nbsp;7
+<span style="color: rgb(102, 102, 102);">/*<br>
+ &nbsp;&nbsp;8
+ * Azencot : Sat Dec 13 00:20:02 CET 2008<br>
+ &nbsp;&nbsp;9
+ * &nbsp;Creation<br>
+ &nbsp;10
+ */</span><br>
+ &nbsp;11
+<br>
+ &nbsp;12
+<span style="color: rgb(102, 102, 102);">/*<br>
+ &nbsp;13
+ gcc -g -I. -I.. -I../excp -o ring_test ../ring.c ring_test.c<br>
+ &nbsp;14
+ */</span><br>
+ &nbsp;15
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;stdio.h&gt;</span><br>
+ &nbsp;16
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;errno.h&gt;</span><br>
+ &nbsp;17
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;assert.h&gt;</span><br>
+ &nbsp;18
+<br>
+ &nbsp;19
+<span style="color: rgb(204, 102, 0);">#<b>include</b> "<A HREF="ring.h.html">ring.h</A>"</span><br>
+ &nbsp;20
+<br>
+ &nbsp;21
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_21"></A><A HREF="xref.html#f_ring_test">X</A>*/ <B><A NAME="f_ring_test">f_ring_test</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span>) {<br>
+ &nbsp;22
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> i, j;<br>
+ &nbsp;23
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_ring_test {<br>
+ &nbsp;24
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> stuff;<br>
+ &nbsp;25
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_25"></A><A HREF="ring.h.html#s_ring">s_ring</A> link;<br>
+ &nbsp;26
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> no;<br>
+ &nbsp;27
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> end;<br>
+ &nbsp;28
+ &nbsp;&nbsp;} elem[4], *node = 0, *list = 0, out;<br>
+ &nbsp;29
+<br>
+ &nbsp;30
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( (list = <A NAME="line_30"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(list, link, &elem[0])) );<br>
+ &nbsp;31
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( !(list = <A NAME="line_31"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(list, link, &elem[0])) && <span style="color: rgb(204, 0, 0);">errno</span> == EEXIST); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ &nbsp;32
+<br>
+ &nbsp;33
+ &nbsp;&nbsp;list = 0;<br>
+ &nbsp;34
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ &nbsp;35
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>(list = <A NAME="line_35"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(list, link, &elem[i]) );<br>
+ &nbsp;36
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_36"></A><A HREF="ring.h.html#m_ring_selftest">m_ring_selftest</A>(list, link) );<br>
+ &nbsp;37
+ &nbsp;&nbsp;}<br>
+ &nbsp;38
+ &nbsp;&nbsp;<br>
+ &nbsp;39
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ &nbsp;40
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_40"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[i], list, link) );<br>
+ &nbsp;41
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_41"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(<A HREF="ring.h.html#m_ring_next">m_ring_next</A>(&elem[i], link), list, link) );<br>
+ &nbsp;42
+ &nbsp;&nbsp;}<br>
+ &nbsp;43
+ &nbsp;&nbsp;j = 0;<br>
+ &nbsp;44
+ &nbsp;&nbsp;<A NAME="line_44"></A><A HREF="ring.h.html#m_ring_do">m_ring_do</A>(list, node) {<br>
+ &nbsp;45
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ &nbsp;46
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( &elem[i] == node ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ &nbsp;47
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ &nbsp;48
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ &nbsp;49
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++j;<br>
+ &nbsp;50
+ &nbsp;&nbsp;} <A NAME="line_50"></A><A HREF="ring.h.html#m_ring_done">m_ring_done</A>(list, node, link);<br>
+ &nbsp;51
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( j == <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ &nbsp;52
+<br>
+ &nbsp;53
+ &nbsp;&nbsp;j = 0;<br>
+ &nbsp;54
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( node = list; node; node = <A NAME="line_54"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(list, node, link) ) {<br>
+ &nbsp;55
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ &nbsp;56
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( &elem[i] == node ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ &nbsp;57
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ &nbsp;58
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ &nbsp;59
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++j;<br>
+ &nbsp;60
+ &nbsp;&nbsp;}<br>
+ &nbsp;61
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( j == <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ &nbsp;62
+<br>
+ &nbsp;63
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_63"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&out, list, link) );<br>
+ &nbsp;64
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_64"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&out, (<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_ring_test *)0, link) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ &nbsp;65
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_65"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>((<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_ring_test *)0, list, link) && <span style="color: rgb(204, 0, 0);">errno</span> == EFAULT); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ &nbsp;66
+<br>
+ &nbsp;67
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_67"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(&elem[3], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ &nbsp;68
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_68"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[0], list, link) );<br>
+ &nbsp;69
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_69"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[1], list, link) );<br>
+ &nbsp;70
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_70"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[2], list, link) );<br>
+ &nbsp;71
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_71"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[3], list, link) );<br>
+ &nbsp;72
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_72"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(&elem[1], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ &nbsp;73
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_73"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[0], list, link) );<br>
+ &nbsp;74
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_74"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[1], list, link) );<br>
+ &nbsp;75
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_75"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[2], list, link) );<br>
+ &nbsp;76
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_76"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[3], list, link) );<br>
+ &nbsp;77
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (list = <A NAME="line_77"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(list, link, &elem[3]) );<br>
+ &nbsp;78
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_78"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[0], list, link) );<br>
+ &nbsp;79
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_79"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[1], list, link) );<br>
+ &nbsp;80
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_80"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[2], list, link) );<br>
+ &nbsp;81
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_81"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[3], list, link) );<br>
+ &nbsp;82
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_82"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(&elem[0], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ &nbsp;83
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_83"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[0], list, link) );<br>
+ &nbsp;84
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_84"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[1], list, link) );<br>
+ &nbsp;85
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_85"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[3], list, link) );<br>
+ &nbsp;86
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_86"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[2], list, link) );<br>
+ &nbsp;87
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_87"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(&elem[2], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ &nbsp;88
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_88"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[0], list, link) );<br>
+ &nbsp;89
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_89"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[1], list, link) );<br>
+ &nbsp;90
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_90"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[2], list, link) );<br>
+ &nbsp;91
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_91"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[3], list, link) );<br>
+ &nbsp;92
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !(list = <A NAME="line_92"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(&elem[3], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ &nbsp;93
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_93"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[0], list, link) );<br>
+ &nbsp;94
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_94"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[1], list, link) );<br>
+ &nbsp;95
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_95"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[2], list, link) );<br>
+ &nbsp;96
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_96"></A><A HREF="ring.h.html#m_ring_is_in">m_ring_is_in</A>(&elem[3], list, link) );<br>
+ &nbsp;97
+}<br>
+ &nbsp;98
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_98"></A><A HREF="xref.html#f_nring_test">X</A>*/ <B><A NAME="f_nring_test">f_nring_test</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span>) {<br>
+ &nbsp;99
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> i, j;<br>
+ 100
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_nring_test {<br>
+ 101
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> stuff;<br>
+ 102
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_102"></A><A HREF="ring.h.html#s_nring">s_nring</A> link;<br>
+ 103
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> no;<br>
+ 104
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> end;<br>
+ 105
+ &nbsp;&nbsp;} elem[4], *node = 0, *list = 0, out;<br>
+ 106
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *names[4] = { <span style="color: rgb(51, 102, 255);">"node 0"</span>, &nbsp;<span style="color: rgb(51, 102, 255);">"node 1"</span>, <span style="color: rgb(51, 102, 255);">"node 2"</span>, <span style="color: rgb(51, 102, 255);">"node 3"</span>, };<br>
+ 107
+<br>
+ 108
+ &nbsp;&nbsp;elem[0].link.name = names[0];<br>
+ 109
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( (list = <A NAME="line_109"></A><A HREF="ring.h.html#m_nring_link">m_nring_link</A>(list, link, &elem[0])) );<br>
+ 110
+ &nbsp;&nbsp;elem[1].link.name = names[0];<br>
+ 111
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( !(list = <A NAME="line_111"></A><A HREF="ring.h.html#m_nring_link">m_nring_link</A>(list, link, &elem[1])) && <span style="color: rgb(204, 0, 0);">errno</span> == ENOTUNIQ); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 112
+<br>
+ 113
+ &nbsp;&nbsp;list = 0;<br>
+ 114
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( (list = <A NAME="line_114"></A><A HREF="ring.h.html#m_nring_link">m_nring_link</A>(list, link, &elem[0])) );<br>
+ 115
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( !(list = <A NAME="line_115"></A><A HREF="ring.h.html#m_nring_link">m_nring_link</A>(list, link, &elem[0])) && <span style="color: rgb(204, 0, 0);">errno</span> == EEXIST); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 116
+<br>
+ 117
+ &nbsp;&nbsp;list = 0;<br>
+ 118
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 119
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elem[i].link.name = names[i];<br>
+ 120
+ &nbsp;&nbsp;}<br>
+ 121
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ 122
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 123
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>(list = <A NAME="line_123"></A><A HREF="ring.h.html#m_nring_link">m_nring_link</A>(list, link, &elem[i]) );<br>
+ 124
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_124"></A><A HREF="ring.h.html#m_nring_selftest">m_nring_selftest</A>(list, link) );<br>
+ 125
+ &nbsp;&nbsp;}<br>
+ 126
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 127
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_127"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[i], list, link) );<br>
+ 128
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_128"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(<A HREF="ring.h.html#m_nring_next">m_nring_next</A>(&elem[i], link), list, link) );<br>
+ 129
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_129"></A><A HREF="ring.h.html#m_nring_find">m_nring_find</A>(list, link, names[i]) == &elem[i] );<br>
+ 130
+ &nbsp;&nbsp;}<br>
+ 131
+ &nbsp;&nbsp;j = 0;<br>
+ 132
+ &nbsp;&nbsp;<A NAME="line_132"></A><A HREF="ring.h.html#m_nring_do">m_nring_do</A>(list, node) {<br>
+ 133
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 134
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( &elem[i] == node ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 135
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 136
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 137
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++j;<br>
+ 138
+ &nbsp;&nbsp;} <A NAME="line_138"></A><A HREF="ring.h.html#m_nring_done">m_nring_done</A>(list, node, link);<br>
+ 139
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( j == <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 140
+<br>
+ 141
+ &nbsp;&nbsp;j = 0;<br>
+ 142
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( node = list; node; node = <A NAME="line_142"></A><A HREF="ring.h.html#m_nring_list">m_nring_list</A>(list, node, link) ) {<br>
+ 143
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 144
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( &elem[i] == node ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 145
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 146
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 147
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++j;<br>
+ 148
+ &nbsp;&nbsp;}<br>
+ 149
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( j == <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 150
+<br>
+ 151
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_151"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&out, list, link) );<br>
+ 152
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_152"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&out, (<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_nring_test *)0, link) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 153
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_153"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>((<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_nring_test *)0, list, link) && <span style="color: rgb(204, 0, 0);">errno</span> == EFAULT); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 154
+<br>
+ 155
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_155"></A><A HREF="ring.h.html#m_nring_unlink">m_nring_unlink</A>(&elem[3], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 156
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_156"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[0], list, link) );<br>
+ 157
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_157"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[1], list, link) );<br>
+ 158
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_158"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[2], list, link) );<br>
+ 159
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_159"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[3], list, link) );<br>
+ 160
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_160"></A><A HREF="ring.h.html#m_nring_unlink">m_nring_unlink</A>(&elem[1], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 161
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_161"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[0], list, link) );<br>
+ 162
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_162"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[1], list, link) );<br>
+ 163
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_163"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[2], list, link) );<br>
+ 164
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_164"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[3], list, link) );<br>
+ 165
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (list = <A NAME="line_165"></A><A HREF="ring.h.html#m_nring_link">m_nring_link</A>(list, link, &elem[3]) );<br>
+ 166
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_166"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[0], list, link) );<br>
+ 167
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_167"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[1], list, link) );<br>
+ 168
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_168"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[2], list, link) );<br>
+ 169
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_169"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[3], list, link) );<br>
+ 170
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_170"></A><A HREF="ring.h.html#m_nring_unlink">m_nring_unlink</A>(&elem[0], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 171
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_171"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[0], list, link) );<br>
+ 172
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_172"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[1], list, link) );<br>
+ 173
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_173"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[3], list, link) );<br>
+ 174
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_174"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[2], list, link) );<br>
+ 175
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_175"></A><A HREF="ring.h.html#m_nring_unlink">m_nring_unlink</A>(&elem[2], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 176
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_176"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[0], list, link) );<br>
+ 177
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_177"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[1], list, link) );<br>
+ 178
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_178"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[2], list, link) );<br>
+ 179
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_179"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[3], list, link) );<br>
+ 180
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !(list = <A NAME="line_180"></A><A HREF="ring.h.html#m_nring_unlink">m_nring_unlink</A>(&elem[3], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 181
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_181"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[0], list, link) );<br>
+ 182
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_182"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[1], list, link) );<br>
+ 183
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_183"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[2], list, link) );<br>
+ 184
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_184"></A><A HREF="ring.h.html#m_nring_is_in">m_nring_is_in</A>(&elem[3], list, link) );<br>
+ 185
+<br>
+ 186
+}<br>
+ 187
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_187"></A><A HREF="xref.html#f_dring_test">X</A>*/ <B><A NAME="f_dring_test">f_dring_test</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span>) {<br>
+ 188
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> i, j;<br>
+ 189
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_dring_test {<br>
+ 190
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> stuff;<br>
+ 191
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_191"></A><A HREF="ring.h.html#s_dring">s_dring</A> link;<br>
+ 192
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> no;<br>
+ 193
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> end;<br>
+ 194
+ &nbsp;&nbsp;} elem[4], *node = 0, *list = 0, out;<br>
+ 195
+<br>
+ 196
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( (list = <A NAME="line_196"></A><A HREF="ring.h.html#m_dring_link">m_dring_link</A>(list, link, &elem[0])) );<br>
+ 197
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( !(list = <A NAME="line_197"></A><A HREF="ring.h.html#m_dring_link">m_dring_link</A>(list, link, &elem[0])) && <span style="color: rgb(204, 0, 0);">errno</span> == EEXIST); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 198
+<br>
+ 199
+ &nbsp;&nbsp;list = 0;<br>
+ 200
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 201
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>(list = <A NAME="line_201"></A><A HREF="ring.h.html#m_dring_link">m_dring_link</A>(list, link, &elem[i]) );<br>
+ 202
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_202"></A><A HREF="ring.h.html#m_dring_selftest">m_dring_selftest</A>(list, link) );<br>
+ 203
+ &nbsp;&nbsp;}<br>
+ 204
+ &nbsp;&nbsp;<br>
+ 205
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 206
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_206"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[i], list, link) );<br>
+ 207
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_207"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(<A HREF="ring.h.html#m_dring_next">m_dring_next</A>(&elem[i], link), list, link) );<br>
+ 208
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_208"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(<A HREF="ring.h.html#m_dring_prev">m_dring_prev</A>(&elem[i], link), list, link) );<br>
+ 209
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_209"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(<A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i], 3, 1, link), list, link) );<br>
+ 210
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_210"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(<A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i],-3, 1, link), list, link) );<br>
+ 211
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_211"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(<A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i],-3, 1, link), list, link) );<br>
+ 212
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>(!<A NAME="line_212"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(<A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i],-4, 1, link), list, link) && <span style="color: rgb(204, 0, 0);">errno</span> == ELOOP); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 213
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>(!<A NAME="line_213"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(<A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i], 4, 1, link), list, link) && <span style="color: rgb(204, 0, 0);">errno</span> == ELOOP); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 214
+<br>
+ 215
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//printf("node : %08x, move -1 : %08x, prev : %08x, next : %08x\n", &elem[i], <A NAME="line_215"></A><A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i],-1, 1, link), <A HREF="ring.h.html#m_dring_prev">m_dring_prev</A>(&elem[i], link), <A HREF="ring.h.html#m_dring_next">m_dring_next</A>(&elem[i], link));</span><br>
+ 216
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//fflush(stdout);</span><br>
+ 217
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_217"></A><A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i], 4, 0, link) == &elem[i]);<br>
+ 218
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_218"></A><A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i],-4, 0, link) == &elem[i]);<br>
+ 219
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_219"></A><A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i], 0, 1, link) == &elem[i] );<br>
+ 220
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_220"></A><A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i],-1, 1, link) == <A HREF="ring.h.html#m_dring_prev">m_dring_prev</A>(&elem[i], link) );<br>
+ 221
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_221"></A><A HREF="ring.h.html#m_dring_move">m_dring_move</A>(&elem[i], 1, 1, link) == <A HREF="ring.h.html#m_dring_next">m_dring_next</A>(&elem[i], link) );<br>
+ 222
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_222"></A><A HREF="ring.h.html#m_dring_prev">m_dring_prev</A>(<A HREF="ring.h.html#m_dring_next">m_dring_next</A>(&elem[i], link), link) == &elem[i] );<br>
+ 223
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_223"></A><A HREF="ring.h.html#m_dring_next">m_dring_next</A>(<A HREF="ring.h.html#m_dring_prev">m_dring_prev</A>(&elem[i], link), link) == &elem[i] );<br>
+ 224
+ &nbsp;&nbsp;}<br>
+ 225
+ &nbsp;&nbsp;j = 0;<br>
+ 226
+ &nbsp;&nbsp;<A NAME="line_226"></A><A HREF="ring.h.html#m_dring_do">m_dring_do</A>(list, node) {<br>
+ 227
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 228
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( &elem[i] == node ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 229
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 230
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 231
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++j;<br>
+ 232
+ &nbsp;&nbsp;} <A NAME="line_232"></A><A HREF="ring.h.html#m_dring_done">m_dring_done</A>(list, node, link);<br>
+ 233
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( j == <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 234
+<br>
+ 235
+ &nbsp;&nbsp;j = 0;<br>
+ 236
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( node = list; node; node = <A NAME="line_236"></A><A HREF="ring.h.html#m_dring_list">m_dring_list</A>(list, node, link) ) {<br>
+ 237
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 238
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( &elem[i] == node ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 239
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 240
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 241
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++j;<br>
+ 242
+ &nbsp;&nbsp;}<br>
+ 243
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( j == <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 244
+<br>
+ 245
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_245"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&out, list, link) );<br>
+ 246
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_246"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&out, (<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_dring_test *)0, link) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 247
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_247"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>((<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_dring_test *)0, list, link) && <span style="color: rgb(204, 0, 0);">errno</span> == EFAULT); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 248
+<br>
+ 249
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_249"></A><A HREF="ring.h.html#m_dring_unlink">m_dring_unlink</A>(&elem[3], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 250
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_250"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[0], list, link) );<br>
+ 251
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_251"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[1], list, link) );<br>
+ 252
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_252"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[2], list, link) );<br>
+ 253
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_253"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[3], list, link) );<br>
+ 254
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_254"></A><A HREF="ring.h.html#m_dring_unlink">m_dring_unlink</A>(&elem[1], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 255
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_255"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[0], list, link) );<br>
+ 256
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_256"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[1], list, link) );<br>
+ 257
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_257"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[2], list, link) );<br>
+ 258
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_258"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[3], list, link) );<br>
+ 259
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (list = <A NAME="line_259"></A><A HREF="ring.h.html#m_dring_link">m_dring_link</A>(list, link, &elem[3]) );<br>
+ 260
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_260"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[0], list, link) );<br>
+ 261
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_261"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[1], list, link) );<br>
+ 262
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_262"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[2], list, link) );<br>
+ 263
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_263"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[3], list, link) );<br>
+ 264
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_264"></A><A HREF="ring.h.html#m_dring_unlink">m_dring_unlink</A>(&elem[0], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 265
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_265"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[0], list, link) );<br>
+ 266
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_266"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[1], list, link) );<br>
+ 267
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_267"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[3], list, link) );<br>
+ 268
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_268"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[2], list, link) );<br>
+ 269
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_269"></A><A HREF="ring.h.html#m_dring_unlink">m_dring_unlink</A>(&elem[2], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 270
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_270"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[0], list, link) );<br>
+ 271
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_271"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[1], list, link) );<br>
+ 272
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_272"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[2], list, link) );<br>
+ 273
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_273"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[3], list, link) );<br>
+ 274
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !(list = <A NAME="line_274"></A><A HREF="ring.h.html#m_dring_unlink">m_dring_unlink</A>(&elem[3], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 275
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_275"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[0], list, link) );<br>
+ 276
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_276"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[1], list, link) );<br>
+ 277
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_277"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[2], list, link) );<br>
+ 278
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_278"></A><A HREF="ring.h.html#m_dring_is_in">m_dring_is_in</A>(&elem[3], list, link) );<br>
+ 279
+}<br>
+ 280
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_280"></A><A HREF="xref.html#f_ndring_test">X</A>*/ <B><A NAME="f_ndring_test">f_ndring_test</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span>) {<br>
+ 281
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> i, j;<br>
+ 282
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_ndring_test {<br>
+ 283
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> stuff;<br>
+ 284
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_284"></A><A HREF="ring.h.html#s_ndring">s_ndring</A> link;<br>
+ 285
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> no;<br>
+ 286
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">long</span> end;<br>
+ 287
+ &nbsp;&nbsp;} elem[4], *node = 0, *list = 0, out;<br>
+ 288
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *names[4] = { <span style="color: rgb(51, 102, 255);">"node 0"</span>, &nbsp;<span style="color: rgb(51, 102, 255);">"node 1"</span>, <span style="color: rgb(51, 102, 255);">"node 2"</span>, <span style="color: rgb(51, 102, 255);">"node 3"</span>, };<br>
+ 289
+<br>
+ 290
+ &nbsp;&nbsp;elem[0].link.name = names[0];<br>
+ 291
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( (list = <A NAME="line_291"></A><A HREF="ring.h.html#m_ndring_link">m_ndring_link</A>(list, link, &elem[0])) );<br>
+ 292
+ &nbsp;&nbsp;elem[1].link.name = names[0];<br>
+ 293
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( !(list = <A NAME="line_293"></A><A HREF="ring.h.html#m_ndring_link">m_ndring_link</A>(list, link, &elem[1])) && <span style="color: rgb(204, 0, 0);">errno</span> == ENOTUNIQ); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 294
+<br>
+ 295
+ &nbsp;&nbsp;list = 0;<br>
+ 296
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( (list = <A NAME="line_296"></A><A HREF="ring.h.html#m_ndring_link">m_ndring_link</A>(list, link, &elem[0])) );<br>
+ 297
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( !(list = <A NAME="line_297"></A><A HREF="ring.h.html#m_ndring_link">m_ndring_link</A>(list, link, &elem[0])) && <span style="color: rgb(204, 0, 0);">errno</span> == EEXIST); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 298
+<br>
+ 299
+ &nbsp;&nbsp;list = 0;<br>
+ 300
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 301
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elem[i].link.name = names[i];<br>
+ 302
+ &nbsp;&nbsp;}<br>
+ 303
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ 304
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( (list = <A NAME="line_304"></A><A HREF="ring.h.html#m_ndring_link">m_ndring_link</A>(list, link, &elem[0])) );<br>
+ 305
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( !(list = <A NAME="line_305"></A><A HREF="ring.h.html#m_ndring_link">m_ndring_link</A>(list, link, &elem[0])) && <span style="color: rgb(204, 0, 0);">errno</span> == EEXIST); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 306
+<br>
+ 307
+ &nbsp;&nbsp;list = 0;<br>
+ 308
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 309
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>(list = <A NAME="line_309"></A><A HREF="ring.h.html#m_ndring_link">m_ndring_link</A>(list, link, &elem[i]) );<br>
+ 310
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_310"></A><A HREF="ring.h.html#m_ndring_selftest">m_ndring_selftest</A>(list, link) );<br>
+ 311
+ &nbsp;&nbsp;}<br>
+ 312
+ &nbsp;&nbsp;<br>
+ 313
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 314
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_314"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[i], list, link) );<br>
+ 315
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_315"></A><A HREF="ring.h.html#m_ndring_find">m_ndring_find</A>(list, link, names[i]) == &elem[i] );<br>
+ 316
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_316"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(<A HREF="ring.h.html#m_ndring_next">m_ndring_next</A>(&elem[i], link), list, link) );<br>
+ 317
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_317"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(<A HREF="ring.h.html#m_ndring_prev">m_ndring_prev</A>(&elem[i], link), list, link) );<br>
+ 318
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_318"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(<A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i], 3, 1, link), list, link) );<br>
+ 319
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_319"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(<A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i],-3, 1, link), list, link) );<br>
+ 320
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_320"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(<A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i],-3, 1, link), list, link) );<br>
+ 321
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>(!<A NAME="line_321"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(<A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i],-4, 1, link), list, link) && <span style="color: rgb(204, 0, 0);">errno</span> == ELOOP); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 322
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>(!<A NAME="line_322"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(<A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i], 4, 1, link), list, link) && <span style="color: rgb(204, 0, 0);">errno</span> == ELOOP); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 323
+<br>
+ 324
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//printf("node : %08x, move -1 : %08x, prev : %08x, next : %08x\n", &elem[i], <A NAME="line_324"></A><A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i],-1, 1, link), <A HREF="ring.h.html#m_ndring_prev">m_ndring_prev</A>(&elem[i], link), <A HREF="ring.h.html#m_ndring_next">m_ndring_next</A>(&elem[i], link));</span><br>
+ 325
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//fflush(stdout);</span><br>
+ 326
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_326"></A><A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i], 4, 0, link) == &elem[i]);<br>
+ 327
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_327"></A><A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i],-4, 0, link) == &elem[i]);<br>
+ 328
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_328"></A><A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i], 0, 1, link) == &elem[i] );<br>
+ 329
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_329"></A><A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i],-1, 1, link) == <A HREF="ring.h.html#m_ndring_prev">m_ndring_prev</A>(&elem[i], link) );<br>
+ 330
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_330"></A><A HREF="ring.h.html#m_ndring_move">m_ndring_move</A>(&elem[i], 1, 1, link) == <A HREF="ring.h.html#m_ndring_next">m_ndring_next</A>(&elem[i], link) );<br>
+ 331
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_331"></A><A HREF="ring.h.html#m_ndring_prev">m_ndring_prev</A>(<A HREF="ring.h.html#m_ndring_next">m_ndring_next</A>(&elem[i], link), link) == &elem[i] );<br>
+ 332
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_332"></A><A HREF="ring.h.html#m_ndring_next">m_ndring_next</A>(<A HREF="ring.h.html#m_ndring_prev">m_ndring_prev</A>(&elem[i], link), link) == &elem[i] );<br>
+ 333
+ &nbsp;&nbsp;}<br>
+ 334
+ &nbsp;&nbsp;j = 0;<br>
+ 335
+ &nbsp;&nbsp;<A NAME="line_335"></A><A HREF="ring.h.html#m_ndring_do">m_ndring_do</A>(list, node) {<br>
+ 336
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 337
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( &elem[i] == node ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 338
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 339
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 340
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++j;<br>
+ 341
+ &nbsp;&nbsp;} <A NAME="line_341"></A><A HREF="ring.h.html#m_ndring_done">m_ndring_done</A>(list, node, link);<br>
+ 342
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( j == <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 343
+<br>
+ 344
+ &nbsp;&nbsp;j = 0;<br>
+ 345
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( node = list; node; node = <A NAME="line_345"></A><A HREF="ring.h.html#m_ndring_list">m_ndring_list</A>(list, node, link) ) {<br>
+ 346
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]); i++ ) {<br>
+ 347
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( &elem[i] == node ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 348
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 349
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( i &lt; <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 350
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++j;<br>
+ 351
+ &nbsp;&nbsp;}<br>
+ 352
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( j == <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem)/<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(elem[0]) );<br>
+ 353
+<br>
+ 354
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_354"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&out, list, link) );<br>
+ 355
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_355"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&out, (<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_ndring_test *)0, link) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 356
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_356"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>((<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> s_ndring_test *)0, list, link) && <span style="color: rgb(204, 0, 0);">errno</span> == EFAULT); <span style="color: rgb(204, 0, 0);">errno</span> = 0;<br>
+ 357
+<br>
+ 358
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_358"></A><A HREF="ring.h.html#m_ndring_unlink">m_ndring_unlink</A>(&elem[3], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 359
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_359"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[0], list, link) );<br>
+ 360
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_360"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[1], list, link) );<br>
+ 361
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_361"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[2], list, link) );<br>
+ 362
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_362"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[3], list, link) );<br>
+ 363
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_363"></A><A HREF="ring.h.html#m_ndring_unlink">m_ndring_unlink</A>(&elem[1], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 364
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_364"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[0], list, link) );<br>
+ 365
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_365"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[1], list, link) );<br>
+ 366
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_366"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[2], list, link) );<br>
+ 367
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_367"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[3], list, link) );<br>
+ 368
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (list = <A NAME="line_368"></A><A HREF="ring.h.html#m_ndring_link">m_ndring_link</A>(list, link, &elem[3]) );<br>
+ 369
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_369"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[0], list, link) );<br>
+ 370
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_370"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[1], list, link) );<br>
+ 371
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_371"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[2], list, link) );<br>
+ 372
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_372"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[3], list, link) );<br>
+ 373
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_373"></A><A HREF="ring.h.html#m_ndring_unlink">m_ndring_unlink</A>(&elem[0], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 374
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_374"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[0], list, link) );<br>
+ 375
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_375"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[1], list, link) );<br>
+ 376
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_376"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[3], list, link) );<br>
+ 377
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_377"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[2], list, link) );<br>
+ 378
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (list = <A NAME="line_378"></A><A HREF="ring.h.html#m_ndring_unlink">m_ndring_unlink</A>(&elem[2], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 379
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_379"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[0], list, link) );<br>
+ 380
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_380"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[1], list, link) );<br>
+ 381
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_381"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[2], list, link) );<br>
+ 382
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( <A NAME="line_382"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[3], list, link) );<br>
+ 383
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !(list = <A NAME="line_383"></A><A HREF="ring.h.html#m_ndring_unlink">m_ndring_unlink</A>(&elem[3], link)) && <span style="color: rgb(204, 0, 0);">errno</span> == 0); <br>
+ 384
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_384"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[0], list, link) );<br>
+ 385
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_385"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[1], list, link) );<br>
+ 386
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_386"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[2], list, link) );<br>
+ 387
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> (!<A NAME="line_387"></A><A HREF="ring.h.html#m_ndring_is_in">m_ndring_is_in</A>(&elem[3], list, link) );<br>
+ 388
+}<br>
+ 389
+<br>
+ 390
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_390"></A><A HREF="xref.html#main">X</A>*/ <B><A NAME="main">main</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> argc, <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *argv[]) {<br>
+ 391
+ &nbsp;&nbsp;<A NAME="line_391"></A><A HREF="ring.c.html#f_ring_check_opt">f_ring_check_opt</A>(1);<br>
+ 392
+ &nbsp;&nbsp;<A NAME="line_392"></A><A HREF="ring_test.c.html#f_ring_test">f_ring_test</A>();<br>
+ 393
+ &nbsp;&nbsp;<A NAME="line_393"></A><A HREF="ring_test.c.html#f_nring_test">f_nring_test</A>();<br>
+ 394
+ &nbsp;&nbsp;<A NAME="line_394"></A><A HREF="ring_test.c.html#f_dring_test">f_dring_test</A>();<br>
+ 395
+ &nbsp;&nbsp;<A NAME="line_395"></A><A HREF="ring_test.c.html#f_ndring_test">f_ndring_test</A>();<br>
+ 396
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 397
+}<br>
+ 398
+<br>
+<P></tt>
+<P>
+<HR>
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H5>C to HTML Conversion by <I><A HREF="http://www.machinman.net/code/ctoohtml/index.html">ctoohtml</A></I></H5>
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></body>
+</HTML>

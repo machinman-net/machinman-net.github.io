@@ -1,0 +1,694 @@
+<?xml version="1.0"?>
+<!DOCTYPE dwarf SYSTEM "dwarf-v4.02.dtd">
+<dwarf file='test_dwarf_enum.dw3' producer='dwarf2xml' >
+  <debug_aranges>
+    <arange id='ar:1' low_pc='0x0000000000400474' length='30' ref='i:11' />
+  </debug_aranges>
+  <debug_pubnames>
+    <pubname id='pub:1' cu='i:11' ref='i:147'>main</pubname>
+    <pubname id='pub:2' cu='i:11' ref='i:263'>var_named_enum</pubname>
+    <pubname id='pub:3' cu='i:11' ref='i:285'>pvar_named_enum</pubname>
+    <pubname id='pub:4' cu='i:11' ref='i:307'>cpvar_named_enum</pubname>
+    <pubname id='pub:5' cu='i:11' ref='i:340'>pcvar_named_enum</pubname>
+    <pubname id='pub:6' cu='i:11' ref='i:367'>vpvar_named_enum</pubname>
+    <pubname id='pub:7' cu='i:11' ref='i:400'>pvvar_named_enum</pubname>
+    <pubname id='pub:8' cu='i:11' ref='i:422'>cvpvar_named_enum</pubname>
+    <pubname id='pub:9' cu='i:11' ref='i:455'>vcpvar_named_enum</pubname>
+    <pubname id='pub:10' cu='i:11' ref='i:477'>cpvvar_named_enum</pubname>
+    <pubname id='pub:11' cu='i:11' ref='i:504'>vpcvar_named_enum</pubname>
+    <pubname id='pub:12' cu='i:11' ref='i:531'>pcvvar_named_enum</pubname>
+    <pubname id='pub:13' cu='i:11' ref='i:558'>pvcvar_named_enum</pubname>
+    <pubname id='pub:14' cu='i:11' ref='i:580'>var_unnamed_enum</pubname>
+    <pubname id='pub:15' cu='i:11' ref='i:602'>pvar_unnamed_enum</pubname>
+    <pubname id='pub:16' cu='i:11' ref='i:630'>pcvar_unnamed_enum</pubname>
+    <pubname id='pub:17' cu='i:11' ref='i:657'>pvvar_unnamed_enum</pubname>
+    <pubname id='pub:18' cu='i:11' ref='i:684'>cpvar_unnamed_enum</pubname>
+  </debug_pubnames>
+  <debug_info>
+    <tag_compile_unit id='i:11' ab='ab:0c1' version='3' address_size='8' sl='sl:0' >
+      <at_producer>GNU C 4.4.7 20120313 (Red Hat 4.4.7-18)</at_producer>
+      <at_language>C89</at_language>
+      <at_name>test_dwarf_enum.c</at_name>
+      <at_comp_dir>/home/manu/projets/dwarf2xml/examples</at_comp_dir>
+      <at_low_pc>0x0000000000400474</at_low_pc>
+      <at_high_pc>0x0000000000400492</at_high_pc>
+      <at_stmt_list>0</at_stmt_list>
+      <at_macro_info>0</at_macro_info>
+      <tag_base_type id='i:49' ab='ab:0c2' >
+        <at_byte_size>1</at_byte_size>
+        <at_encoding>signed_char</at_encoding>
+        <at_name>char</at_name>
+      </tag_base_type>
+      <tag_pointer_type id='i:56' ab='ab:0c3' >
+        <at_byte_size>8</at_byte_size>
+        <at_type>49</at_type>
+      </tag_pointer_type>
+      <tag_enumeration_type id='i:62' ab='ab:0c4' >
+        <at_name>enum_name</at_name>
+        <at_byte_size>4</at_byte_size>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>5</at_decl_line>
+        <at_sibling>93</at_sibling>
+        <tag_enumerator id='i:74' ab='ab:0c5' >
+          <at_name>enum_1_val1</at_name>
+          <at_const_value>0</at_const_value>
+        </tag_enumerator>
+        <tag_enumerator id='i:80' ab='ab:0c5' >
+          <at_name>enum_1_val2</at_name>
+          <at_const_value>1</at_const_value>
+        </tag_enumerator>
+        <tag_enumerator id='i:86' ab='ab:0c5' >
+          <at_name>enum_1_val3</at_name>
+          <at_const_value>8</at_const_value>
+        </tag_enumerator>
+      </tag_enumeration_type>
+      <tag_enumeration_type id='i:93' ab='ab:0c6' >
+        <at_byte_size>4</at_byte_size>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>21</at_decl_line>
+        <at_sibling>120</at_sibling>
+        <tag_enumerator id='i:101' ab='ab:0c5' >
+          <at_name>enum_2_val1</at_name>
+          <at_const_value>0</at_const_value>
+        </tag_enumerator>
+        <tag_enumerator id='i:107' ab='ab:0c5' >
+          <at_name>enum_2_val2</at_name>
+          <at_const_value>1</at_const_value>
+        </tag_enumerator>
+        <tag_enumerator id='i:113' ab='ab:0c5' >
+          <at_name>enum_2_val3</at_name>
+          <at_const_value>8</at_const_value>
+        </tag_enumerator>
+      </tag_enumeration_type>
+      <tag_enumeration_type id='i:120' ab='ab:0c6' >
+        <at_byte_size>4</at_byte_size>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>26</at_decl_line>
+        <at_sibling>147</at_sibling>
+        <tag_enumerator id='i:128' ab='ab:0c5' >
+          <at_name>enum_3_val_1</at_name>
+          <at_const_value>0</at_const_value>
+        </tag_enumerator>
+        <tag_enumerator id='i:134' ab='ab:0c5' >
+          <at_name>enum_3_val2</at_name>
+          <at_const_value>1</at_const_value>
+        </tag_enumerator>
+        <tag_enumerator id='i:140' ab='ab:0c5' >
+          <at_name>enum_3_val3</at_name>
+          <at_const_value>8</at_const_value>
+        </tag_enumerator>
+      </tag_enumeration_type>
+      <tag_subprogram id='i:147' ab='ab:0c7' >
+        <at_external>true</at_external>
+        <at_name>main</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>32</at_decl_line>
+        <at_prototyped>true</at_prototyped>
+        <at_type>239</at_type>
+        <at_low_pc>0x0000000000400474</at_low_pc>
+        <at_high_pc>0x0000000000400492</at_high_pc>
+        <at_frame_base>
+          <loc_expr>
+            <loc_op pos='0' op='call_frame_cfa' />
+          </loc_expr>
+        </at_frame_base>
+        <at_sibling>239</at_sibling>
+        <tag_formal_parameter id='i:182' ab='ab:0c8' >
+          <at_name>argc</at_name>
+          <at_decl_file>1</at_decl_file>
+          <at_decl_line>32</at_decl_line>
+          <at_type>239</at_type>
+          <at_location>
+            <loc_expr>
+              <loc_op pos='0' op='fbreg' p1='0xffffffffffffffdc'/>
+            </loc_expr>
+          </at_location>
+        </tag_formal_parameter>
+        <tag_formal_parameter id='i:196' ab='ab:0c8' >
+          <at_name>argv</at_name>
+          <at_decl_file>1</at_decl_file>
+          <at_decl_line>32</at_decl_line>
+          <at_type>246</at_type>
+          <at_location>
+            <loc_expr>
+              <loc_op pos='0' op='fbreg' p1='0xffffffffffffffd0'/>
+            </loc_expr>
+          </at_location>
+        </tag_formal_parameter>
+        <tag_formal_parameter id='i:210' ab='ab:0c8' >
+          <at_name>envp</at_name>
+          <at_decl_file>1</at_decl_file>
+          <at_decl_line>32</at_decl_line>
+          <at_type>246</at_type>
+          <at_location>
+            <loc_expr>
+              <loc_op pos='0' op='fbreg' p1='0xffffffffffffffc8'/>
+            </loc_expr>
+          </at_location>
+        </tag_formal_parameter>
+        <tag_variable id='i:224' ab='ab:0c9' >
+          <at_name>pvvar_named_enum</at_name>
+          <at_decl_file>1</at_decl_file>
+          <at_decl_line>33</at_decl_line>
+          <at_type>252</at_type>
+          <at_location>
+            <loc_expr>
+              <loc_op pos='0' op='fbreg' p1='0xffffffffffffffe8'/>
+            </loc_expr>
+          </at_location>
+        </tag_variable>
+      </tag_subprogram>
+      <tag_base_type id='i:239' ab='ab:0c10' >
+        <at_byte_size>4</at_byte_size>
+        <at_encoding>signed</at_encoding>
+        <at_name>int</at_name>
+      </tag_base_type>
+      <tag_pointer_type id='i:246' ab='ab:0c3' >
+        <at_byte_size>8</at_byte_size>
+        <at_type>56</at_type>
+      </tag_pointer_type>
+      <tag_volatile_type id='i:252' ab='ab:0c11' >
+        <at_type>257</at_type>
+      </tag_volatile_type>
+      <tag_pointer_type id='i:257' ab='ab:0c3' >
+        <at_byte_size>8</at_byte_size>
+        <at_type>62</at_type>
+      </tag_pointer_type>
+      <tag_variable id='i:263' ab='ab:0c12' >
+        <at_name>var_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>9</at_decl_line>
+        <at_type>62</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x6008b8'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_variable id='i:285' ab='ab:0c12' >
+        <at_name>pvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>9</at_decl_line>
+        <at_type>257</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600860'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_variable id='i:307' ab='ab:0c12' >
+        <at_name>cpvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>10</at_decl_line>
+        <at_type>329</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600838'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_pointer_type id='i:329' ab='ab:0c3' >
+        <at_byte_size>8</at_byte_size>
+        <at_type>335</at_type>
+      </tag_pointer_type>
+      <tag_const_type id='i:335' ab='ab:0c13' >
+        <at_type>62</at_type>
+      </tag_const_type>
+      <tag_variable id='i:340' ab='ab:0c12' >
+        <at_name>pcvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>11</at_decl_line>
+        <at_type>362</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600840'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_const_type id='i:362' ab='ab:0c13' >
+        <at_type>257</at_type>
+      </tag_const_type>
+      <tag_variable id='i:367' ab='ab:0c12' >
+        <at_name>vpvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>12</at_decl_line>
+        <at_type>389</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600878'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_pointer_type id='i:389' ab='ab:0c3' >
+        <at_byte_size>8</at_byte_size>
+        <at_type>395</at_type>
+      </tag_pointer_type>
+      <tag_volatile_type id='i:395' ab='ab:0c11' >
+        <at_type>62</at_type>
+      </tag_volatile_type>
+      <tag_variable id='i:400' ab='ab:0c12' >
+        <at_name>pvvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>13</at_decl_line>
+        <at_type>252</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600868'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_variable id='i:422' ab='ab:0c12' >
+        <at_name>cvpvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>14</at_decl_line>
+        <at_type>444</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600880'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_pointer_type id='i:444' ab='ab:0c3' >
+        <at_byte_size>8</at_byte_size>
+        <at_type>450</at_type>
+      </tag_pointer_type>
+      <tag_const_type id='i:450' ab='ab:0c13' >
+        <at_type>395</at_type>
+      </tag_const_type>
+      <tag_variable id='i:455' ab='ab:0c12' >
+        <at_name>vcpvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>15</at_decl_line>
+        <at_type>444</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600898'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_variable id='i:477' ab='ab:0c12' >
+        <at_name>cpvvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>16</at_decl_line>
+        <at_type>499</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600858'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_volatile_type id='i:499' ab='ab:0c11' >
+        <at_type>329</at_type>
+      </tag_volatile_type>
+      <tag_variable id='i:504' ab='ab:0c12' >
+        <at_name>vpcvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>17</at_decl_line>
+        <at_type>526</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600850'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_const_type id='i:526' ab='ab:0c13' >
+        <at_type>389</at_type>
+      </tag_const_type>
+      <tag_variable id='i:531' ab='ab:0c12' >
+        <at_name>pcvvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>18</at_decl_line>
+        <at_type>553</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x6008a8'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_const_type id='i:553' ab='ab:0c13' >
+        <at_type>252</at_type>
+      </tag_const_type>
+      <tag_variable id='i:558' ab='ab:0c12' >
+        <at_name>pvcvar_named_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>19</at_decl_line>
+        <at_type>553</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x6008a0'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_variable id='i:580' ab='ab:0c12' >
+        <at_name>var_unnamed_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>25</at_decl_line>
+        <at_type>93</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600890'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_variable id='i:602' ab='ab:0c12' >
+        <at_name>pvar_unnamed_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>25</at_decl_line>
+        <at_type>624</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600888'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_pointer_type id='i:624' ab='ab:0c3' >
+        <at_byte_size>8</at_byte_size>
+        <at_type>93</at_type>
+      </tag_pointer_type>
+      <tag_variable id='i:630' ab='ab:0c12' >
+        <at_name>pcvar_unnamed_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>25</at_decl_line>
+        <at_type>652</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600870'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_const_type id='i:652' ab='ab:0c13' >
+        <at_type>624</at_type>
+      </tag_const_type>
+      <tag_variable id='i:657' ab='ab:0c12' >
+        <at_name>pvvar_unnamed_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>25</at_decl_line>
+        <at_type>679</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x600848'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_volatile_type id='i:679' ab='ab:0c11' >
+        <at_type>624</at_type>
+      </tag_volatile_type>
+      <tag_variable id='i:684' ab='ab:0c12' >
+        <at_name>cpvar_unnamed_enum</at_name>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>30</at_decl_line>
+        <at_type>706</at_type>
+        <at_external>true</at_external>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x6008b0'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+      <tag_pointer_type id='i:706' ab='ab:0c3' >
+        <at_byte_size>8</at_byte_size>
+        <at_type>712</at_type>
+      </tag_pointer_type>
+      <tag_const_type id='i:712' ab='ab:0c13' >
+        <at_type>120</at_type>
+      </tag_const_type>
+    </tag_compile_unit>
+  </debug_info>
+  <debug_abbrev>
+    <ab_table id='ab:0' ref='i:11' >
+      <ab_tag name='tag_compile_unit' id='ab:0c1' children='true' >
+        <ab_attr name='producer' form='strp' />
+        <ab_attr name='language' form='data1' />
+        <ab_attr name='name' form='strp' />
+        <ab_attr name='comp_dir' form='strp' />
+        <ab_attr name='low_pc' form='addr' />
+        <ab_attr name='high_pc' form='addr' />
+        <ab_attr name='stmt_list' form='data4' />
+        <ab_attr name='macro_info' form='data4' />
+      </ab_tag>
+      <ab_tag name='tag_base_type' id='ab:0c2' children='false' >
+        <ab_attr name='byte_size' form='data1' />
+        <ab_attr name='encoding' form='data1' />
+        <ab_attr name='name' form='strp' />
+      </ab_tag>
+      <ab_tag name='tag_pointer_type' id='ab:0c3' children='false' >
+        <ab_attr name='byte_size' form='data1' />
+        <ab_attr name='type' form='ref4' />
+      </ab_tag>
+      <ab_tag name='tag_enumeration_type' id='ab:0c4' children='true' >
+        <ab_attr name='name' form='strp' />
+        <ab_attr name='byte_size' form='data1' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='sibling' form='ref4' />
+      </ab_tag>
+      <ab_tag name='tag_enumerator' id='ab:0c5' children='false' >
+        <ab_attr name='name' form='strp' />
+        <ab_attr name='const_value' form='sdata' />
+      </ab_tag>
+      <ab_tag name='tag_enumeration_type' id='ab:0c6' children='true' >
+        <ab_attr name='byte_size' form='data1' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='sibling' form='ref4' />
+      </ab_tag>
+      <ab_tag name='tag_subprogram' id='ab:0c7' children='true' >
+        <ab_attr name='external' form='flag' />
+        <ab_attr name='name' form='strp' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='prototyped' form='flag' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='low_pc' form='addr' />
+        <ab_attr name='high_pc' form='addr' />
+        <ab_attr name='frame_base' form='block1' />
+        <ab_attr name='sibling' form='ref4' />
+      </ab_tag>
+      <ab_tag name='tag_formal_parameter' id='ab:0c8' children='false' >
+        <ab_attr name='name' form='strp' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='location' form='block1' />
+      </ab_tag>
+      <ab_tag name='tag_variable' id='ab:0c9' children='false' >
+        <ab_attr name='name' form='strp' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='location' form='block1' />
+      </ab_tag>
+      <ab_tag name='tag_base_type' id='ab:0c10' children='false' >
+        <ab_attr name='byte_size' form='data1' />
+        <ab_attr name='encoding' form='data1' />
+        <ab_attr name='name' form='string' />
+      </ab_tag>
+      <ab_tag name='tag_volatile_type' id='ab:0c11' children='false' >
+        <ab_attr name='type' form='ref4' />
+      </ab_tag>
+      <ab_tag name='tag_variable' id='ab:0c12' children='false' >
+        <ab_attr name='name' form='strp' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='external' form='flag' />
+        <ab_attr name='location' form='block1' />
+      </ab_tag>
+      <ab_tag name='tag_const_type' id='ab:0c13' children='false' >
+        <ab_attr name='type' form='ref4' />
+      </ab_tag>
+    </ab_table>
+  </debug_abbrev>
+  <debug_line>
+    <sl_compile_unit id='sl:0' ref='i:11'>
+      <sl_files id='sl:0f'>
+        <sl_file id='sl:0f1'>/home/manu/projets/dwarf2xml/examples/test_dwarf_enum.c</sl_file>
+      </sl_files>
+      <sl_lines id='sl:0l'>
+        <sl_line id='sl:0i1' >
+          <sl_low_pc>0x0000000000400474</sl_low_pc>
+          <sl_decl file='sl:0f1' line='32'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:0i2' >
+          <sl_low_pc>0x0000000000400483</sl_low_pc>
+          <sl_decl file='sl:0f1' line='34'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:0i3' >
+          <sl_low_pc>0x000000000040048b</sl_low_pc>
+          <sl_decl file='sl:0f1' line='36'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:0i4' >
+          <sl_low_pc>0x0000000000400490</sl_low_pc>
+          <sl_decl file='sl:0f1' line='37'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:0i5' >
+          <sl_low_pc>0x0000000000400492</sl_low_pc>
+          <sl_decl file='sl:0f1' line='37'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='true' />
+        </sl_line>
+      </sl_lines>
+    </sl_compile_unit>
+  </debug_line>
+  <debug_macinfo>
+    <mac_compile_unit id='mac:0' ref='i:11'>
+      <macro id='mac:0m1' file='-1' line='0' type='define' >__STDC__ 1</macro>
+      <macro id='mac:0m2' file='-1' line='0' type='define' >__STDC_HOSTED__ 1</macro>
+      <macro id='mac:0m3' file='-1' line='0' type='define' >__GNUC__ 4</macro>
+      <macro id='mac:0m4' file='-1' line='0' type='define' >__GNUC_MINOR__ 4</macro>
+      <macro id='mac:0m5' file='-1' line='0' type='define' >__GNUC_PATCHLEVEL__ 7</macro>
+      <macro id='mac:0m6' file='-1' line='0' type='define' >__GNUC_RH_RELEASE__ 18</macro>
+      <macro id='mac:0m7' file='-1' line='0' type='define' >__SIZE_TYPE__ long unsigned int</macro>
+      <macro id='mac:0m8' file='-1' line='0' type='define' >__PTRDIFF_TYPE__ long int</macro>
+      <macro id='mac:0m9' file='-1' line='0' type='define' >__WCHAR_TYPE__ int</macro>
+      <macro id='mac:0m10' file='-1' line='0' type='define' >__WINT_TYPE__ unsigned int</macro>
+      <macro id='mac:0m11' file='-1' line='0' type='define' >__INTMAX_TYPE__ long int</macro>
+      <macro id='mac:0m12' file='-1' line='0' type='define' >__UINTMAX_TYPE__ long unsigned int</macro>
+      <macro id='mac:0m13' file='-1' line='0' type='define' >__CHAR16_TYPE__ short unsigned int</macro>
+      <macro id='mac:0m14' file='-1' line='0' type='define' >__CHAR32_TYPE__ unsigned int</macro>
+      <macro id='mac:0m15' file='-1' line='0' type='define' >__GXX_ABI_VERSION 1002</macro>
+      <macro id='mac:0m16' file='-1' line='0' type='define' >__SCHAR_MAX__ 127</macro>
+      <macro id='mac:0m17' file='-1' line='0' type='define' >__SHRT_MAX__ 32767</macro>
+      <macro id='mac:0m18' file='-1' line='0' type='define' >__INT_MAX__ 2147483647</macro>
+      <macro id='mac:0m19' file='-1' line='0' type='define' >__LONG_MAX__ 9223372036854775807L</macro>
+      <macro id='mac:0m20' file='-1' line='0' type='define' >__LONG_LONG_MAX__ 9223372036854775807LL</macro>
+      <macro id='mac:0m21' file='-1' line='0' type='define' >__WCHAR_MAX__ 2147483647</macro>
+      <macro id='mac:0m22' file='-1' line='0' type='define' >__CHAR_BIT__ 8</macro>
+      <macro id='mac:0m23' file='-1' line='0' type='define' >__INTMAX_MAX__ 9223372036854775807L</macro>
+      <macro id='mac:0m24' file='-1' line='0' type='define' >__FLT_EVAL_METHOD__ 0</macro>
+      <macro id='mac:0m25' file='-1' line='0' type='define' >__DEC_EVAL_METHOD__ 2</macro>
+      <macro id='mac:0m26' file='-1' line='0' type='define' >__FLT_RADIX__ 2</macro>
+      <macro id='mac:0m27' file='-1' line='0' type='define' >__FLT_MANT_DIG__ 24</macro>
+      <macro id='mac:0m28' file='-1' line='0' type='define' >__FLT_DIG__ 6</macro>
+      <macro id='mac:0m29' file='-1' line='0' type='define' >__FLT_MIN_EXP__ (-125)</macro>
+      <macro id='mac:0m30' file='-1' line='0' type='define' >__FLT_MIN_10_EXP__ (-37)</macro>
+      <macro id='mac:0m31' file='-1' line='0' type='define' >__FLT_MAX_EXP__ 128</macro>
+      <macro id='mac:0m32' file='-1' line='0' type='define' >__FLT_MAX_10_EXP__ 38</macro>
+      <macro id='mac:0m33' file='-1' line='0' type='define' >__FLT_MAX__ 3.40282347e+38F</macro>
+      <macro id='mac:0m34' file='-1' line='0' type='define' >__FLT_MIN__ 1.17549435e-38F</macro>
+      <macro id='mac:0m35' file='-1' line='0' type='define' >__FLT_EPSILON__ 1.19209290e-7F</macro>
+      <macro id='mac:0m36' file='-1' line='0' type='define' >__FLT_DENORM_MIN__ 1.40129846e-45F</macro>
+      <macro id='mac:0m37' file='-1' line='0' type='define' >__FLT_HAS_DENORM__ 1</macro>
+      <macro id='mac:0m38' file='-1' line='0' type='define' >__FLT_HAS_INFINITY__ 1</macro>
+      <macro id='mac:0m39' file='-1' line='0' type='define' >__FLT_HAS_QUIET_NAN__ 1</macro>
+      <macro id='mac:0m40' file='-1' line='0' type='define' >__DBL_MANT_DIG__ 53</macro>
+      <macro id='mac:0m41' file='-1' line='0' type='define' >__DBL_DIG__ 15</macro>
+      <macro id='mac:0m42' file='-1' line='0' type='define' >__DBL_MIN_EXP__ (-1021)</macro>
+      <macro id='mac:0m43' file='-1' line='0' type='define' >__DBL_MIN_10_EXP__ (-307)</macro>
+      <macro id='mac:0m44' file='-1' line='0' type='define' >__DBL_MAX_EXP__ 1024</macro>
+      <macro id='mac:0m45' file='-1' line='0' type='define' >__DBL_MAX_10_EXP__ 308</macro>
+      <macro id='mac:0m46' file='-1' line='0' type='define' >__DBL_MAX__ 1.7976931348623157e+308</macro>
+      <macro id='mac:0m47' file='-1' line='0' type='define' >__DBL_MIN__ 2.2250738585072014e-308</macro>
+      <macro id='mac:0m48' file='-1' line='0' type='define' >__DBL_EPSILON__ 2.2204460492503131e-16</macro>
+      <macro id='mac:0m49' file='-1' line='0' type='define' >__DBL_DENORM_MIN__ 4.9406564584124654e-324</macro>
+      <macro id='mac:0m50' file='-1' line='0' type='define' >__DBL_HAS_DENORM__ 1</macro>
+      <macro id='mac:0m51' file='-1' line='0' type='define' >__DBL_HAS_INFINITY__ 1</macro>
+      <macro id='mac:0m52' file='-1' line='0' type='define' >__DBL_HAS_QUIET_NAN__ 1</macro>
+      <macro id='mac:0m53' file='-1' line='0' type='define' >__LDBL_MANT_DIG__ 64</macro>
+      <macro id='mac:0m54' file='-1' line='0' type='define' >__LDBL_DIG__ 18</macro>
+      <macro id='mac:0m55' file='-1' line='0' type='define' >__LDBL_MIN_EXP__ (-16381)</macro>
+      <macro id='mac:0m56' file='-1' line='0' type='define' >__LDBL_MIN_10_EXP__ (-4931)</macro>
+      <macro id='mac:0m57' file='-1' line='0' type='define' >__LDBL_MAX_EXP__ 16384</macro>
+      <macro id='mac:0m58' file='-1' line='0' type='define' >__LDBL_MAX_10_EXP__ 4932</macro>
+      <macro id='mac:0m59' file='-1' line='0' type='define' >__DECIMAL_DIG__ 21</macro>
+      <macro id='mac:0m60' file='-1' line='0' type='define' >__LDBL_MAX__ 1.18973149535723176502e+4932L</macro>
+      <macro id='mac:0m61' file='-1' line='0' type='define' >__LDBL_MIN__ 3.36210314311209350626e-4932L</macro>
+      <macro id='mac:0m62' file='-1' line='0' type='define' >__LDBL_EPSILON__ 1.08420217248550443401e-19L</macro>
+      <macro id='mac:0m63' file='-1' line='0' type='define' >__LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L</macro>
+      <macro id='mac:0m64' file='-1' line='0' type='define' >__LDBL_HAS_DENORM__ 1</macro>
+      <macro id='mac:0m65' file='-1' line='0' type='define' >__LDBL_HAS_INFINITY__ 1</macro>
+      <macro id='mac:0m66' file='-1' line='0' type='define' >__LDBL_HAS_QUIET_NAN__ 1</macro>
+      <macro id='mac:0m67' file='-1' line='0' type='define' >__DEC32_MANT_DIG__ 7</macro>
+      <macro id='mac:0m68' file='-1' line='0' type='define' >__DEC32_MIN_EXP__ (-94)</macro>
+      <macro id='mac:0m69' file='-1' line='0' type='define' >__DEC32_MAX_EXP__ 97</macro>
+      <macro id='mac:0m70' file='-1' line='0' type='define' >__DEC32_MIN__ 1E-95DF</macro>
+      <macro id='mac:0m71' file='-1' line='0' type='define' >__DEC32_MAX__ 9.999999E96DF</macro>
+      <macro id='mac:0m72' file='-1' line='0' type='define' >__DEC32_EPSILON__ 1E-6DF</macro>
+      <macro id='mac:0m73' file='-1' line='0' type='define' >__DEC32_SUBNORMAL_MIN__ 0.000001E-95DF</macro>
+      <macro id='mac:0m74' file='-1' line='0' type='define' >__DEC64_MANT_DIG__ 16</macro>
+      <macro id='mac:0m75' file='-1' line='0' type='define' >__DEC64_MIN_EXP__ (-382)</macro>
+      <macro id='mac:0m76' file='-1' line='0' type='define' >__DEC64_MAX_EXP__ 385</macro>
+      <macro id='mac:0m77' file='-1' line='0' type='define' >__DEC64_MIN__ 1E-383DD</macro>
+      <macro id='mac:0m78' file='-1' line='0' type='define' >__DEC64_MAX__ 9.999999999999999E384DD</macro>
+      <macro id='mac:0m79' file='-1' line='0' type='define' >__DEC64_EPSILON__ 1E-15DD</macro>
+      <macro id='mac:0m80' file='-1' line='0' type='define' >__DEC64_SUBNORMAL_MIN__ 0.000000000000001E-383DD</macro>
+      <macro id='mac:0m81' file='-1' line='0' type='define' >__DEC128_MANT_DIG__ 34</macro>
+      <macro id='mac:0m82' file='-1' line='0' type='define' >__DEC128_MIN_EXP__ (-6142)</macro>
+      <macro id='mac:0m83' file='-1' line='0' type='define' >__DEC128_MAX_EXP__ 6145</macro>
+      <macro id='mac:0m84' file='-1' line='0' type='define' >__DEC128_MIN__ 1E-6143DL</macro>
+      <macro id='mac:0m85' file='-1' line='0' type='define' >__DEC128_MAX__ 9.999999999999999999999999999999999E6144DL</macro>
+      <macro id='mac:0m86' file='-1' line='0' type='define' >__DEC128_EPSILON__ 1E-33DL</macro>
+      <macro id='mac:0m87' file='-1' line='0' type='define' >__DEC128_SUBNORMAL_MIN__ 0.000000000000000000000000000000001E-6143DL</macro>
+      <macro id='mac:0m88' file='-1' line='0' type='define' >__REGISTER_PREFIX__ </macro>
+      <macro id='mac:0m89' file='-1' line='0' type='define' >__USER_LABEL_PREFIX__ </macro>
+      <macro id='mac:0m90' file='-1' line='0' type='define' >__VERSION__ &quot;4.4.7 20120313 (Red Hat 4.4.7-18)&quot;</macro>
+      <macro id='mac:0m91' file='-1' line='0' type='define' >__GNUC_GNU_INLINE__ 1</macro>
+      <macro id='mac:0m92' file='-1' line='0' type='define' >_LP64 1</macro>
+      <macro id='mac:0m93' file='-1' line='0' type='define' >__LP64__ 1</macro>
+      <macro id='mac:0m94' file='-1' line='0' type='define' >__NO_INLINE__ 1</macro>
+      <macro id='mac:0m95' file='-1' line='0' type='define' >__FINITE_MATH_ONLY__ 0</macro>
+      <macro id='mac:0m96' file='-1' line='0' type='define' >__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1</macro>
+      <macro id='mac:0m97' file='-1' line='0' type='define' >__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1</macro>
+      <macro id='mac:0m98' file='-1' line='0' type='define' >__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1</macro>
+      <macro id='mac:0m99' file='-1' line='0' type='define' >__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1</macro>
+      <macro id='mac:0m100' file='-1' line='0' type='define' >__GCC_HAVE_DWARF2_CFI_ASM 1</macro>
+      <macro id='mac:0m101' file='-1' line='0' type='define' >__SIZEOF_INT__ 4</macro>
+      <macro id='mac:0m102' file='-1' line='0' type='define' >__SIZEOF_LONG__ 8</macro>
+      <macro id='mac:0m103' file='-1' line='0' type='define' >__SIZEOF_LONG_LONG__ 8</macro>
+      <macro id='mac:0m104' file='-1' line='0' type='define' >__SIZEOF_SHORT__ 2</macro>
+      <macro id='mac:0m105' file='-1' line='0' type='define' >__SIZEOF_FLOAT__ 4</macro>
+      <macro id='mac:0m106' file='-1' line='0' type='define' >__SIZEOF_DOUBLE__ 8</macro>
+      <macro id='mac:0m107' file='-1' line='0' type='define' >__SIZEOF_LONG_DOUBLE__ 16</macro>
+      <macro id='mac:0m108' file='-1' line='0' type='define' >__SIZEOF_SIZE_T__ 8</macro>
+      <macro id='mac:0m109' file='-1' line='0' type='define' >__SIZEOF_WCHAR_T__ 4</macro>
+      <macro id='mac:0m110' file='-1' line='0' type='define' >__SIZEOF_WINT_T__ 4</macro>
+      <macro id='mac:0m111' file='-1' line='0' type='define' >__SIZEOF_PTRDIFF_T__ 8</macro>
+      <macro id='mac:0m112' file='-1' line='0' type='define' >__SIZEOF_POINTER__ 8</macro>
+      <macro id='mac:0m113' file='-1' line='0' type='define' >__amd64 1</macro>
+      <macro id='mac:0m114' file='-1' line='0' type='define' >__amd64__ 1</macro>
+      <macro id='mac:0m115' file='-1' line='0' type='define' >__x86_64 1</macro>
+      <macro id='mac:0m116' file='-1' line='0' type='define' >__x86_64__ 1</macro>
+      <macro id='mac:0m117' file='-1' line='0' type='define' >__k8 1</macro>
+      <macro id='mac:0m118' file='-1' line='0' type='define' >__k8__ 1</macro>
+      <macro id='mac:0m119' file='-1' line='0' type='define' >__MMX__ 1</macro>
+      <macro id='mac:0m120' file='-1' line='0' type='define' >__SSE__ 1</macro>
+      <macro id='mac:0m121' file='-1' line='0' type='define' >__SSE2__ 1</macro>
+      <macro id='mac:0m122' file='-1' line='0' type='define' >__SSE_MATH__ 1</macro>
+      <macro id='mac:0m123' file='-1' line='0' type='define' >__SSE2_MATH__ 1</macro>
+      <macro id='mac:0m124' file='-1' line='0' type='define' >__gnu_linux__ 1</macro>
+      <macro id='mac:0m125' file='-1' line='0' type='define' >__linux 1</macro>
+      <macro id='mac:0m126' file='-1' line='0' type='define' >__linux__ 1</macro>
+      <macro id='mac:0m127' file='-1' line='0' type='define' >linux 1</macro>
+      <macro id='mac:0m128' file='-1' line='0' type='define' >__unix 1</macro>
+      <macro id='mac:0m129' file='-1' line='0' type='define' >__unix__ 1</macro>
+      <macro id='mac:0m130' file='-1' line='0' type='define' >unix 1</macro>
+      <macro id='mac:0m131' file='-1' line='0' type='define' >__ELF__ 1</macro>
+      <macro id='mac:0m132' file='-1' line='0' type='define' >__DECIMAL_BID_FORMAT__ 1</macro>
+      <macro id='mac:0m133' file='-1' line='0' type='define' >__BIGGEST_ALIGNMENT__ 16</macro>
+      <macro id='mac:0m134' file='1' line='0' type='start_file' ></macro>
+      <macro id='mac:0m135' file='1' line='0' type='end_file' ></macro>
+    </mac_compile_unit>
+  </debug_macinfo>
+  <debug_pubtypes>
+    <pubtype id='pt:1' cu='i:11' ref='i:62'>enum_name</pubtype>
+  </debug_pubtypes>
+</dwarf>

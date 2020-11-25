@@ -1,0 +1,4 @@
+User-agent: *
+disallow: /job/cv-web/carte_vistite.png
+disallow: /job/cv-web/carte_vistite_x2.pngAllow: /
+

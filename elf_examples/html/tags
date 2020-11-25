@@ -1,0 +1,29 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+endian_to_target	elf_obj_loc.c	45;"	Define	language:C
+errx	elf_copy.c	25;"	Define	language:C
+errx	elf_obj_loc.c	50;"	Define	language:C
+hello	sample.c	3;"	variable	language:C
+main	elf_copy.c	61;"	function	language:C	signature:(int argc, char *argv[])
+main	elf_obj_loc.c	489;"	function	language:C	signature:(int argc, char *argv[])
+main	sample.c	12;"	function	language:C	signature:(int argc, char *argv[])
+melf_cpy_scn	elf_copy.c	36;"	function	language:C	signature:(Elf *elf_out, Elf_Scn *scn_out, Elf *elf_in, Elf_Scn *scn_in)
+melf_find_rel_section	elf_obj_loc.c	437;"	function	language:C	signature:(Elf *__elf, size_t scn_ndx)
+melf_is_scn_reloc	elf_obj_loc.c	468;"	function	language:C	signature:(Elf_Scn *scn)
+melf_rel_scn_layout	elf_obj_loc.c	396;"	function	language:C	signature:(Elf *__elf, ssize_t *conv_tbl)
+melf_scn_by_name	elf_obj_loc.c	68;"	function	language:C	signature:(Elf *__elf, char *scn_name)
+melf_scn_dump	elf_obj_loc.c	144;"	function	language:C	signature:(Elf *__elf, Elf_Scn *scn, char *scn_name)
+melf_scn_rel	elf_obj_loc.c	305;"	function	language:C	signature:(Elf *elf_out, size_t scn_ndx_out, Elf *elf_rel, size_t scn_ndx_rel, Elf *elf_sym, size_t scn_ndx_sym)
+melf_scn_sym_list	elf_obj_loc.c	189;"	function	language:C	signature:(Elf *__elf)
+melf_scn_sym_lnk	elf_obj_loc.c	233;"	function	language:C	signature:(Elf *__elf)
+melf_scn_sym_shconv	elf_obj_loc.c	101;"	function	language:C	signature:(Elf *__elf, ssize_t *conv_tbl, size_t len)
+merrx	elf_copy.c	30;"	Define	language:C
+merrx	elf_obj_loc.c	55;"	Define	language:C
+target_is_big_endian	elf_obj_loc.c	293;"	variable	language:C
+what	sample.c	9;"	function	language:C	signature:(void)
+who	sample.c	4;"	variable	language:C
+whois	sample.c	6;"	function	language:C	signature:(void)

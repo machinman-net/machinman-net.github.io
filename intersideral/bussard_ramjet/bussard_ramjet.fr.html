@@ -1,0 +1,1191 @@
+<html lang="fr">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="generator" content="HTML Tidy for Linux/x86 (vers 14 June 2007), see www.w3.org">
+<title>Mouvement du Bussard Ramjet</title>
+<meta content="machinman.net" name="author">
+<meta content="Diverses mises en équation de différents Bussard Ramjet" name="description">
+<style type="text/css">
+   img.mimetex {vertical-align:middle;}
+  </style>
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head><body>
+<div style="text-align: center;">
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<hr style="width: 100%; height: 2px;">
+</div>
+<!-- 
+../mimetex_precompile.tcl -d img_misc/ -u bussard_ramjet.fr.html
+-->
+<a href="/">Home</a><br>
+<pre>
+Translation : Emmanuel Azencot
+Author : Emmanuel Azencot
+Creation : Fri May  2 16:13:44 CEST 2014
+Update: Fri May  2 16:13:44 CEST 2014
+</pre>
+<br>
+<table border="0" width="100%">
+<tr>
+<td width="100%"><h2><a href="bussard_ramjet_ideal.fr.html">Mouvement du bussard ramjet idéal</a></h2></td>
+<td rowspan="2"><a href="bussard_ramjet.en.html"><img alt="English" src="/flags/flag_medium_english.png"></a></td>
+</tr><tr>
+<td><h2>Mouvement d'autres bussards ramjets</h2></td>
+</tr>
+</table>
+
+<blockquote><ul>
+<li><i><a href="#h3_symbol">Symboles</a></i></li>
+<li><i><a href="#h3_methode">Méthode, calculs généraux</a></i></li>
+<li><i><a href="#h3_ideal">Bussard ramjet idéal</a></i></li>
+<li><i><a href="#h3_perte_ec">Bussard ramjet avec perte de l’énergie cinétique</a></i></li>
+<li><i><a href="#h3_matiere">Bussard ramjet avec éjection de matière</a></i></li>
+<li><i><a href="#h3_composite">Bussard ramjet avec éjection composite</a></i></li>
+<li><i><a href="#h3_brem">Bussard ramjet Bremsstrahlung</a></i></li>
+</ul></blockquote>
+<p>Le Bussard Ramjet est une idée de propulsion interstellaire proposée par le Dr Robert Bussard en 1960 <a href="#ref_1">[1]</a>. Elle consiste à capturer de la matière dans le milieu traversé et à l'utiliser comme carburant nucléaire. En effet, même si le milieu galactique est "vide", il ne l'est pas complètement et contient environ 0.1 à 0.3 protons par cm<sup>3</sup> <a href="#ref_4">[4]</a>.</p>
+<p>Les distances intersidérales sont telles que pour les franchir en temps raisonnable il faut atteindre des vitesses énormes, de l'ordre de 1/3 de la vitesse de la lumière pour <a href="/intersideral/durees/">les étoiles les plus proches</a>. Pour obtenir ces vitesses il faut des quantité d'énergies telles, que le simple poids de cette énergie pure est déjà un problème s'il faut l'embarquer au départ. Toutes les solution qui emportent leur carburant sont en effet soumises à la contrainte de Tsiolkovsky <a href="#ref_2">[2]</a> qui, au mieux donne une rapidité en log du rapport de masse par la masse à vide <a href="#ref_7">[7] p11</a>.</p> 
+<p>Comme le dispositif du Dr Bussard n'emporte pas de carburant et qu'il tire son énergie sur le milieu, il n'est pas soumis à cette contrainte. Cependant, ce principe se heurte à de nombreuses questions portant sur le bilan énergétique, en particulier sur rendement la capture de matière v.s. l'énergie utile que l'on pourrait en espérer en tirer <a href="#ref_5">[5]</a>.
+</p><p><br></p>
+<p>Bien que les performances réelles de ce dispositif atteindrait à 
+grand peine le domaine relativiste, si tant est qu'on aurait les moyens 
+et la technologie pour cette réalisation, la plupart des auteurs 
+effectuent les calculs dans ce registre de la mécanique.
+</p>
+<p>La mise en équation correcte de son mouvement dans le cadre de la relativité 
+restreinte m'a demandé plusieurs mois tant mes études étaient loin et je
+ souhaite éviter cette peine à ceux qui trouveront cette page en donnant
+ les résultats que j'ai trouvés dans différentes situations.</p>
+<p>Pour ce qui est de l'exactitude, sachez que le document n'a été relu 
+par quiconque et qu'une ou plusieurs erreurs sont cachées dedans. Pour 
+cette raison il serait très imprudent de votre part de le prendre pour 
+correct. Je suis très intéressé par votre retour et trouverez des 
+adresses ou me joindre sur ce site.<br>
+</p>
+<p>Les calculs sont faits dans le référentiel du 
+mobile.</p>
+<h3>
+<a name="h3_symbol">Symboles</a>
+</h3>
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+<tbody>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>c<br>
+</td><td valign="top">est la vitesse de la lumière</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top" width="5%">
+<br>
+  </td>
+<td>ρ<br>
+</td><td valign="top">est la densité du milieu</td>
+  <td valign="top" width="5%">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>S<br>
+</td><td valign="top">est la surface efficace de capture</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>M<br>
+</td><td valign="top">est la masse du vaisseau</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>β<br>
+</td><td valign="top">est la vitesse réduite, v/c, de la matière par rapport au vaisseau.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>η(x)<br>
+</td><td valign="top">est la rapidité correspondant à la vitesse x. Elle vaut arctanh(x),
+ inverse de la tangente hyperbolique. La rapidité est additive, 
+contrairement à la vitesse.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>m<br>
+</td><td valign="top">est la masse de matière capturée.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>t<br>
+</td><td valign="top">est le temps dans le référentiel de la matière capturée.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>τ<br>
+</td><td valign="top">est le temps dans le référentiel du vaisseau.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>γ(x) </td><td valign="top">est le facteur d'échelle entre deux référentiels se déplaçant à une vitesse réduite x. Il vaut (1-
+x<sup>2</sup>)<sup>-1/2</sup>.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>γ<br>
+</td><td valign="top">est le facteur d'échelle  pour la vitesse réduite β.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>Λ(x)  <br>
+</td><td valign="top">est la matrice de la transformée de Lorentz pour la vitesse x, C.f (<a href="#eq_1.1">1.1</a>).</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>Β<br>
+</td><td valign="top">Sorte de section efficace de capture, vaut ρSc / M.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a name="h3_methode">Méthode, calculs généraux</a>
+</h3>
+<p>Dans ce paragraphe on trouve la méthode générale et le calcul des 
+éléments qui sont identiques dans plusieurs cas, comme la quantité de 
+matière capturée, par exemple.</p>
+<p>On ne considère que la dimension d'espace dans l'axe du déplacement, x. De cette manière les 4-vecteurs événements (ct, x, y, z)
+ou tous les invariants par la transformée de Lorentz, se réduisent à deux dimensions et peuvent se simplifier en (ct, x).
+</p>
+<p>Il faut calculer le 4-vecteur différence des événements (c(τ +dτ), 0, 0,
+ 0)  et (cτ, 0, 0, 0) soit ((c(τ +dτ), 0) -(cτ, 0,)), pour avoir la distance 
+parcourue dans le référentiel de la matière et évaluer la quantité qui 
+est  capturée.
+</p>
+<p>Ensuite on applique la conservation de l’énergie et de l'impulsion dans 
+le cadre de la relativité restreinte.<br>
+</p>
+
+<h4>Capture entre τ et τ +dτ :</h4>
+<p>Dans tous les cas qui suivent, la capture est toujours identique, et on peut donc la quantifier pour tout ce qui suit : </p>
+<p>Entre les deux instant τ et τ +dτ, le vaisseau drague une surface S dans un 
+milieu de densité ρ. Il balaye un volume de S dx, ou dx  est son 
+déplacement dans le référentiel de la matière capturée pendant dτ.</p>
+<p>On veut donc changer le 4-vecteur (c dτ, 0) depuis le référentiel du 
+vaisseau vers le référentiel  de la matière capturée. On utilise la 
+transformée de Lorentz Λ(β), puisqu'ils sont animés d'une vitesse β l'un
+ par rapport à l'autre :</p>
+<p></p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<a name="eq_1.1"></a>(1.1)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\left( \begin{array}{GC+20}  c dt \\ dx \end{array} \right) = \Lambda (\beta) \left( \begin{array} c d\tau \\ 0 \end{array} \right) = \left( \begin{array} \gamma &amp; \gamma \beta \\ \gamma \beta &amp; \gamma \end{array} \right) \left( \begin{array} c d\tau \\ 0 \end{array} \right)" src="img_misc/mimetex_img_0.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.2"></a><tt>(1.2)</tt>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="c dt = \gamma c d\tau " src="img_misc/mimetex_img_1.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.3"></a><tt>(1.3)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex=" dx  =  \gamma \beta c d\tau " src="img_misc/mimetex_img_2.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody>
+</table>
+<p>Le vaisseau ayant parcouru dx, il balaye un volume de Sdx dans 
+lequel toute la matière, en densité ρ, est capturée : m = ρSdx. On 
+remplace dx avec (1.3) :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.4"></a><tt>(1.4)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="m = \rho S c \gamma \beta d\tau" src="img_misc/mimetex_img_3.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<h4>L'impulsion à l'instant τ ou t :<br>
+</h4>
+<p>L'expression du 4-vecteur énergie-impulsion à l'instant τ est également 
+identique dans tous les cas puisqu'il ne contient pas la façon dont est 
+consommée la matière récupérée.
+</p><p>Le 4-vecteur d’impulsion du vaisseau, de masse M, dans son propre référentiel, et en omettant les coordonnées y et z :<br>
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_M(\tau) = \left( \begin{array}{GC+20} Mc \\ 0 \end{array} \right)" src="img_misc/mimetex_img_4.gif" alt="" class="mimetex"><p>
+</p>
+</td>
+</tr></tbody>
+</table>
+<p>Pour la matière capturée, de masse m, on part de son impulsion dans son 
+référentiel que l'on transporte dans le référentiel du vaisseau animé 
+d'une vitesse -β :</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_m(\tau) = \Lambda(-\beta)\left( \begin{array}{GC+20} mc \\ 0 \end{array} \right) = \left( \begin{array} \gamma &amp; -\beta \gamma \\ -\beta \gamma &amp; \gamma \end{array} \right) \left( \begin{array} mc \\ 0 \end{array} \right)" src="img_misc/mimetex_img_5.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.5"></a><tt>(1.5)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="p_m(\tau) = \left( \begin{array}{rGC+20} \gamma mc \\ -\beta \gamma mc \end{array} \right)" src="img_misc/mimetex_img_6.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Le 4-vecteur d’impulsion du système est la somme des deux contributions :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.6"></a><tt>(1.6)</tt>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p(\tau) = p_M(\tau) + p_m(\tau) = \left( \begin{array}{rGC+20}Mc+\gamma mc\\ -\beta \gamma mc \end{array} \right)" src="img_misc/mimetex_img_7.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+</p>
+<h4>L'impulsion à l'instant d'après, à τ +dτ :</h4>
+<p>La manière de transformer la capture ne sera connu que plus tard. 
+L'énergie totale, après transformation est "e" et la quantité de 
+mouvement produite est "q". La matière capturée m devient, sans perte de généralité :<br>
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td><td>
+<img mimetex="p_m(\tau+d\tau) = \left( \begin{array}{rGC+20}e\\ -q \end{array} \right)" src="img_misc/mimetex_img_8.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>On peut comparer  (<a href="#eq_1.5">1.5</a>) avec
+ ce résultat pour identifier "e", approximativement à γmc. La valeur de q
+ selon la transformation de cette énergie e détermine l'efficacité de 
+l'engin.</p>
+<p>Pendant ce laps de temps, la vitesse du vaisseau a changé de dβ, ce qui lui donne la nouvelle impulsion :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td><td>
+<img mimetex="p_M(\tau+d\tau) = \left( \begin{array}{rGC+20} \gamma(d\beta)Mc \\ d\beta\gamma(d\beta)Mc \end{array} \right)" src="img_misc/mimetex_img_9.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Comme dβ est très petit, aussi petit que l'on 
+veut, on peut considérer que γ(dβ) est très proche de 1. En effectuant un développement en série au deuxième ordre de γ(dβ), on retrouve  la mécanique classique qui est valable à cette toute petite vitesse et γ(dβ) ≈ 1 + <big><sub><big>½</big></sub></big> dβ<sup>2</sup>. On a donc un second ordre que l'on peut négliger. On obtient :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td><td>
+<img mimetex="p_M(\tau+d\tau) = \left( \begin{array}{rGC+20} Mc \\ d\beta Mc \end{array} \right)" src="img_misc/mimetex_img_10.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Le nouveau 4-vecteur d’impulsion du système est :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.7"></a><tt>(1.7)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="p(\tau+d\tau) = p_M(\tau+d\tau) +p_m(\tau+d\tau) = \left( \begin{array}{rGC+20} Mc+e \\ d\beta Mc -q\end{array} \right) " src="img_misc/mimetex_img_11.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p></p>
+<h4>Équations de conservation :</h4>
+<p>La conservation du 4-vecteur d’impulsion résume la conservation de la
+ quantité de mouvement et de l'énergie du système qui prend donc la 
+forme :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td><td>
+<img mimetex="p(\tau) = p(\tau+d\tau)" src="img_misc/mimetex_img_12.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>On peut maintenant développer et séparer les dimensions en deux équations :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><tt>(E)</tt></td><td width="20em"><br></td><td>
+<img mimetex="Mc + \gamma mc = Mc + e" src="img_misc/mimetex_img_13.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td align="right" width="80em"><tt>(P)</tt></td><td width="20em"><br></td><td>
+<img mimetex="  -\beta \gamma mc = d \beta Mc - q" src="img_misc/mimetex_img_14.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>En posant :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.8"></a><tt>(1.8)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="B = \Large \frac{\rho S c}{M}" src="img_misc/mimetex_img_15.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Et en injectant B dans (1.4) pour (M) et en simplifiant (E) et (P), on obtient une expression générale de la capture et de la conservation de l'impulsion :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.9_M"></a><tt>(M)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="m = \rho S c \gamma \beta d\tau =  M B \gamma \beta d\tau" src="img_misc/mimetex_img_16.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.9_E"></a><tt>(E)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="e = \gamma mc" src="img_misc/mimetex_img_17.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.9_P"></a><tt>(P)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex=" Mc d \beta  = q -\beta \gamma mc" src="img_misc/mimetex_img_18.gif" alt="" class="mimetex">
+</td>
+</tr><tr>
+<td align="right" width="80em">
+<a name="eq_1.9"></a><tt>(1.9)</tt>
+</td><td width="20em"><br></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>
+En exprimant e et q en fonction de la transformation de la capture, on pourra avec le système (1.9) obtenir une expression de dβ.</p>
+<p></p>
+<h3>
+<a name="h3_ideal"></a>
+<a href="bussard_ramjet_ideal.fr.html">Le Bussard Ramjet Idéal</a><br>
+</h3>
+<p>Ce cas étant entièrement soluble analytiquement, il fait l'objet d'un <a href="bussard_ramjet_ideal.fr.html">document à part</a>. On pourra vérifier que l'on retrouve la même équation différentielle.</p>
+<p>Ici, l'intégralité de l'énergie capturée est transformée en quantité de mouvement. Physiquement, cela signifie que cette énergie est transformée en lumière émises dans la direction -x, exactement. On a alors e = q. Avec (<a href="#eq_1.9_E">1.9-E</a>) on en déduit que q = γmc que l'on utilise dans  (<a href="#eq_1.9_P">1.9-P</a>)</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" Mc d \beta  = \gamma mc -\beta \gamma mc" src="img_misc/mimetex_img_19.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.10"></a><tt>(1.10)</tt>
+</td><td width="20em"><br></td>
+<td>
+<img mimetex=" d \beta  = B \beta \gamma ^ 2 (1 - \beta) d \tau = B\ \frac{\beta}{1 +\beta}\ d \tau" src="img_misc/mimetex_img_20.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>On retrouve bien l'équation différentielle (<a href="bussard_ramjet_ideal.fr.html#eq_1.8">1.8</a>).</p>
+<p>Tous les dispositifs mentionnés dans la suite ont des performances inférieures à celle du <a href="bussard_ramjet_ideal.fr.html">Bussard ramjet idéal</a>. </p>
+<h3>
+<a name="h3_perte_ec"></a>
+Bussard ramjet avec perte de l’énergie cinétique
+</h3>
+<p>Il s'agit d'un autre cas simple ou l'intégralité de la matière 
+capturée est convertie en lumière envoyée exactement dans l'axe du 
+mobile, mais ou on perd l'énergie cinétique de la matière capturée.</p>
+<p>Si on perd l'énergie cinétique, alors seule l'énergie de masse contribue à la quantité de mouvement. Si la transformation de l'énergie de masse est parfaite, on a q = mc. On peut passer à (<a href="#eq_1.9_P">1.9-P</a>) et y injecter q :</p>
+<p></p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><tt>
+<a name="eq_1.11"></a><tt>(1.11)</tt>
+</tt></td><td width="20em"><br></td><td>
+<img mimetex=" d \beta  = B \beta \gamma (1 - \beta \gamma) d \tau" src="img_misc/mimetex_img_21.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Tant que βγ est inférieur à 1, dβ est positif, mais lorsque que la vitesse est suffisamment grande cette quantité dépasse 1. La vitesse à laquelle cela se produit est la vitesse maximale que pourra atteindre cet engin : </p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td><td>
+<img mimetex=" 0\ &lt;\ B \beta \gamma (1 - \beta \gamma) d \tau" src="img_misc/mimetex_img_22.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td><td>
+<img mimetex=" 0\ &lt;\ (1 - \beta \gamma) " src="img_misc/mimetex_img_23.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td>
+<td>
+<img mimetex="\beta \gamma \ &lt;\ 1" src="img_misc/mimetex_img_24.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td>
+<td>
+<img mimetex="\beta^2 \ &lt;\ 1 - \beta^2" src="img_misc/mimetex_img_25.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td>
+<td>
+<img mimetex="2 \beta^2 \ &lt;\ 1" src="img_misc/mimetex_img_26.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td>
+<td>
+<img mimetex="\beta \ &lt;\ \frac{1}{\sqrt{2}}" src="img_misc/mimetex_img_27.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p><a name="ref_integration">Intégration :</a></p>
+<p>Comme β n'est pas une quantité additive, on effectue un changement de
+ variable vers la rapidité η(β) = η = atanh(β), qui elle l'est, de façon à 
+pouvoir intégrer. Comme la dérivée de tanh(x) en 0 est 1, on peut remplacer dβ par dη. Avec cette nouvelle variable γ = cosh(η) et βγ = sinh(η). Ainsi réécrite et en l'intégrant l'équation devient :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td>
+<td>
+<img mimetex="\int{\frac{1}{sinh(\eta)(1 - sinh(\eta))} d\eta} = \int{B d\tau}" src="img_misc/mimetex_img_28.gif" alt="" class="mimetex">  
+</td>
+</tr>
+</tbody></table>
+<p>
+<a href="http://www.wolframalpha.com" target="_blank">WolframAlpha</a> et <a href="http://www.numberempire.com/" target="_blank">Number Empire</a> donnent une expression pour l'intégration.</p> 
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td>
+<td>
+<img mimetex="B \tau = sqrt{2}arctanh(\frac{tanh(\eta/2) +1}{sqrt{2}})+ln(tanh(\eta/2))+K" src="img_misc/mimetex_img_29.gif" alt="" class="mimetex">  
+</td>
+</tr>
+</tbody></table>
+<p>Malheureusement, celle-ci est assez complexe et il parrait difficile de l'inverser pour trouver une expression β en fonction de τ.</p>
+<p></p>
+<h3>
+<a name="h3_matiere">
+Bussard ramjet avec éjection de matière</a>
+</h3>
+<p>Dans ce modèle l'énergie totale capturée est transformée en un flux de matière dans la direction -x. Une partie, ε, de la masse est convertie en énergie cinétique qui accélère le reste de la matière.</p>
+<p>L'énergie du flux sortant, e, peut être exprimée comme l'énergie de la masse restante soit (1 - ε)mc, avec sa nouvelle vélocité, -ω. L'équation (<a href="#eq_1.9_E">1.9-E</a>) donne donc : </p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" e  = \gamma mc = (1 - \epsilon) mc \gamma(- \omega )" src="img_misc/mimetex_img_30.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+Pour utiliser (<a href="#eq_1.9_P">1.9-P</a>), il nous faut maintenant q qui se déduit de la même manière que précédemment : 
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" -q  = - \omega (1 - \epsilon) mc \gamma(- \omega )" src="img_misc/mimetex_img_31.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+On remarque que q = e ω = γmc ω. Il ne manque que l'expression de ω que l'on peut extraire de l'énergie :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \gamma = (1 - \epsilon) \gamma(- \omega )" src="img_misc/mimetex_img_32.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex=" \frac {\gamma}{1 - \epsilon} =  \gamma(- \omega )" src="img_misc/mimetex_img_33.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex=" \frac {(1 - \epsilon) ^2}{\gamma ^2} =  1- \omega ^2" src="img_misc/mimetex_img_34.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex="\omega  =  \frac{ \sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } }{\gamma } " src="img_misc/mimetex_img_35.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+On peut maintenant utiliser cette valeur de ω dans l'expression de q trouvée plus haut :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex=" q  = \omega e = \omega \gamma mc = \sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } mc" src="img_misc/mimetex_img_36.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+On injecte cette expression de q dans l'expression de la quantité de mouvement (<a href="#eq_1.9_P">1.9-P</a>) pour avoir l'équation différentielle du mouvement. Ensuite, on remplace m par la valeur donnée par (<a href="#eq_1.9_M">1.9-M</a>) : 
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex=" Mc d \beta  = (\sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } -\beta \gamma) mc" src="img_misc/mimetex_img_37.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"><tt>
+<a name="eq_1.12"></a>(1.12)</tt></td><td width="20em"><br></td>
+<td>
+<img mimetex=" d \beta = B \gamma \beta (\sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } -\beta \gamma ) d\tau " src="img_misc/mimetex_img_38.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>L'équation (1.12) est équivalente à l'équation différentielle trouvée en (15) pour le même cas traité par Claude Semay et Bernard Silvestre-Brac dans <a href="#ref_6">[6]</a>. Leur calcul à été mené dans le référentiel de la matière capturée puis ramené dans le référentiel propre :
+</p>
+
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\frac{\varphi(0)}{\varphi_*} = \frac{\beta} {1 - \beta^2} (\sqrt{\beta^2 + \epsilon^,(1 - \beta^2)} - \beta), \ \ \epsilon^, = \epsilon (2 - \epsilon)" class="mimetex" src="img_misc/mimetex_img_39.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+
+
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\frac{\varphi(0)}{\varphi_*} = \beta \gamma (\sqrt{(\beta^2 \gamma^2 +1) -(1 -\epsilon)^2} - \beta\gamma)" class="mimetex" src="img_misc/mimetex_img_40.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+
+
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\frac{\varphi(0)}{\varphi_*} = \frac{1}{B}\ \frac{d \beta}{d \tau}" class="mimetex" src="img_misc/mimetex_img_41.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+</tbody>
+</table>
+<p>
+Pour intégrer, il y a une solution algébrique, on regroupe les variables β et γ à gauche et le temps propre à droite et on fait le <a href="#ref_integration">changement de variable vers η</a> :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \frac {d \beta}{\gamma \beta (\sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } -\beta \gamma ) } = B d\tau " src="img_misc/mimetex_img_42.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \int {\frac {d \eta}{sinh(\eta) (\sqrt{ cosh(\eta) ^2 - (1 - \epsilon) ^2 } -sinh(\eta) ) } } = \int {B d\tau} " src="img_misc/mimetex_img_43.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Une expression de l'integrale peut être trouvée à l'aide de <a href="http://www.wolframalpha.com" target="_blank">WolframAlpha</a>.</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="B \tau  = \frac{1}{1 -a^2} \left[ ln \left( sqrt{1 -2a^2+cosh(2\eta)} + sqrt{2}cosh(\eta) \right) -sqrt{1 -a^2} arctanh(\frac{sqrt{2}sqrt{1 -a^2}cosh(\eta)}{sqrt{1 -2a^2+cosh(2\eta)}})+x \right]+K,\ \ a = 1- \epsilon" src="img_misc/mimetex_img_44.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>De nouveau, il est très difficile d'inverser τ(η) pour avoir η(τ) et ainsi obtenir β(τ).</p>
+<p>Vitesse limite :</p>
+<p>D'après <a href="#eq_1.12">(1.12)</a>, dβ est positif tant que :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } -\beta \gamma &gt; 0" src="img_misc/mimetex_img_45.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma ^2 - (1 - \epsilon) ^2 &gt; \beta^2 \gamma^2" src="img_misc/mimetex_img_46.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma ^2 (1- \beta^2)- (1 - \epsilon) ^2  &gt; 0" src="img_misc/mimetex_img_47.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="1 &gt; (1 - \epsilon) ^2" src="img_misc/mimetex_img_48.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>L'inéquation aboutit à une évidence et donc elle est toujours vraie. Ce modèle n'a pas de vitesse limite.</p>
+<h3>
+<a name="h3_composite"></a>
+Bussard ramjet avec éjection composite
+</h3>
+<p>Ce modèle s'inspire de celui utilisé par <a href="#ref_3">[3]</a> pour un moteur matière-antimatière. Ce modèle prend en compte
+à la fois l'éjection de matière, de lumière et de perte.</p>
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img src="dessins/modele-antimatirere.fr.png" alt="Utilisation de l'énergie ε, n, δ">
+</td>
+</tr>
+</tbody>
+</table>
+<p>L'appareil transforme une part ε du flux d'entré en énergie. Le reste du flux est éjecté sous forme de matière, comme dans le cas précédant. Une partie (1 - n) de l'énergie produite est perdue, en rayonnement isotrope, par exemple. Une partie δ de ce qui reste est transférée au flux de matière, tandis que la part (1 - δ) est un rayonnement de particules sans masse envoyé dans la direction -x.
+</p>
+<p>Ci dessous on explicite les différentes contribution à l'énergie et à la quantité de mouvement dans l'ordre : flux de matière, perte, et flux de particules sans masse :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td><td>
+<img mimetex="\left( \begin{array}{GC+20} e \\ q \end{array} \right) = \left( \begin{array}{GC+20} (1 - \epsilon) \gamma(\omega) mc  \\ (1 - \epsilon) \gamma(\omega) \omega mc \end{array} \right) + \left( \begin{array}{GC+20} (1-n) \epsilon \gamma mc  \\ 0 \end{array} \right) + \left( \begin{array}{GC+20} (1 - \delta) n \epsilon \gamma mc  \\ (1 - \delta) n \epsilon \gamma mc \end{array} \right)" class="mimetex" src="img_misc/mimetex_img_49.gif" alt="">
+</td>
+</tr>
+</tbody></table>
+<p>Toutes les quantités relatives à q étant négatives, les flux étant dirigés vers -x, on donne ici l'opposé afin d'alléger l'écriture.</p>
+<p>Grâce à e = γmc, on va trouver une expression pour ω :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="e = \gamma mc = (1 - \epsilon) \gamma(\omega) mc  + (1-n) \epsilon \gamma mc + (1 - \delta) n \epsilon \gamma mc" class="mimetex" src="img_misc/mimetex_img_50.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="(1 - \epsilon) \gamma(\omega)  = \gamma ( 1 - (1-n) \epsilon  - (1 - \delta) n \epsilon )" class="mimetex" src="img_misc/mimetex_img_51.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="\gamma(\omega)  = \frac{ \gamma ( 1 - \epsilon (1 - \delta n))}{ 1 - \epsilon }" class="mimetex" src="img_misc/mimetex_img_52.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="1 -\omega^2 = \frac{ (1 - \epsilon)^2 }{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2}" class="mimetex" src="img_misc/mimetex_img_53.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="\omega =  \frac{ \sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 }}{ \gamma ( 1 - \epsilon (1 - \delta n))}" class="mimetex" src="img_misc/mimetex_img_54.gif" alt=""></td>
+</tr>
+</tbody></table>
+<p>On peut maintenant calculer q, connaissant ω:</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="(1 - \epsilon) \gamma(\omega) \omega = \sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 }" class="mimetex" src="img_misc/mimetex_img_55.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="q = ( \sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 } + (1 - \delta) n \epsilon \gamma ) mc" class="mimetex" src="img_misc/mimetex_img_56.gif" alt=""></td>
+</tr>
+
+</tbody></table>
+<p>
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" Mc d \beta  = (\sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 } + (1 - \delta) n \epsilon \gamma) mc -\beta \gamma mc" src="img_misc/mimetex_img_57.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.13"></a>(1.13)</td><td width="20em"><br></td>
+<td>
+<img mimetex=" d \beta = B \gamma \beta (\sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 } + (1 - \delta) n \epsilon \gamma -\beta \gamma ) d\tau " src="img_misc/mimetex_img_58.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Pour <a href="#ref_integration">intégrer</a>, on procède comme pour le cas précédant en regroupant les termes en β et γ à droite et en temps propre à gauche. Puis il faut changer de variable pour passer en rapidité.
+</p>
+<p>Vitesse limite :</p>
+<p>D'après <a href="#eq_1.13">(1.13)</a>, dβ est positif tant que :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 } + (1 - \delta) n \epsilon \gamma -\beta \gamma \ &gt;\ 0" src="img_misc/mimetex_img_59.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 \ &gt;\ ( \beta \gamma - (1 - \delta) n \epsilon \gamma)^2" src="img_misc/mimetex_img_60.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma^2 ( (1 - \epsilon (1 - \delta n))^2 -( \beta - (1 - \delta) n \epsilon)^2 ) \ &gt;\ (1 - \epsilon)^2" src="img_misc/mimetex_img_61.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="(1 - \epsilon (1 - \delta n))^2 -( \beta - (1 - \delta) n \epsilon)^2 \ &gt;\ (1 -\beta^2) (1 - \epsilon)^2 " src="img_misc/mimetex_img_62.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\beta^2 (1 - \epsilon)^2 -( \beta - (1 - \delta) n \epsilon)^2  \ &gt;\ (1 - \epsilon)^2 -(1 - \epsilon (1 - \delta n))^2" src="img_misc/mimetex_img_63.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\beta^2 ((1 - \epsilon)^2 -1) + 2 \beta (1 - \delta) n \epsilon + (1 - \epsilon (1 - \delta n))^2 -( (1 - \delta) n \epsilon )^2 -(1 - \epsilon)^2 \ &gt;\  0" src="img_misc/mimetex_img_64.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>On parvient péniblement à une équation du second degrés en β, ce qui indique qu'il y a une vitesse limite. L'expression algébrique de cette vitesse est probablement très lourde.
+</p>
+
+<h3>
+<a name="h3_brem"></a>
+Bussard ramjet Bremsstrahlung
+</h3>
+<p>Jusqu'ici on a considéré que la capture était utilisée dans son propre référentiel, ce qui à partir d'une certaine vitesse deviendra impossible, le temps de transit à bord devenant de plus en plus petit. </p>
+<p>
+Maintenant, la matière va d'abord être mise à la même vitesse que le vaisseau. On suppose que ce "ralentissement" s'accompagne d'un rayonnement dans la direction -x et d'intensité identique à l'énergie cinétique. Dans le monde physique ce qui se rapproche le plus de ce phénomène est le <a href="http://en.wikipedia.org/wiki/Bremsstrahlung" target="_blank">rayonnement Bremsstrahlung</a> qui a été identifié comme un problème majeur auquel doit faire face le bussard ramjet <a href="#ref_8">[8]</a>.</p>
+<p>On considère que t est la proportion d'énergie cinétique récupérée, le reste (1-t) est perdue. La matière capturée, maintenant stationnaire dans le vaisseau, est transformée en un flux de particules sans masse orienté vers -x.</p>
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\left( \begin{array}{GC+20} e \\ q \end{array} \right) = \left( \begin{array}{GC+20} t (\gamma -1) mc  \\  t (\gamma -1) mc \end{array} \right) + \left( \begin{array}{GC+20} (1-t) ( \gamma -1) mc  \\ 0 \end{array} \right) + \left( \begin{array}{GC+20} mc  \\ mc \end{array} \right)" class="mimetex" src="img_misc/mimetex_img_65.gif" alt="">
+</td>
+</tr>
+</tbody>
+</table>
+<p>L'équation d'énergie ne nous apprend rien car elle se simplifie complètement. De toutes façons nous n'avons besoin que de q pour compléter l'équation  (<a href="#eq_1.9_M">1.9-M</a>) :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" Mc d \beta  = ( t (\gamma -1) mc + mc ) -\beta \gamma mc" src="img_misc/mimetex_img_66.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.14"></a>(1.14)</td><td width="20em"><br></td>
+<td>
+<img mimetex=" d \beta  = B \beta \gamma ( t (\gamma -1) + 1 -\beta \gamma ) d \tau" src="img_misc/mimetex_img_67.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Si on prend t = 1, on retrouve le cas du Bussard idéal donné en (<a href="#eq_1.10">1.10</a>).
+De même si on prend t = 0, on retrouve le cas du Bussard avec perte d'énergie cinétique donné en (<a href="#eq_1.11">1.11</a>).</p>
+<p>Pour intégrer, on procède comme précédemment, regroupement des termes et changement de <a href="#ref_integration">variable vers la rapidité</a>.</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \frac{d \beta}{\beta \gamma (  t \gamma + 1 - t -\beta \gamma) )}  = B d \tau" src="img_misc/mimetex_img_68.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \int { \frac{d \eta}{sinh(\eta) ( t cosh(\eta) + 1 -t -sinh(\eta)) } } = \int { B d \tau }" src="img_misc/mimetex_img_69.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Vitesse limite :</p>
+<p>D'après <a href="#eq_1.14">(1.14)</a>, dβ est positif tant que :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="t (\gamma -1) + 1 -\beta \gamma &gt;\ 0" src="img_misc/mimetex_img_70.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma (t -\beta) &gt;\ -(1-t)" src="img_misc/mimetex_img_71.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>A partir d'ici, on peut affirmer que la vitesse limite est supérieure à t.c où t est la part d'énergie cinétique de la matière capturée transférée. On recherche maintenant les racines de l'équation :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" (t -\beta)^2 = (1-\beta^2)(1-t)^2" src="img_misc/mimetex_img_72.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="t^2 -2t\beta +\beta^2 +\beta^2(1-t)^2 =\ (1-t)^2" src="img_misc/mimetex_img_73.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="(1 +(1-t)^2)\beta^2 -2t\beta +t^2 -(1-t)^2 =\ 0" src="img_misc/mimetex_img_74.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>C'est une équation du 2nd degrés.
+</p>
+<p align="center">
+<img alt="Racines de Beta max" src="graphics/Bremsstrahlung_beta_max_roots.png" height="405" width="830">
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta = 4t^2 -4(1 +(1-t)^2)(t^2 -(1-t)^2)" src="img_misc/mimetex_img_75.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta = 4t^2 -4(t^2 -(1-t)^2 +t^2(1-t)^2 -(1-t)^4)" src="img_misc/mimetex_img_76.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta = +4( +1 -t^2 +(1-t)^2)(1-t)^2" src="img_misc/mimetex_img_77.gif" alt="" class="mimetex">
+</td>
+</tr>
+
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta = +4( +2 -2t)(1-t)^2" src="img_misc/mimetex_img_78.gif" alt="" class="mimetex">
+</td>
+</tr>
+
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta =+8(1-t)^3" src="img_misc/mimetex_img_79.gif" alt="" class="mimetex">
+</td>
+</tr>
+
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\beta_1 = \frac{2t-(2(1-t))^{3/2}}{2(1 +(1-t)^2)}, \ \beta_2 = \frac{2t+(2(1-t))^{3/2}}{2(1 +(1-t)^2)}" src="img_misc/mimetex_img_80.gif" alt="" class="mimetex">
+</td>
+</tr>
+
+</tbody></table>
+
+<p>La vitesse limite est donnée par β<sub>2</sub> qui est toujours positive et correspond au vitesses limite calculées dans le cas du bussard avec perte d'énergie cinétique (β<sub>max</sub> = 1/√2) et dans le cas idéal (β<sub>max</sub> = 1).
+</p><p>On peut tracer le graphe de β<sub>max</sub> en fonction du taux de transfert d'énergie cinétique t :
+</p>
+<p align="center">
+<img alt="Racines de Beta max" src="graphics/Bremsstrahlung_beta_max.png" height="405" width="830">
+</p>
+
+<p>
+</p>
+
+<p>
+</p>
+ 
+
+<h4>Conclusion</h4>
+<p>Relativement simple dans le cas idéal, la cinétique du bussard se complique très rapidement lorsqu'on y introduit de l'inefficacité. Souvent, l'expression de τ en fonction de β, obtenue après intégration, n'est pas inversible ce qui complique les étapes suivantes.
+</p>
+<p>Ces modèles supposent que la capture de matière, à travers la constante B, est simple et parfaite, ce qui est assurément une hypothèse fausse. L'étude de modèles de capture prenant en compte les champs électromagnétiques et de leur efficacité serait intéressante mais dépasse de beaucoup mes compétences.
+</p>
+
+<p>
+</p>
+<br>
+<br>
+<br>
+<br>
+<h4>Références</h4>
+<p>
+<a name="ref_1">[1]</a> <a href="http://large.stanford.edu/courses/2013/ph241/micks1/docs/bussard.pdf" target="_blank">Galactic Matter and Interstellar Flight</a>, Robert W. Bussard; Los Alamos Scientific Laboratory, University of California, Los Alamos, NM. <a href="../references/bussard.pdf">Local mirror</a>.
+<br>
+<a name="ref_2">[2]</a> <a href="">Investigation of outer space rocket appliances</a>, Konstantin Tsiolkovsky, 1903. <a href="../references/Tsiolkovsky.html">Local mirror</a>, Voir aussi <a href="http://fr.wikipedia.org/wiki/%C3%89quation_de_Tsiolkovski" target="_blank">Wiki</a>, pour ceux qui ne sont pas russophones.
+<br>
+<a name="ref_3">[3]</a> <a href="http://www.math.ksu.edu/%7Ewestmore/norr2.pdf" target="_blank">A note on relativistic rocketry</a>, Acta Astronautica, Shawn Westmoreland, Volume 67, Issues 9-10, November-December 2010, pp. 1248 - 1251. <a href="../references/AM_0910.1965.pdf">Local mirror</a>.
+<br>
+<a name="ref_4">[4]</a> <a href="http://interstellar.jpl.nasa.gov/interstellar/probe/introduction/neighborhood.html" target="_blank">Our Local Galactic Neighborhood</a>, Dr. Paulett Liewer. Donne une densité de ~0.3 atoms/cm<sup>3</sup>.
+Cette autre reférence <a href="http://www.solstation.com/x-objects/chimney.htm" target="_blank">Local Chimney and Superbubbles</a> est plus complet sur la situation du système solaire.<br>
+  <a name="ref_5">[5]</a> <a href="http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1964IrAJ....6..299O" target="_blank">Is Interstellar Travel Possible ?</a>, Opik, E. J., Irish Astronomical Journal, vol. 6(8), p. 299. <a href="../references/1964IrAJ....6..299O.pdf">Local mirror</a>. <br>
+<a name="ref_6">[6]</a>  <a href="http://arxiv.org/abs/0710.0295" target="_blank">The equation of motion of an interstellar Bussard ramjet</a>, Claude Semay and Bernard Silvestre-Brac, Eur. J. Phys. 26 (2005) 75–83, doi:10.1088/0143-0807/26/1/009. <a href="../references/SEMAY-2005-03-JOURNAL.pdf">Local mirror</a>. <br>
+<a name="ref_7">[7]</a> <a href="http://www.6911norfolk.com/d0lbln/110bf08/110bf08-rel.pdf" target="_blank">Short course in special relativity</a>, M. Strovink, Spring 2006, University of California, Berkeley, <a href="../references/UBC-relativite_restreinte.pdf">Local mirror</a>. <br>
+<a name="ref_8">[8]</a>  <a href="http://www.askmar.com/Fusion_files/EMC2%20Reports/EMC2-0891-04%201991%20Bremmstrahlung%20Radiation%20Losses.pdf" target="_blank">Bremmstrahlung radiation losses in polywell<sup>tm</sup> systems</a>, Robert W. Bussard and Katherine E. King, Oct 1992, . 
+
+  <br>
+
+</p>
+<h4>Remerciements<br>
+</h4>
+<p>Les images des formules mathématiques ont été produites avec
+<a href="http://www.forkosh.com/mimetex.html" target="_blank">mimetex</a>. La plupart des <a href="http://www.kommunauty.fr/liste-hebergement-gratuit-sans-pub" target="_blank">hébergeurs gratuits</a> ne proposant pas les cgi-bin, les formules sont prés-compilées à l'aide de ce <a href="./mimetex_precompile.tcl">script</a>.
+</p>
+<p>
+Je ne serait arrivé à rien sans les travaux cités en référence, en 
+particulier le cours de mécanique relativité restreinte de UBC <a href="#ref_1">[7]</a> et ainsi que l'article de Claude Semay et Bernard Silvestre-Brac <a href="#ref_2">[6]</a> qui m'a été très utile.
+</p>
+<p>Également indispensables, j'ai beaucoup user des sites qui proposent d'effectuer les calculs en lignes <a href="http://www.wolframalpha.com" target="_blank">WolframAlpha</a> et <a href="http://www.numberempire.com/" target="_blank">Number Empire</a>, en particulier les intégrations et les graphiques.
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+<!-- postprod:signature:start -->
+<hr size="2" width="100%"> 
+<b><small>web design : <a href="http://www.machinman.net">machinman.net</a> all right reserved, update Tue Nov 24 11:56:00 CET 2020</small></b><br>
+<!-- postprod:signature:end -->
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+
+</body>
+</html>

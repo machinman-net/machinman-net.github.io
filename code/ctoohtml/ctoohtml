@@ -1,0 +1,883 @@
+#!/usr/bin/perl
+
+# 
+# Copyright (C) 2009 by Emmanuel Azencot under the GNU GPL license 2.
+# You should have received a copy of the licence 
+# 
+#                          Version 2, June 1991
+#      Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+#      675 Mass Ave, Cambridge, MA 02139, USA
+#      
+# GPL license along with this software os. if you did not you can find it
+# at http://www.gnu.org/.
+#
+# # 
+# # # project at http://machinman.net/code/ctoohtml
+# #
+#
+# This work is derived from ctoohtml written by Andrew H. Fagg (af0a@robotics.usc.edu)
+# (http://www.usc.edu/dept/robotics/personal/af0a/tools/ctoohtml/ctoohtml.html)
+#
+# thanks to ctags from http://ctags.sourceforge.net/ctags.html
+#
+# This script converts a set of C sources to a set of HTML files. It add 
+#  - various colors
+#  - link to definition location
+#  - link to definition usage list
+#  - definitions list, raw and sorted by file
+#  - files index
+#  - Titles and links cutomisation
+#  - user HTML insersion in header, top and bottom of pages
+# 
+
+# TODO file collisions, use original tree source according to new option ?
+# TODO multiples definitions
+
+$version = "ctoohtml 1.5.0";
+
+$debug = 1;
+#
+# ctags command line params
+#
+$ctags = "ctags ";
+# ctags default is to set .h in c++
+$ctags .= "--langmap=c:.h.c ";
+# print line number in place of patern
+$ctags .= "--excmd=n ";
+# add undef and define. ctag does not make difference
+$ctags .= "--regex-c='/^\\s*\\#\\s*undef\\s+(\\S+)\\s*/\\1/Undef/' ";
+$ctags .= "--regex-c='/^\\s*\\#\\s*define\\s+(\\w+)\\W/\\1/Define/' ";
+# disable macros
+$ctags .= "--c-kinds=-d ";
+# output fields
+$ctags .= "--fields=+K+f+s+t+m+l+S ";
+
+# 
+# C keywords coloration
+# 
+%colors = ();
+$colors{"string"} = "color: rgb(51, 102, 255);";
+$colors{"blk_comment"} = "color: rgb(102, 102, 102);";
+$colors{"line_comment"} = "color: rgb(102, 102, 102); font-weight: bold;";
+$colors{"preprocessor"} = "color: rgb(204, 102, 0);";
+$colors{"keyword_oper"} = "color: rgb(204, 0, 0); font-weight: bold;";
+$colors{"keyword_type"} = "color: rgb(0, 153, 0); font-weight: bold;";
+$colors{"std_oper"} = "color: rgb(204, 0, 0);";
+$colors{"std_type"} = "color: rgb(0, 153, 0);";
+
+%keywords = ();
+$keywords{"do"} = $colors{"keyword_oper"};
+$keywords{"while"} = $colors{"keyword_oper"};
+$keywords{"for"} = $colors{"keyword_oper"};
+$keywords{"goto"} = $colors{"keyword_oper"};
+$keywords{"if"} = $colors{"keyword_oper"};
+$keywords{"else"} = $colors{"keyword_oper"};
+$keywords{"elseif"} = $colors{"keyword_oper"};
+$keywords{"return"} = $colors{"keyword_oper"};
+$keywords{"switch"} = $colors{"keyword_oper"};
+$keywords{"case"} = $colors{"keyword_oper"};
+$keywords{"default"} = $colors{"keyword_oper"};
+$keywords{"break"} = $colors{"keyword_oper"};
+$keywords{"continue"} = $colors{"keyword_oper"};
+$keywords{"sizeof"} = $colors{"keyword_oper"};
+$keywords{"typeof"} = $colors{"keyword_oper"};
+
+
+$keywords{"extern"} = $colors{"keyword_type"};
+$keywords{"static"} = $colors{"keyword_type"};
+$keywords{"const"} = $colors{"keyword_type"};
+$keywords{"volatile"} = $colors{"keyword_type"};
+$keywords{"register"} = $colors{"keyword_type"};
+$keywords{"int"} = $colors{"keyword_type"};
+$keywords{"char"} = $colors{"keyword_type"};
+$keywords{"short"} = $colors{"keyword_type"};
+$keywords{"long"} = $colors{"keyword_type"};
+$keywords{"float"} = $colors{"keyword_type"};
+$keywords{"double"} = $colors{"keyword_type"};
+$keywords{"unsigned"} = $colors{"keyword_type"};
+$keywords{"struct"} = $colors{"keyword_type"};
+$keywords{"union"} = $colors{"keyword_type"};
+$keywords{"enum"} = $colors{"keyword_type"};
+$keywords{"typedef"} = $colors{"keyword_type"};
+$keywords{"void"} = $colors{"keyword_type"};
+
+$keywords{"size_t"} = $colors{"std_type"};
+$keywords{"ssize_t"} = $colors{"std_type"};
+$keywords{"time_t"} = $colors{"std_type"};
+$keywords{"bool"} = $colors{"std_type"};
+$keywords{"bool_t"} = $colors{"std_type"};
+$keywords{"FILE"} = $colors{"std_type"};
+$keywords{"int32_t"} = $colors{"std_type"};
+$keywords{"int16_t"} = $colors{"std_type"};
+$keywords{"int8_t"} = $colors{"std_type"};
+$keywords{"uint32_t"} = $colors{"std_type"};
+$keywords{"uint16_t"} = $colors{"std_type"};
+$keywords{"uint8_t"} = $colors{"std_type"};
+$keywords{"va_list"} = $colors{"std_type"};
+
+$keywords{"offsetof"} = $colors{"std_oper"};
+$keywords{"typeof"} = $colors{"std_oper"};
+$keywords{"errno"} = $colors{"std_oper"};
+$keywords{"perror"} = $colors{"std_oper"};
+$keywords{"strerror"} = $colors{"std_oper"};
+$keywords{"assert"} = $colors{"std_oper"};
+$keywords{"abort"} = $colors{"std_oper"};
+$keywords{"exit"} = $colors{"std_oper"};
+$keywords{"vfork"} = $colors{"std_oper"};
+$keywords{"fork"} = $colors{"std_oper"};
+$keywords{"exec"} = $colors{"std_oper"};
+$keywords{"execv"} = $colors{"std_oper"};
+$keywords{"open"} = $colors{"std_oper"};
+$keywords{"close"} = $colors{"std_oper"};
+$keywords{"read"} = $colors{"std_oper"};
+$keywords{"write"} = $colors{"std_oper"};
+$keywords{"fopen"} = $colors{"std_oper"};
+$keywords{"fclose"} = $colors{"std_oper"};
+$keywords{"fread"} = $colors{"std_oper"};
+$keywords{"fwrite"} = $colors{"std_oper"};
+$keywords{"fgets"} = $colors{"std_oper"};
+$keywords{"socket"} = $colors{"std_oper"};
+$keywords{"connect"} = $colors{"std_oper"};
+$keywords{"bind"} = $colors{"std_oper"};
+$keywords{"listen"} = $colors{"std_oper"};
+$keywords{"send"} = $colors{"std_oper"};
+$keywords{"sendto"} = $colors{"std_oper"};
+$keywords{"sendmsg"} = $colors{"std_oper"};
+$keywords{"recv"} = $colors{"std_oper"};
+$keywords{"recvfrom"} = $colors{"std_oper"};
+$keywords{"recvmsg"} = $colors{"std_oper"};
+$keywords{"memcpy"} = $colors{"std_oper"};
+$keywords{"memset"} = $colors{"std_oper"};
+$keywords{"memcmp"} = $colors{"std_oper"};
+$keywords{"memmove"} = $colors{"std_oper"};
+$keywords{"strcmp"} = $colors{"std_oper"};
+$keywords{"strncmp"} = $colors{"std_oper"};
+$keywords{"strspn"} = $colors{"std_oper"};
+$keywords{"strcspn"} = $colors{"std_oper"};
+$keywords{"strstr"} = $colors{"std_oper"};
+$keywords{"strchr"} = $colors{"std_oper"};
+$keywords{"strnlen"} = $colors{"std_oper"};
+$keywords{"strcpy"} = $colors{"std_oper"};
+$keywords{"strncpy"} = $colors{"std_oper"};
+$keywords{"strcat"} = $colors{"std_oper"};
+$keywords{"strncat"} = $colors{"std_oper"};
+$keywords{"strdup"} = $colors{"std_oper"};
+$keywords{"strndup"} = $colors{"std_oper"};
+$keywords{"printf"} = $colors{"std_oper"};
+$keywords{"sprintf"} = $colors{"std_oper"};
+$keywords{"snprintf"} = $colors{"std_oper"};
+$keywords{"fprintf"} = $colors{"std_oper"};
+$keywords{"fflush"} = $colors{"std_oper"};
+$keywords{"vprintf"} = $colors{"std_oper"};
+$keywords{"vsprintf"} = $colors{"std_oper"};
+$keywords{"vfprintf"} = $colors{"std_oper"};
+$keywords{"malloc"} = $colors{"std_oper"};
+$keywords{"calloc"} = $colors{"std_oper"};
+$keywords{"realloc"} = $colors{"std_oper"};
+$keywords{"free"} = $colors{"std_oper"};
+$keywords{"time"} = $colors{"std_oper"};
+$keywords{"random"} = $colors{"std_oper"};
+$keywords{"srandom"} = $colors{"std_oper"};
+
+sub debug {
+   local($level, $str) = @_;
+   if ( $level le $debug ) {
+      print STDERR "$str\n" 
+   }
+}
+sub html_escape {
+   local($_) = @_;
+   s/\</&lt;/g;        
+   s/\>/&gt;/g;
+   s/\x026/&amp;/g;        
+   s/ /&nbsp;/g; s/\&nbsp\;/ /;
+   s/\t/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/g;
+       
+   return $_;
+}
+# reomve path part of file name
+# &basename(file)
+sub basename {
+   local($_) = @_;
+
+   s/^.*\/([^\/]+)$/\1/;
+   return $_;
+}
+#
+# Command line parameters
+#
+%parms = ();
+$parms{"U"} = "Home";                    # Up link title
+$parms{"u"} = "..";                      # Up link URL
+$parms{"I"} = "File Index";              # Title/Header for the index file.
+$parms{"i"} = "index.html";
+$parms{"A"} = "All Tags";                # Title/Header for list of all tags
+$parms{"F"} = "Tags by File";            # Title/Header for list of tags sorted by files
+$parms{"R"} = "Tags referrers";          # Title/Header for list of tags usage
+$parms{"P"} = "Project title";     
+$parms{"D"} = "Project Description";     
+$parms{"d"} = "./html";                  # Destination directory
+$parms{"v"} = "";                        # Debug mask
+
+
+sub usage {
+   local($die, $str) = @_;
+   if ( $str ) {
+      print STDERR __FILE__ .": ". $str ."\n";
+   } else {
+      print STDERR "Usage: ". __FILE__ ." [-<parm> [<value>]]* <sourcefile>+\n";
+      print STDERR "options:\n";
+      print STDERR "   -V, --version : print version.\n";
+      print STDERR "   -h, --help : print this text.\n";
+      print STDERR "   -e <path> : (helper) url encode path and exit.\n";
+      print STDERR "   -v <digit> : gives verbose debug on and on.\n";
+      print STDERR "   -d <dir> : destination directory for htmls.\n";
+
+      print STDERR "   -U <link title> : to up link title.\n";
+      print STDERR "   -u <url> : to up link URL.\n";
+      print STDERR "   -I <link title> : file index link title.\n";
+      print STDERR "   -i <url> : file index name.\n";
+
+      print STDERR "   -A <link title> : title for list of all tags.\n";
+      print STDERR "   -F <link title> : title for list of tags sorted by files.\n";
+      print STDERR "   -R <link title> : title for list of tags usage.\n";
+      print STDERR "   -P <page title> : Title for header title markup.\n";
+      print STDERR "   -O <Author> : Author for page header meta-content Author field.\n";
+
+      print STDERR "   -D <text> : text for meta-content description field.\n";
+      print STDERR "   -H <html> : HTML inserted in html header.\n";
+      print STDERR "   -T <html> : HTML inserted on top of pages.\n";
+      print STDERR "   -B <html> : HTML inserted at bottom of pages.\n";
+
+      print STDERR "   -- : next arguments are files.\n";
+      print STDERR "  See: http://www.machinman.net/code/ctoohtml/index.html\n";
+   }
+   exit 1;
+}
+
+#
+#  sub interpret_parms
+#
+#  Interpret the parameters and stuff them into the %parms
+# structure.
+#
+use Getopt::Std;
+$Getopt::Std::STANDARD_HELP_VERSION = 1;
+# $main::VERSION = $version;
+# &main::HELP_MESSAGE(out file handle, name of option-processing package, its version, switches string)
+sub main::HELP_MESSAGE() { &usage(0); }
+# &main::VERSION_MESSAGE(out file handle, name of option-processing package, its version, switches string)
+sub main::VERSION_MESSAGE() {
+   local($out, $opt_pkg, $opt_ver, $switches) = @_;
+   print $out $version ."\n";
+}
+
+@file_spec = ();
+sub interpret_parms {
+   local($switches) = "Vhe:v:d:U:u:I:A:F:R:P:O:D:H:T:B:";
+   if ( !getopts($switches, \%parms) ) { exit 1; }
+
+   if ( $parms{"v"} ) { $debug = $parms{"v"}; }
+   &debug(1, "parameter v: ". $parms{"v"} .", verbose: ". $debug);
+
+   # print version
+   if ( defined $parms{"V"} ) { print STDERR $version ."\n"; }
+
+   # give some help
+   if ( defined $parms{"h"} ) { &usage(0); exit 0; }
+
+   # URL encode helper
+   if ( defined $parms{"e"} ) {
+      chop($parms{"e"});
+      $parms{"e"} =~ s/([^A-Za-z0-9\.\/_])/sprintf("%%%02X", ord($1))/seg; 
+      print STDERR $parms{"e"} ."\n";
+      exit 0; 
+   }
+   @file_spec = @ARGV;
+   &debug(1, scalar @file_spec ." files: @file_spec");
+   # must have at least one file to work on
+   if ( scalar @file_spec eq 0 ) { &usage(1, "need some source files to process..."); }
+
+   # avoid to create file in root dir
+   if ( $parms{"d"} eq "" ) { $parms{"d"} = "."; }
+   &debug(1, "destination directory: " . $parms{"d"});
+}
+
+# Collect file list from ctags 
+@all_files = ();
+# Collect tag info
+%tag_info = ();
+# File, line -> local file tag number
+# TODO : this is not corect in case there is more than on tag on the same line
+%tag_fcross = ();
+# One entry eache time there is a reference on a tag
+@xref = ();
+
+# &fill_tag_info(file, line, tag type, tag name)
+sub fill_tag_info {
+   local($file, $line, $type, $name) = @_;
+   local($fnum, $gnum);
+   
+   &debug(3, "fill_tag_info: adding entry $file:$line:$type:$name");
+   $file = &basename($file);
+   $fnum = $tag_info{"num", $file}++; 
+   $gnum = $tag_info{"num"}++;
+   # Store in tag list for this file.
+   $tag_info{"tag type", $file, $fnum} = $type;
+   $tag_info{"tag name", $file, $fnum} = $name;
+   $tag_info{"tag line", $file, $fnum} = $line;
+   $tag_info{"tag gnum", $file, $fnum} = $gnum;
+
+   $tag_info{"tag name", $gnum} = $name;
+   $tag_info{"tag type", $gnum} = $type;
+   $tag_info{"tag file", $gnum} = $file;
+   $tag_info{"tag line", $gnum} = $line;
+   $tag_info{"tag fnum", $gnum} = $fnum;
+
+   $tag_fcross{$file, $line} = $fnum;
+
+   # print "all_files @all_files <- $file\n";
+   push(@all_files,$file);
+}
+# &read_ctags_file(tags file path)
+sub read_ctags_file {
+   local($ftags) = @_;
+   local($dgb) = 5;
+
+   $tag_info{"num"} = 0;    # Total number of tags that have been found.
+
+   open(FP, "<$ftags") or die __FILE__ ."@". __LINE__ .": Error opening file \"$ftags\".\n";
+
+   &debug(1, "read_ctags_file: parsing tag file $ftags");
+   while($_ = <FP>) {
+      &debug(4, "read_ctags_file: parsing line \"$_\"");
+      if( /^!_TAG_/ ) {
+         # ctags header lines
+      }
+      # Define directive
+      elsif( /^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+Define/ ) {
+         &fill_tag_info($2, $3, "macro", $1);
+      }
+      elsif(/^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+typedef/) {
+         &fill_tag_info($2, $3, "typedef", $1);
+      }
+      elsif ( /^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+variable/ ) {
+         &fill_tag_info($2, $3, "variable", $1);
+      }
+      elsif ( /^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+function/ ) {
+         &fill_tag_info($2, $3, "function", $1);
+      }
+      elsif(/^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+struct/) {
+         &fill_tag_info($2, $3, "struct", $1);
+      }
+      elsif(/^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+union/) {
+         &fill_tag_info($2, $3, "union", $1);
+      }
+      elsif(/^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+enumerator/) {
+         &fill_tag_info($2, $3, "enumerator", $1);
+      }
+      elsif(/^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+enum/) {
+         &fill_tag_info($2, $3, "enum", $1);
+      }
+      elsif(/^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+member/) {
+         &debug(3, "Dropped member:$2:$3:$1");
+      }
+      elsif(/^(\S+)\s+(\S+)\s+(\d+)\s*;"\s+Undef/) {
+         &debug(3, "Dropped Undef:$2:$3:$1");
+      }
+      else { &debug(1, "unknow tag spec:$_"); }
+   }
+   # sort -uniq file list
+   undef %saw;
+   @saw{@all_files} = ();
+   @out = sort keys %saw;
+   @all_files = @out;
+
+   if ( 2 le $debug ) {
+      print STDERR "FCROSS:\n";
+      while ( ($k,$v) = each %tag_fcross ) {
+            print  STDERR "$k => $v\n";
+      }
+      print STDERR  "***\n";
+      print STDERR "INFO:\n";
+      while ( ($k,$v) = each %tag_info ) {
+            print  STDERR "$k => $v\n";
+      }
+      print STDERR  "***\n";
+      print STDERR "all_files:@all_files\n";
+      print STDERR  "***\n";
+   }
+   return %tag_info;
+}
+# &nav_tab($out(ouf file handle), $curent_file)
+sub html_nav_tab($) {
+   local($out, $curent_file) = @_;
+   print $out "<table border=\"0\" cellpadding=\"1\" cellspacing=\"2\" width=\"100%\"><tr><td>\n";
+   if( $parms{"u"} ne "" ) {
+      print $out "<H3><A HREF=\"". $parms{"u"} ."\">". $parms{"U"} ."</A></H3>\n";
+      print $out "</td>\n<td>";
+   }
+   print $out "<H3><A HREF=\"". $parms{"i"} ."\">" . $parms{"I"} . "</A></H3>\n";
+   print $out "</td>\n<td>";
+   print $out "<H3><A HREF=\"tags.all.html\">" . $parms{"A"} . "</A></H3>\n";
+   print $out "</td>\n<td>";
+   print $out "<H3><A HREF=\"tags.file.html\">" . $parms{"F"} . "</A></H3>\n";
+   print $out "</td>\n<td>";
+   print $out "<H3><A HREF=\"xref.html\">". $parms{"R"} ."</A></H3>\n";
+   print $out "</td></tr></table>\n";
+}
+# &html_header($out(ouf file handle), $curent_file)
+sub html_header($) {
+   local($out, $curent_file) = @_;
+   print $out "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";    # HTML header
+   print $out "<html>\n"; 
+   print $out "<head>\n"; 
+   if( $parms{"P"} ne "" ) {
+   print $out "   <title>". $parms{"P"}. ": ". $fname ."</title>\n"; }
+   if( $parms{"D"} ne "" ) {
+   print $out "   <meta name=\"Description\" content=\"". $parms{"D"} ."\">\n"; }
+   if( $parms{"O"} ne "" ) {
+   print $out "   <meta name=\"Author\" content=\"". $parms{"O"} ."\">\n"; }
+   print $out "   <meta name=\"GENERATOR\" content=\"$version\">\n"; 
+   if( $parms{"H"} ne "" ) {
+   print $out $parms{"H"} ."\n"; }
+   print $out "</head>\n";
+   print $out "<body>\n";
+   if( defined $parms{"T"} ) {
+   print $out $parms{"T"} ."\n"; }
+
+   &html_nav_tab($out, $fname);
+
+   # File name
+   if ( $curent_file ne "" ) {
+      print $out "<H2>file: $curent_file</H2>\n\n\n";
+   }
+   print $out "<HR>\n";
+}
+# &html_footer($out(ouf file handle), $curent_file)
+sub html_footer($) {
+   local($out, $curent_file) = @_;
+
+   print $out "<P>\n<HR>\n";
+   &html_nav_tab($out, $fname);
+
+   print $out "<H5>C to HTML Conversion by <I><A HREF=\"http://www.machinman.net/code/ctoohtml/index.html\">ctoohtml</A></I></H5>\n";
+   if( defined $parms{"B"} ) {
+       print $out $parms{"B"} ."\n"; 
+   }
+   print $out "<br><br><br><br><br><br><br><br><br><br>";
+   print $out "<br><br><br><br><br><br><br><br><br><br>";
+   print $out "<br><br><br><br><br><br><br><br><br><br>";
+   print $out "</body>\n";
+   print $out "</HTML>\n";
+}
+#
+# for a given token found in a source file,
+# produce HTML code for token if it happend that :
+# - the token file and line match the token tag entry, then its a "def"
+# - the token file and line dont't match the tag entry, then its a "ref"
+# Each time a ref is found, a entry a added in xref table. this table will produce referrer tag list later
+#
+# &search_refdef(file, line, token, $mk_ref, $mk_def, $text_line, $anchor)
+sub search_refdef {
+   local($file, $line, $token, $mk_ref, $mk_def, $text_line, $anchor) = @_;
+   local($index);
+
+   &debug(3, "search_refdef:$file-$line: searching ref($mk_ref) or def($mk_def) for $token");
+   if( defined $tag_fcross{$file, $line} ) {
+      $index = $tag_fcross{$file, $line};
+      # we have a definition at this line
+      &debug(3, "search_refdef:$file-$line: found def (index $index) at same line: ". $tag_info{"tag name", $file, $index});
+      if ( $tag_info{"tag name", $file, $index} eq $token ) {
+         &debug(2, "search_refdef:$file-$line: found def for $token");
+         if ( !$mk_def ) { return ""; }
+         if ( $anchor ) {
+            return  " /*<A NAME=\"line_$line\"></A><A HREF=\"xref.html#$token\">X</A>*/ " . "<B><A NAME=\"" . $token ."\">". $token ."</A></B>";
+         } else {
+            return  " /*<A HREF=\"xref.html#$token\">X</A>*/ " . "<B><A NAME=\"" . $token ."\">". $token ."</A></B>";
+         }
+      }
+   }
+   if ( !$mk_ref ) { return ""; }
+   for($index = 0; $index < $tag_info{"num"}; ++$index)  { 
+      &debug(4, "search_refdef:$file-$line: searching ref at index $index/". $tag_info{"tag name", $index});
+      if ( $tag_info{"tag name", $index} eq $token ) {
+         &debug(2, "search_refdef:$file-$line: found ref for $token");
+         push(@xref, "$token;$file;$line;$index;$text_line");
+         if ( $anchor ) {
+            return "<A NAME=\"line_$line\"></A><A HREF=\"". $tag_info{"tag file", $index} .".html#". $token ."\">$token</A>";
+         } else {
+            return "<A HREF=\"". $tag_info{"tag file", $index} .".html#". $token ."\">$token</A>";
+         }
+      }
+   }
+   return "";
+}
+#
+# Filter one c source code to produce HTML
+#
+# &process_file(file name, file path, destination directory)
+sub process_file {
+   local($fname, $path, $dest) = @_;
+   local($ofname) = $dest ."/" . $fname . ".html";
+   local($line) = 1;
+   local($blk_comment, $line_comment, $escape_nl, $in_string) = (0, 0, 0);
+   local($r_html, $html, $l_text) = ("", "", "");
+   local($anchor) = 1;
+
+   # Open input file
+   open(FPI, "<$path$fname") or die "Can't find input file $fname\n";
+   # Output HTML file
+   open(FPO, ">$ofname") or die "Can't open output file $ofname\n";
+
+   &html_header(\*FPO, $fname);
+
+   &debug(1, "parsing file $fname to $ofname");
+   print FPO "<tt>\n";
+   # Examine each line
+   while($_ = <FPI>) {
+      print FPO &html_escape(sprintf("% 4d\n", $line));
+      chop;
+      $anchor = 1;
+      $l_text = $_;
+      &debug(2, "$fname-$line:$blk_comment: processing ". $_);
+      if ( !$blk_comment && ($_ =~ /^.*\\$/) ) {
+          $escape_nl = 1;
+      }
+      # preprocessor directives
+      if ( !$in_string && !$blk_comment && ($_ =~ /^(\s*)(\#\s*)(\w+)/) ) {
+         &debug(3, "$fname-$line:$blk_comment: found processor directive $3");
+         print FPO $1 ."<span style=\"". $colors{"preprocessor"} ."\">" . $2 ."<b>". $3. "</b>";
+         $_ = $';
+         $r_html = "</span>". $r_html;
+         if ( $3 eq "include" ) {
+            # look for included file name
+            if ( $_ =~ /^(\s*["<])([^">]+)([">])/ ) {
+               # is it in the set of file we have to deal with ?
+               if( defined $tag_info{"num", $2} ) {
+                  # Yes - generate a link to it.
+                  print FPO &html_escape($1) ."<A HREF=\"". $2 .".html\">". &html_escape($2) ."</A>". &html_escape($3);
+               } else {
+                  print FPO &html_escape($1 . $2 . $3);
+               }
+               $_ = $';
+            }
+         }
+      }
+      &debug(3, "$fname-$line:$blk_comment: entering token loop =$_="); 
+      TOKEN: while( ( $_ ne "" ) ) {
+         &debug(3, "$fname-$line:$blk_comment: token =$_="); 
+         # print white spaces
+         if ( ($_ =~ /^(\s+)/ ) ) {
+            print FPO &html_escape($1);
+            $_ = $'; next TOKEN;
+         }
+         # line comment
+         if( !$in_string && !$blk_comment && !$line_comment && ($_ =~ /^(\/\/)/ ) ) { 
+            &debug(3, "$fname-$line:$blk_comment: line comment =$1=$'=");
+            $line_comment = 1;
+            print FPO "<span style=\"". $colors{"line_comment"} ."\">" . &html_escape($1);
+            $r_html = "</span>". $r_html;
+            $_ = $'; next TOKEN;
+         }
+         # open block comment
+         if( !$in_string && !$line_comment && !$blk_comment && $_ =~ /^(\/\*)/ ) { 
+            &debug(3, "$fname-$line:$blk_comment: block comment open =$1=$'=");
+            $blk_comment = 1;
+            print FPO "<span style=\"". $colors{"blk_comment"} ."\">". &html_escape($1);
+            $_ = $'; next TOKEN;
+         }
+         # close block comment
+         if( !$in_string && !$line_comment && $blk_comment && $_ =~ /^(\*\/)/ ) { 
+            &debug(3, "$fname-$line:$blk_comment: block comment close =$1=$'=");
+            $blk_comment = 0; 
+            print FPO &html_escape($1) ."</span>";
+            $_ = $'; next TOKEN;
+         }
+         # commented code
+         if ( !$in_string && ( $blk_comment || $line_comment) ) {
+            # tokenize
+            if ( ($_ =~ /^([A-Za-z0-9_.\-\>]+)/) ) {
+               &debug(3, "$fname-$line:$blk_comment: in comment token found =$1=$'=");
+               # search token for refs and def (if sync with ctags is okay, it should not happend).
+               if ( ($html = &search_refdef($fname, $line, $1, 1, 1, $l_text, $anchor)) eq "" ) { $html = $1; } else { $anchor = 0; }
+               print FPO $html; 
+            } 
+            # if input starts non-token char, print it
+            elsif ( ($_ =~ /^(.)/) ) {
+               &debug(3, "$fname-$line:$blk_comment: in comment input print one char =$1=$'=");
+               print FPO &html_escape($1); 
+            }
+            else {
+               &debug(0, __FILE__.":".__LINE__.":process_file: fall througth for $fname:$line \"$_\""); exit 1;
+            }
+            $_ = $'; 
+            next TOKEN;
+         }
+         # excaped quote have no special meaning
+         if ( $in_string && ($_ =~ /^([^\\"]+|[^\\"]*\\"|\\[^"]|[^\\"]+)/) ) {
+#         if ( $in_string && ($_ =~ /^([^\\"]+|[^\\"]*\\"|[^"]+)/) ) {
+            &debug(3, "$fname-$line:$blk_comment: string print in_string =$1=$'=");
+            print FPO &html_escape($1); 
+            $_ = $'; next TOKEN;
+         }
+         # open string
+         if( !$in_string && $_ =~ /^"/ ) { 
+            &debug(3, "$fname-$line:$blk_comment: string open =$1=$'=");
+            $in_string = 1;
+            print FPO "<span style=\"". $colors{"string"} ."\">\"";
+            $_ = $'; next TOKEN;
+         }
+         # close string
+         if( $in_string && $_ =~ /^"/ ) { 
+            &debug(3, "$fname-$line:$blk_comment: string close =$1=$'=");
+            print FPO "\"</span>";
+            $in_string = 0; 
+            $_ = $'; next TOKEN;
+         }
+         if ( $in_string ) {
+            &debug(0, "$fname-$line:$blk_comment: in_string fall thought  =$_="); exit 1;
+         }
+         &debug(3, "$fname-$line:$blk_comment: end comment and string search =$_="); 
+         # extract token
+         if ( ($_ =~ /^([A-Za-z0-9_.\-\>]+)/) ) {
+            # search $1 for refs and and def
+            if ( ($html = &search_refdef($fname, $line, $1, 1, 1, $l_text, $anchor)) ne "" ) {
+               &debug(3, "$fname-$line:$blk_comment: def or ref found for token =$1=$'="); 
+               print FPO $html; 
+               $anchor = 0;
+            }
+            elsif ( defined $keywords{$1} ) {
+               &debug(3, "$fname-$line:$blk_comment: keyword found =$1=$'="); 
+               # <span style="color: rgb(0, 153, 0); font-weight: bold;">keyword</span>
+               print FPO "<span style=\"". $keywords{$1} ."\">". $1 ."</span>";
+            }
+            else {
+               &debug(3, "$fname-$line:$blk_comment: nothing special for token =$1=$'="); 
+               print FPO &html_escape($1); 
+            }
+            $_ = $';
+            next TOKEN;
+         }
+         &debug(3, __FILE__.":".__LINE__.":process_file: can't split token from $fname:$line \"$_\"");
+         # print "*" "&" "(" ")" "," ; etc ...
+         if ( !($_ =~ /^(.)/) ) {
+            &debug(0, __FILE__.":".__LINE__.":process_file: can't extract 1 char in $fname:$line from \"$_\""); exit 1;
+         }
+         &debug(3, "$fname-$line:$blk_comment: *** end of token =$_=***" );
+         print FPO &html_escape($1); 
+         $_ = $'; next TOKEN;
+      }
+      $line_comment = 0;
+      $line++;
+      if ( !$escape_nl ) { print FPO $r_html; $r_html = ""; }
+      $escape_nl = 0;
+      print FPO "<br>\n";
+   }
+   print FPO "<P></tt>\n";
+
+   &html_footer(\*FPO, $fname);
+
+   close FPI;
+   close FPO;
+}
+#
+# Build tag referrer list html page
+#
+# xref = "token;file;line;index;text of line");
+# html_xref_index(dest)
+sub html_xref_index($) {
+   local($dest) = @_;
+   local($ofname) = $dest ."/xref.html";
+   local($ref, $token) = ("", "");
+   local($file, $line);
+   # Output HTML file
+   open(FPO, ">$ofname") or die "Can't open output file $ofname\n";
+
+   &debug(1, "generating cross ref index to $ofname");
+   &html_header(\*FPO, "");
+   print FPO "<h2>Cross reference index</h2>\n";
+   @xref = sort(@xref);
+   foreach $ref (@xref) {
+      if ( !($ref =~ /^([^;]+);([^;]+);([0-9]+);([0-9]+);(.*)$/) ) {
+         &debug(0, __FILE__ ."@". __LINE__ .": can't split xref array entry $ref\n");
+         exit 2;
+      }
+      if ( $token ne $1 ) {
+         if ( $token ne "" ) { 
+            print FPO "</tr></table>\n";
+         }
+         $token = $1;
+         &debug(2, "New xref entry ". $token .",". $tag_info{"tag type", $4} );
+         print FPO "<h3><A NAME=\"". $token  ."\"></A>"; 
+         print FPO "<span style=\"color: rgb(204, 0, 0);\">". $tag_info{"tag type", $4} ." : </span>";
+         print FPO "<A HREF=\"". &basename($tag_info{"tag file", $4}) .".html#$token\">". $token ."</A>";
+         print FPO "</h3>\n";
+         print FPO "<table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">\n";
+         print FPO "<tr style=\"color: rgb(153, 153, 153); font-weight: bold;\">";
+         print FPO "<td width=\"20\">&nbsp;</td>\n";
+         print FPO "<td width=\"100\"><b><u>File</b></u></td>\n";
+         print FPO "<td width=\"20\"><b><u>Line</b></u></td>\n";
+         print FPO "<td width=\"20\">&nbsp;</td>\n";
+         print FPO "<td width=\"800\"><b><u>Context</b></u></td></tr>\n";
+      }
+      $file = $2; $line = $3;
+      $_ = &html_escape($5);
+      s/($token)/<b>\1<\/b>/g;
+      print FPO "<tr><td></td><td>". $file ."</td>";
+      print FPO "<td><A HREF=\"". &basename($file) .".html#line_$line". "\">". "$line" ."</A></td>";
+      print FPO "<td></td><td><tt>". $_ ."</tt></td></tr>\n";
+   }
+   print FPO "</tr></table>\n";
+   &html_footer(\*FPO, $fname);
+
+   close FPO;
+}
+#
+# Build File and list index html page
+#
+# &htmt_file_index(destination directory)
+sub htmt_file_index($) {
+   local($dest) = @_;
+   local($ofname) = $dest ."/". $parms{"i"};
+
+   # Output HTML file
+   open(FPO, ">$ofname") or die "Can't open output file $ofname\n";
+
+   &debug(1, "generating file index to $ofname");
+   &html_header(\*FPO, "");
+   print FPO "<h2>File index</h2>\n";
+   print FPO "<h3>Source file index</h3>\n";
+   print FPO "<UL>\n";
+   @files = sort(@all_files);
+   foreach $file (@files) {
+      print FPO "<LI> <A HREF=\"". &basename($file) .".html\">". $file ."</A>\n"
+   }
+   print FPO "</UL>\n";
+   print FPO "<h3>Tag index</h3>\n";
+   print FPO "<UL>\n";
+   print FPO "<LI> <A HREF=\"tags.all.html\">". $parms{"A"} ."</A>\n";
+   print FPO "<LI> <A HREF=\"tags.file.html\">". $parms{"F"} ."</A>\n";
+   print FPO "<LI> <A HREF=\"xref.html\">". $parms{"R"} ."</A>\n";
+   print FPO "</UL>\n";
+
+   &html_footer(\*FPO, $fname);
+
+   close FPO;
+}
+#
+# Build tag list page html
+#
+sub htmt_all_tags_index($) {
+   local($dest) = @_;
+   local($ofname) = $dest ."/tags.all.html";
+   local($i, $tag, @tags);
+
+   # Output HTML file
+   open(FPO, ">$ofname") or die "Can't open output file $ofname\n";
+
+   &debug(1, "generating all tags index to $ofname");
+   &html_header(\*FPO, "");
+   print FPO "<h2>Tags index</h2>\n";
+   print FPO "<UL>\n";
+
+   # Collect a list of all the tags + file name
+   for($i = 0; $i < $tag_info{"num"}; ++$i) {
+      # Tag name
+      push(@tags, $tag_info{"tag name", $i} .";". $tag_info{"tag file", $i} .";". $i);
+   }
+   @tags = sort(@tags);    # Order the tags.
+
+   # Loop through the sorted tags and report each one.
+   foreach $tag (@tags) {
+      # First matches functions, 2nd does not
+      if ( !($tag =~ /^([^;]+);([^;]+);([0-9]+)$/) ) {
+         &debug(0, __FILE__ ."@". __LINE__ .": can't split tag array entry $tag\n");
+         exit 2;
+      }
+      print FPO "<LI> <A HREF=\"". &basename($2) .".html#". $1 ."\">$1 ($2)</A>, ". $tag_info{"tag type", $3} ."\n";
+   };
+   print FPO "</UL>\n";
+   &html_footer(\*FPO, $fname);
+
+   close FPO;
+}
+#
+# Build tag sorted by file list page html
+#
+sub htmt_file_tags_index($) {
+   local($dest) = @_;
+   local($ofname) = $dest ."/tags.file.html";
+   local($i) = 0;
+   local(@files, @tags);
+
+   # Output HTML file
+   open(FPO, ">$ofname") or die "Can't open output file $ofname\n";
+
+   &debug(1, "generating file tags index to $ofname");
+   &html_header(\*FPO, "");
+   print FPO "<h2>Tags index by files</h2>\n";
+
+   @files = sort(@all_files);
+   foreach $file (@files) {
+      @tags = ();
+      print FPO "<h3>$file :</h3>\n";
+      print FPO "<UL>\n";
+      &debug(2, "building tag list for file $file, num entries ". $tag_info{"num", $file});
+      # Collect a list of all the tags + file name
+      for($i = 0; $i < $tag_info{"num", $file}; ++$i) {
+         push(@tags, $tag_info{"tag name", $file, $i} .";". $i);
+         &debug(3, "pushing " . $tag_info{"tag name", $file, $i} . " for file $file");
+      }
+      @tags = sort(@tags);    # Order the tags.
+
+      # Loop through the sorted tags and report each one.
+      foreach $tag (@tags) {
+         # First matches functions, 2nd does not
+         if ( !($tag =~ /^([^;]+);([0-9]+)$/) ) {
+            &debug(0, __FILE__ ."@". __LINE__ .": can't split tag array entry $tag\n");
+            exit 2;
+         }
+         print FPO "<LI> <A HREF=\"". &basename($file) .".html#". $1 ."\">$1 ($file)</A>, ". $tag_info{"tag type", $2} ."\n";
+      };
+      print FPO "</UL>\n";
+   }
+
+   &html_footer(\*FPO, $fname);
+
+   close FPO;
+}
+# Check and get CLI arguments in parms
+&interpret_parms();
+
+#  Check or create dest dir.
+if( !-e $parms{"d"} )  {      
+   mkdir ($parms{"d"}, 0777) || die "mkdir : $!";
+};
+# Build tag list with ctags
+$ctags .= "-f ". $parms{"d"} ."/tags ";
+$ctags .= "@file_spec";
+&debug(1, "ctags comand line : \n$ctags");
+system $ctags || die "exec error (ctags): $!\n";
+
+# Read the file and fill tag_info, all_files
+&read_ctags_file($parms{"d"} ."/tags");
+
+&htmt_file_index($parms{"d"});
+&htmt_all_tags_index($parms{"d"});
+&htmt_file_tags_index($parms{"d"});
+
+foreach $file (@file_spec) {
+   $path = "";
+   if( $file =~ /^(.*\/)([^\/]+)$/ ) {
+       $file = $2;
+       $path = $1;
+   };
+   &debug(3, "***$path / $file ******* num of tag " . $tag_info{"num", $file} . " ***");
+   &process_file($file, $path, $parms{"d"});
+};
+html_xref_index($parms{"d"});
+
+exit 0;
+
+

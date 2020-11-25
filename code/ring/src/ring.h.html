@@ -1,0 +1,882 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>Ring containers source code: ring.h</title>
+   <meta name="Description" content="Project Description">
+   <meta name="Author" content="Emmanuel Azencot">
+   <meta name="GENERATOR" content="ctoohtml 1.5.0">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H2>file: ring.h</H2>
+
+
+<HR>
+<tt>
+ &nbsp;&nbsp;1
+<span style="color: rgb(102, 102, 102);">/* <br>
+ &nbsp;&nbsp;2
+ * Copyright (C) 2008-2009 by Emmanuel Azencot under the GNU LGPL<br>
+ &nbsp;&nbsp;3
+ * license version 2.0 or 2.1. &nbsp;You should have received a copy of the<br>
+ &nbsp;&nbsp;4
+ * LGPL license along with this library if you did not you can find it<br>
+ &nbsp;&nbsp;5
+ * at http://www.gnu.org/.<br>
+ &nbsp;&nbsp;6
+ */</span><br>
+ &nbsp;&nbsp;7
+<span style="color: rgb(102, 102, 102);">/* <br>
+ &nbsp;&nbsp;8
+ * Azencot : Wed Nov 12 21:45:57 CET 2008<br>
+ &nbsp;&nbsp;9
+ * &nbsp;Creation<br>
+ &nbsp;10
+ * Azencot : Tue Nov 18 21:31:30 CET 2008<br>
+ &nbsp;11
+ * &nbsp;Add doc++ comments<br>
+ &nbsp;12
+ * Azencot : Sat Dec 13 00:20:02 CET 2008<br>
+ &nbsp;13
+ * &nbsp;f_ring_off_xxx -> f_ring_xxx<br>
+ &nbsp;14
+ */</span><br>
+ &nbsp;15
+<span style="color: rgb(204, 102, 0);">#<b>ifndef</b> <A NAME="line_15"></A><A HREF="ring.h.html#_RING_H_">_RING_H_</A> <span style="color: rgb(102, 102, 102);">/* [ */</span></span><br>
+ &nbsp;16
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_16"></A><A HREF="xref.html#_RING_H_">X</A>*/ <B><A NAME="_RING_H_">_RING_H_</A></B></span><br>
+ &nbsp;17
+<br>
+ &nbsp;18
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;stddef.h&gt; <span style="color: rgb(102, 102, 102);">/* offsetof */</span></span><br>
+ &nbsp;19
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;stdbool.h&gt;</span><br>
+ &nbsp;20
+<br>
+ &nbsp;21
+<span style="color: rgb(102, 102, 102);">/**@name Structures<br>
+ &nbsp;22
+ * @doc<br>
+ &nbsp;23
+ * &nbsp;The easiest way to use rings is to include a ring structure in your C object <br>
+ &nbsp;24
+ * structure :<br>
+ &nbsp;25
+ * &lt;pre><br>
+ &nbsp;26
+ &nbsp;&nbsp;&nbsp;&nbsp;struct s_your_object {<br>
+ &nbsp;27
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type member;<br>
+ &nbsp;28
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+ &nbsp;29
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct <A NAME="line_29"></A><A HREF="ring.h.html#s_ring">s_ring</A> sibling;<br>
+ &nbsp;30
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type member;<br>
+ &nbsp;31
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;....<br>
+ &nbsp;32
+ &nbsp;&nbsp;&nbsp;&nbsp;};&lt;/pre><br>
+ &nbsp;33
+ * &nbsp;The set of macros use the ring structure member name to find the offset of<br>
+ &nbsp;34
+ * the ring structure in yours.<br>
+ &nbsp;35
+ * &nbsp;These macros try to keep type informations as far as possible for the compiler<br>
+ &nbsp;36
+ * to be able to check them.<br>
+ &nbsp;37
+ */</span><br>
+ &nbsp;38
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ &nbsp;39
+<span style="color: rgb(102, 102, 102);">/** @memo The ring structure<br>
+ &nbsp;40
+ * @doc<br>
+ &nbsp;41
+ * &nbsp;You must include in your own structure at the same offset, for all nodes<br>
+ &nbsp;42
+ * of the same ring.<br>
+ &nbsp;43
+ * It is recommended to include the ring structure directly in the node one.<br>
+ &nbsp;44
+ * The macros need a member reference to find the ring part.<br>
+ &nbsp;45
+ */</span><br>
+ &nbsp;46
+<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A NAME="line_46"></A><A HREF="xref.html#s_ring">X</A>*/ <B><A NAME="s_ring">s_ring</A></B> { <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A HREF="xref.html#s_ring">X</A>*/ <B><A NAME="s_ring">s_ring</A></B> *next; };<br>
+ &nbsp;47
+<span style="color: rgb(102, 102, 102);">/** @memo double linked object<br>
+ &nbsp;48
+ * @doc<br>
+ &nbsp;49
+ * &nbsp;These kind of rings provides 2 extar methodes : previous and move..<br>
+ &nbsp;50
+ */</span><br>
+ &nbsp;51
+<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A NAME="line_51"></A><A HREF="xref.html#s_dring">X</A>*/ <B><A NAME="s_dring">s_dring</A></B> { <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A HREF="xref.html#s_dring">X</A>*/ <B><A NAME="s_dring">s_dring</A></B> *next; <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A HREF="xref.html#s_dring">X</A>*/ <B><A NAME="s_dring">s_dring</A></B> *prev; };<br>
+ &nbsp;52
+<span style="color: rgb(102, 102, 102);">/** @memo Include this structure for named object<br>
+ &nbsp;53
+ * @doc<br>
+ &nbsp;54
+ * &nbsp;The node name is a null terminated string pointer. Caller is responsible <br>
+ &nbsp;55
+ * of memory management for the name.<br>
+ &nbsp;56
+ * &nbsp;Name must be less than 1000 characters.<br>
+ &nbsp;57
+ */</span><br>
+ &nbsp;58
+<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A NAME="line_58"></A><A HREF="xref.html#s_nring">X</A>*/ <B><A NAME="s_nring">s_nring</A></B> { <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A HREF="xref.html#s_nring">X</A>*/ <B><A NAME="s_nring">s_nring</A></B> *next; <span style="color: rgb(0, 153, 0); font-weight: bold;">const</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *name; };<br>
+ &nbsp;59
+<span style="color: rgb(102, 102, 102);">/** @memo Double linked named object<br>
+ &nbsp;60
+ * @doc<br>
+ &nbsp;61
+ * &nbsp;The node name is a null terminated string pointer. Caller is responsible <br>
+ &nbsp;62
+ * of memory management for the name.<br>
+ &nbsp;63
+ * &nbsp;Name must be less than 1000 characters.<br>
+ &nbsp;64
+ */</span><br>
+ &nbsp;65
+<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A NAME="line_65"></A><A HREF="xref.html#s_ndring">X</A>*/ <B><A NAME="s_ndring">s_ndring</A></B> { <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A HREF="xref.html#s_ndring">X</A>*/ <B><A NAME="s_ndring">s_ndring</A></B> *next; <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span>  /*<A HREF="xref.html#s_ndring">X</A>*/ <B><A NAME="s_ndring">s_ndring</A></B> *prev; <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *name; };<br>
+ &nbsp;66
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ &nbsp;67
+<span style="color: rgb(102, 102, 102);">/**@name Selftest (macro)<br>
+ &nbsp;68
+ * @memo The ring integrity routine.<br>
+ &nbsp;69
+ * @doc<br>
+ &nbsp;70
+ * &nbsp;These macros call the same routine that is it used when <A NAME="line_70"></A><A HREF="ring.c.html#check_opt">check_opt</A> is set.<br>
+ &nbsp;71
+ * Feel free to call it in case you have disabled this check.<br>
+ &nbsp;72
+ * @param p_ring (IN) A holding pointer to a node's ring<br>
+ &nbsp;73
+ * @param field (IN) Field member name of ring structure<br>
+ &nbsp;74
+ * @return 0 is failled<br>
+ &nbsp;75
+ * @exception EMLINK null pointer found in ring link.<br>
+ &nbsp;76
+ */</span><br>
+ &nbsp;77
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ &nbsp;78
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ring</span><br>
+ &nbsp;79
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_79"></A><A HREF="xref.html#m_ring_selftest">X</A>*/ <B><A NAME="m_ring_selftest">m_ring_selftest</A></B>(p_ring, field) ( \<br>
+ &nbsp;80
+ &nbsp;&nbsp;(<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A NAME="line_80"></A><A HREF="ring.c.html#f_ring_selftest">f_ring_selftest</A>(&((p_ring)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ &nbsp;81
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring</span><br>
+ &nbsp;82
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_82"></A><A HREF="xref.html#m_nring_selftest">X</A>*/ <B><A NAME="m_nring_selftest">m_nring_selftest</A></B>(p_ring, field) ( \<br>
+ &nbsp;83
+ &nbsp;&nbsp;(<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A NAME="line_83"></A><A HREF="ring.c.html#f_nring_selftest">f_nring_selftest</A>(&((p_ring)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ &nbsp;84
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// dring</span><br>
+ &nbsp;85
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_85"></A><A HREF="xref.html#m_dring_selftest">X</A>*/ <B><A NAME="m_dring_selftest">m_dring_selftest</A></B>(p_ring, field) ( \<br>
+ &nbsp;86
+ &nbsp;&nbsp;(<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A NAME="line_86"></A><A HREF="ring.c.html#f_dring_selftest">f_dring_selftest</A>(&((p_ring)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ &nbsp;87
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring</span><br>
+ &nbsp;88
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_88"></A><A HREF="xref.html#m_ndring_selftest">X</A>*/ <B><A NAME="m_ndring_selftest">m_ndring_selftest</A></B>(p_ring, field) ( \<br>
+ &nbsp;89
+ &nbsp;&nbsp;(<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A NAME="line_89"></A><A HREF="ring.c.html#f_ndring_selftest">f_ndring_selftest</A>(&((p_ring)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ &nbsp;90
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ &nbsp;91
+<span style="color: rgb(102, 102, 102);">/**@name Test node is in a ring (macro)<br>
+ &nbsp;92
+ * @memo Is this node in the this ring ?.<br>
+ &nbsp;93
+ * @doc<br>
+ &nbsp;94
+ * &nbsp;&nbsp;Lost your ring ? Just try all you have with this method.<br>
+ &nbsp;95
+ * + missing macro.<br>
+ &nbsp;96
+ * @param is (IN) this node is <br>
+ &nbsp;97
+ * @param in (IN) this ring<br>
+ &nbsp;98
+ * @return 0 if not<br>
+ &nbsp;99
+ * @exception EFAULT is is nil.<br>
+ 100
+ * @exception EMLINK null pointer found in ring link.<br>
+ 101
+ */</span><br>
+ 102
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 103
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ring</span><br>
+ 104
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_104"></A><A HREF="xref.html#m_ring_is_in">X</A>*/ <B><A NAME="m_ring_is_in">m_ring_is_in</A></B>(is, in, field) &nbsp;(<A HREF="ring.c.html#f_ring_is_in">f_ring_is_in</A>(&((is)-&gt;field), &((in)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(in)), field) ) )</span><br>
+ 105
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring</span><br>
+ 106
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_106"></A><A HREF="xref.html#m_nring_is_in">X</A>*/ <B><A NAME="m_nring_is_in">m_nring_is_in</A></B>(is, in, field) (<A HREF="ring.c.html#f_nring_is_in">f_nring_is_in</A>(&((is)-&gt;field), &((in)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(in)), field) ) )</span><br>
+ 107
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// dring</span><br>
+ 108
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_108"></A><A HREF="xref.html#m_dring_is_in">X</A>*/ <B><A NAME="m_dring_is_in">m_dring_is_in</A></B>(is, in, field) (<A HREF="ring.c.html#f_dring_is_in">f_dring_is_in</A>(&((is)-&gt;field), &((in)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(in)), field) ) )</span><br>
+ 109
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring</span><br>
+ 110
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_110"></A><A HREF="xref.html#m_ndring_is_in">X</A>*/ <B><A NAME="m_ndring_is_in">m_ndring_is_in</A></B>(is, in, field) (<A HREF="ring.c.html#f_ndring_is_in">f_ndring_is_in</A>(&((is)-&gt;field), &((in)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(in)), field) ) )</span><br>
+ 111
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 112
+<span style="color: rgb(102, 102, 102);">/**@name Link (macro)<br>
+ 113
+ * @memo Hold a new node in the ring.<br>
+ 114
+ * @doc<br>
+ 115
+ * &nbsp;&nbsp;if ring reference is nul, the operation succed. To avoid side effect on empty rings,<br>
+ 116
+ * always set the ring holding pointer with the result of the call :<br>
+ 117
+ * &lt;pre>ring_ptr = <A NAME="line_117"></A><A HREF="ring.h.html#m_ring_link">m_ring_link</A>(ring_ptr, field, node);&lt;/pre><br>
+ 118
+ * @param p_ring (IN) a pointer to your structure node <br>
+ 119
+ * @param field (IN) the ring structure field name in the node structure.<br>
+ 120
+ * @param node (IN) the node<br>
+ 121
+ * @return node in the now in ring.<br>
+ 122
+ * @exception ENOTNAM, Name is nil (nring, ndring).<br>
+ 123
+ * @exception ENAMETOOLONG, Name is too long (nring, ndring).<br>
+ 124
+ * @exception EEXIST, node is already in ring.<br>
+ 125
+ * @exception EFAULT node is nil.<br>
+ 126
+ * @exception EMLINK null pointer found in ring link.<br>
+ 127
+ */</span><br>
+ 128
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 129
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ring</span><br>
+ 130
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_130"></A><A HREF="xref.html#m_ring_link">X</A>*/ <B><A NAME="m_ring_link">m_ring_link</A></B>(p_ring, field, node) ( (<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A HREF="ring.c.html#f_ring_link">f_ring_link</A>(&((p_ring)-&gt;field), &((node)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 131
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring</span><br>
+ 132
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_132"></A><A HREF="xref.html#m_nring_link">X</A>*/ <B><A NAME="m_nring_link">m_nring_link</A></B>(p_ring, field, node) ( (<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A HREF="ring.c.html#f_nring_link">f_nring_link</A>(&((p_ring)-&gt;field), &((node)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 133
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// dring</span><br>
+ 134
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_134"></A><A HREF="xref.html#m_dring_link">X</A>*/ <B><A NAME="m_dring_link">m_dring_link</A></B>(p_ring, field, node) ( (<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A HREF="ring.c.html#f_dring_link">f_dring_link</A>(&((p_ring)-&gt;field), &((node)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 135
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring</span><br>
+ 136
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_136"></A><A HREF="xref.html#m_ndring_link">X</A>*/ <B><A NAME="m_ndring_link">m_ndring_link</A></B>(p_ring, field, node) ( (<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A HREF="ring.c.html#f_ndring_link">f_ndring_link</A>(&((p_ring)-&gt;field), &((node)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 137
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 138
+<span style="color: rgb(102, 102, 102);">/**@name Unlink (macro)<br>
+ 139
+ * @memo Remove reference from this node.<br>
+ 140
+ * @doc<br>
+ 141
+ * &nbsp;Because the holding pointer may reference the unlinked node, always set the ring<br>
+ 142
+ * holding pointer with the result of the call :<br>
+ 143
+ * &nbsp;&lt;pre>ring_ptr = <A NAME="line_143"></A><A HREF="ring.h.html#m_ring_unlink">m_ring_unlink</A>(node, field);&lt;/pre><br>
+ 144
+ * &nbsp;It is highly recomanded to ensure that the node belongs to ring_ptr before calling<br>
+ 145
+ * the macro.<br>
+ 146
+ * @param p_ring (IN) The node you want to unlink.<br>
+ 147
+ * @param field (IN) the ring structure field name in the node structure.<br>
+ 148
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 149
+ * @exception EMLINK null pointer found in ring link.<br>
+ 150
+ */</span><br>
+ 151
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 152
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ring</span><br>
+ 153
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_153"></A><A HREF="xref.html#m_ring_unlink">X</A>*/ <B><A NAME="m_ring_unlink">m_ring_unlink</A></B>(p_ring, field) ( (<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A HREF="ring.c.html#f_ring_unlink">f_ring_unlink</A>(&((p_ring)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 154
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring</span><br>
+ 155
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_155"></A><A HREF="xref.html#m_nring_unlink">X</A>*/ <B><A NAME="m_nring_unlink">m_nring_unlink</A></B>(p_ring, field) ( (<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A HREF="ring.c.html#f_nring_unlink">f_nring_unlink</A>(&((p_ring)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 156
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// dring</span><br>
+ 157
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_157"></A><A HREF="xref.html#m_dring_unlink">X</A>*/ <B><A NAME="m_dring_unlink">m_dring_unlink</A></B>(p_ring, field) ( (<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A HREF="ring.c.html#f_dring_unlink">f_dring_unlink</A>(&((p_ring)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 158
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring</span><br>
+ 159
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_159"></A><A HREF="xref.html#m_ndring_unlink">X</A>*/ <B><A NAME="m_ndring_unlink">m_ndring_unlink</A></B>(p_ring, field) ( (<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A HREF="ring.c.html#f_ndring_unlink">f_ndring_unlink</A>(&((p_ring)-&gt;field), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 160
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 161
+<br>
+ 162
+<span style="color: rgb(102, 102, 102);">/**@name Next (macro)<br>
+ 163
+ * @memo the next node.<br>
+ 164
+ * @doc<br>
+ 165
+ * &nbsp;&nbsp;The macro expand as the next node of a node, allowing you to jump each node.<br>
+ 166
+ * Note that you have to provide a stop condition yourself when you loop around the ring.<br>
+ 167
+ * @param p_ring (IN) a pointer to structure node <br>
+ 168
+ * @param field (IN) the ring structure field name in the node structure.<br>
+ 169
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 170
+ */</span><br>
+ 171
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 172
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ring</span><br>
+ 173
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_173"></A><A HREF="xref.html#m_ring_next">X</A>*/ <B><A NAME="m_ring_next">m_ring_next</A></B>(p_ring, field) &nbsp;&nbsp;((<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))((p_ring)?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)((p_ring)-&gt;field.next) - &nbsp;<span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) :0))</span><br>
+ 174
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring</span><br>
+ 175
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_175"></A><A HREF="xref.html#m_nring_next">X</A>*/ <B><A NAME="m_nring_next">m_nring_next</A></B>(p_ring, field) &nbsp;((<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))((p_ring)?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)((p_ring)-&gt;field.next) - &nbsp;<span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) :0))</span><br>
+ 176
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// dring</span><br>
+ 177
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_177"></A><A HREF="xref.html#m_dring_next">X</A>*/ <B><A NAME="m_dring_next">m_dring_next</A></B>(p_ring, field) &nbsp;((<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))((p_ring)?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)((p_ring)-&gt;field.next) - &nbsp;<span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) :0))</span><br>
+ 178
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring</span><br>
+ 179
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_179"></A><A HREF="xref.html#m_ndring_next">X</A>*/ <B><A NAME="m_ndring_next">m_ndring_next</A></B>(p_ring, field) ((<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))((p_ring)?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)((p_ring)-&gt;field.next) - &nbsp;<span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) :0))</span><br>
+ 180
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 181
+<br>
+ 182
+<span style="color: rgb(102, 102, 102);">/**@name List (macro)<br>
+ 183
+ * @memo the next node, with loop detection.<br>
+ 184
+ * @doc<br>
+ 185
+ * &nbsp;&nbsp;The macro expand as the next node of a node, allowing you to jump each node.<br>
+ 186
+ * &nbsp;&nbsp;If next node is ring parameter, it returns 0. This macro is switable for loops :<br>
+ 187
+ *<br>
+ 188
+ * &nbsp;&nbsp;&nbsp;&nbsp;for (node = ring; !node; node = <A NAME="line_188"></A><A HREF="ring.h.html#m_ring_list">m_ring_list</A>(list, node, brother) ) { ... }<br>
+ 189
+ *<br>
+ 190
+ * @param p_ring (IN) a pointer to structure node <br>
+ 191
+ * @param field (IN) the ring structure field name in the node structure.<br>
+ 192
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 193
+ */</span><br>
+ 194
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 195
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ring</span><br>
+ 196
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_196"></A><A HREF="xref.html#m_ring_list">X</A>*/ <B><A NAME="m_ring_list">m_ring_list</A></B>(ring, node, field) ( (((node) = <A HREF="ring.h.html#m_ring_next">m_ring_next</A>(node, field)) == (ring))?0:(node) )</span><br>
+ 197
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring</span><br>
+ 198
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_198"></A><A HREF="xref.html#m_nring_list">X</A>*/ <B><A NAME="m_nring_list">m_nring_list</A></B>(ring, node, field) ( (((node) = <A HREF="ring.h.html#m_nring_next">m_nring_next</A>(node, field)) == (ring))?0:(node) )</span><br>
+ 199
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// dring</span><br>
+ 200
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_200"></A><A HREF="xref.html#m_dring_list">X</A>*/ <B><A NAME="m_dring_list">m_dring_list</A></B>(ring, node, field) ( (((node) = <A HREF="ring.h.html#m_dring_next">m_dring_next</A>(node, field)) == (ring))?0:(node) )</span><br>
+ 201
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring</span><br>
+ 202
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_202"></A><A HREF="xref.html#m_ndring_list">X</A>*/ <B><A NAME="m_ndring_list">m_ndring_list</A></B>(ring, node, field) ( (((node) = <A HREF="ring.h.html#m_ndring_next">m_ndring_next</A>(node, field)) == (ring))?0:(node) )</span><br>
+ 203
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 204
+<span style="color: rgb(102, 102, 102);">/**@name Do, done (macro)<br>
+ 205
+ * @memo A loop macro construction helper.<br>
+ 206
+ * @doc<br>
+ 207
+ * &nbsp;&nbsp;These to macros construct begin and end of loops to evry node in a ring :<br>
+ 208
+ * &nbsp;&lt;pre>m_ring_do(ring, node) ++i; <A NAME="line_208"></A><A HREF="ring.h.html#m_ring_done">m_ring_done</A>(ring, node, field);&lt;/pre><br>
+ 209
+ * count how many node there is in the ring.<br>
+ 210
+ * @param ring (IN) a pointer the ring ring <br>
+ 211
+ * @param var (IN) a variable pointer node beeing listed.<br>
+ 212
+ * @param field (IN) the ring structure field name in the node structure.<br>
+ 213
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 214
+ */</span><br>
+ 215
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 216
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ring, start loop</span><br>
+ 217
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_217"></A><A HREF="xref.html#m_ring_do">X</A>*/ <B><A NAME="m_ring_do">m_ring_do</A></B>(ring, var) <span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((var) = (ring)) ) <span style="color: rgb(204, 0, 0); font-weight: bold;">do</span></span><br>
+ 218
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ring, end loop</span><br>
+ 219
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_219"></A><A HREF="xref.html#m_ring_done">X</A>*/ <B><A NAME="m_ring_done">m_ring_done</A></B>(ring, var, field) <span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( (var) = <A HREF="ring.h.html#m_ring_next">m_ring_next</A>((var), field), (var) != (ring) )</span><br>
+ 220
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring, start loop</span><br>
+ 221
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_221"></A><A HREF="xref.html#m_nring_do">X</A>*/ <B><A NAME="m_nring_do">m_nring_do</A></B>(ring, var) <span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((var) = (ring)) ) <span style="color: rgb(204, 0, 0); font-weight: bold;">do</span></span><br>
+ 222
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring, end loop</span><br>
+ 223
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_223"></A><A HREF="xref.html#m_nring_done">X</A>*/ <B><A NAME="m_nring_done">m_nring_done</A></B>(ring, var, field) <span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( (var) = <A HREF="ring.h.html#m_nring_next">m_nring_next</A>((var), field), (var) != (ring) )</span><br>
+ 224
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// dring, start loop</span><br>
+ 225
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_225"></A><A HREF="xref.html#m_dring_do">X</A>*/ <B><A NAME="m_dring_do">m_dring_do</A></B>(ring, var) <span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((var) = (ring)) ) <span style="color: rgb(204, 0, 0); font-weight: bold;">do</span></span><br>
+ 226
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// dring, end loop</span><br>
+ 227
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_227"></A><A HREF="xref.html#m_dring_done">X</A>*/ <B><A NAME="m_dring_done">m_dring_done</A></B>(ring, var, field) <span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( (var) = <A HREF="ring.h.html#m_dring_next">m_dring_next</A>((var), field), (var) != (ring) )</span><br>
+ 228
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring, start loop</span><br>
+ 229
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_229"></A><A HREF="xref.html#m_ndring_do">X</A>*/ <B><A NAME="m_ndring_do">m_ndring_do</A></B>(ring, var) <span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ((var) = (ring)) ) <span style="color: rgb(204, 0, 0); font-weight: bold;">do</span></span><br>
+ 230
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring, end loop</span><br>
+ 231
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_231"></A><A HREF="xref.html#m_ndring_done">X</A>*/ <B><A NAME="m_ndring_done">m_ndring_done</A></B>(ring, var, field) <span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( (var) = <A HREF="ring.h.html#m_ndring_next">m_ndring_next</A>((var), field), (var) != (ring) )</span><br>
+ 232
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 233
+<span style="color: rgb(102, 102, 102);">/**@name Find by name (macro)<br>
+ 234
+ * @memo For named ring, find a node with his name.<br>
+ 235
+ * @doc<br>
+ 236
+ * @param p_ring (IN) a pointer to your structure node <br>
+ 237
+ * @param field (IN) the ring structure field name in the node structure.<br>
+ 238
+ * @param name (IN) the node name.<br>
+ 239
+ * @return 0 the name is not found, the node if it is.<br>
+ 240
+ * @exception EMLINK null pointer found in ring link.<br>
+ 241
+ */</span><br>
+ 242
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 243
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring</span><br>
+ 244
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_244"></A><A HREF="xref.html#m_nring_find">X</A>*/ <B><A NAME="m_nring_find">m_nring_find</A></B>(p_ring, field, name) &nbsp;( \<br>
+ 245
+ &nbsp;&nbsp;(<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A NAME="line_245"></A><A HREF="ring.c.html#f_nring_find">f_nring_find</A>(&((p_ring)-&gt;field), (name), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 246
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring</span><br>
+ 247
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_247"></A><A HREF="xref.html#m_ndring_find">X</A>*/ <B><A NAME="m_ndring_find">m_ndring_find</A></B>(p_ring, field, name) &nbsp;( \<br>
+ 248
+ &nbsp;&nbsp;(<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A NAME="line_248"></A><A HREF="ring.c.html#f_ndring_find">f_ndring_find</A>(&((p_ring)-&gt;field), (name), <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 249
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 250
+<span style="color: rgb(102, 102, 102);">/**@name Previous (macro)<br>
+ 251
+ * @memo For double ring, expand to previous node.<br>
+ 252
+ * @doc<br>
+ 253
+ * @param p_ring (IN) a pointer to your structure node <br>
+ 254
+ * @param field (IN) the ring structure field name in the node structure.<br>
+ 255
+ * @return 0 the ring is empty, or the previous node in the ring.<br>
+ 256
+ */</span><br>
+ 257
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 258
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// dring</span><br>
+ 259
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_259"></A><A HREF="xref.html#m_dring_prev">X</A>*/ <B><A NAME="m_dring_prev">m_dring_prev</A></B>(p_ring, field) &nbsp;((<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))((p_ring)?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)((p_ring)-&gt;field.prev) - &nbsp;<span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) :0))</span><br>
+ 260
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring</span><br>
+ 261
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_261"></A><A HREF="xref.html#m_ndring_prev">X</A>*/ <B><A NAME="m_ndring_prev">m_ndring_prev</A></B>(p_ring, field) ((<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))((p_ring)?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)((p_ring)-&gt;field.prev) - &nbsp;<span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) :0))</span><br>
+ 262
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 263
+<span style="color: rgb(102, 102, 102);">/**@name Move (macro)<br>
+ 264
+ * @memo For double ring,jump n nodes back or force.<br>
+ 265
+ * @doc<br>
+ 266
+ * @param p_ring (IN) a pointer to your structure node <br>
+ 267
+ * @param hops (IN) Number of jumps.<br>
+ 268
+ * @param check (IN) if true, a loop detection.<br>
+ 269
+ * @param field (IN) the ring structure field name in the node structure.<br>
+ 270
+ * @return 0 the ring is empty, or the previous node in the ring.<br>
+ 271
+ * @exception ELOOP Move made a complete loop<br>
+ 272
+ * @exception EMLINK null pointer found in ring link.<br>
+ 273
+ */</span><br>
+ 274
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 275
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// nring</span><br>
+ 276
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_276"></A><A HREF="xref.html#m_dring_move">X</A>*/ <B><A NAME="m_dring_move">m_dring_move</A></B>(p_ring, hops, check, field) ( \<br>
+ 277
+ &nbsp;&nbsp;(<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A NAME="line_277"></A><A HREF="ring.c.html#f_dring_move">f_dring_move</A>(&((p_ring)-&gt;field), hops, check, <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 278
+<span style="color: rgb(102, 102, 102); font-weight: bold;">/// ndring</span><br>
+ 279
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_279"></A><A HREF="xref.html#m_ndring_move">X</A>*/ <B><A NAME="m_ndring_move">m_ndring_move</A></B>(p_ring, hops, check, field) ( \<br>
+ 280
+ &nbsp;&nbsp;(<span style="color: rgb(204, 0, 0);">typeof</span>(p_ring))<A NAME="line_280"></A><A HREF="ring.c.html#f_ndring_move">f_ndring_move</A>(&((p_ring)-&gt;field), hops, check, <span style="color: rgb(204, 0, 0);">offsetof</span>(<span style="color: rgb(204, 0, 0);">typeof</span>(*(p_ring)), field) ) )</span><br>
+ 281
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 282
+<span style="color: rgb(102, 102, 102);">/**@name Errors<br>
+ 283
+ * @doc<br>
+ 284
+ * &nbsp;&nbsp;When an error is detected, errno is used to give a minimal feed back. Errno values<br>
+ 285
+ * are given in each macro and function in there respectives manual entries at<br>
+ 286
+ * paragraphs "throws".<br>
+ 287
+ * &nbsp;It is possible to customise error signaling by rewriting <A NAME="line_287"></A><A HREF="exception_errno.h.html#raise">raise</A> and <A HREF="exception_errno.h.html#relay">relay</A> macros<br>
+ 288
+ * in "config.h" file. This way, you could get textual reason. <br>
+ 289
+ * &nbsp;See \URL[exception_stderr.h]{./src/exception_stderr.h.html} <br>
+ 290
+ * or \URL[exception_errno.h]{./src/exception_errno.h.html} for examples.<br>
+ 291
+ * @exception ELOOP Move made a complete loop (dring, ndring)<br>
+ 292
+ * @exception ENOTNAM Name is nil (nring, ndring).<br>
+ 293
+ * @exception ENAMETOOLONG Name is too long (nring, ndring).<br>
+ 294
+ * @exception EEXIST node is already in ring.<br>
+ 295
+ * @exception EMLINK null pointer found in ring link.<br>
+ 296
+ * @exception EFAULT node is nil.<br>
+ 297
+ */</span><br>
+ 298
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 299
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 300
+<span style="color: rgb(102, 102, 102);">/**@name Maintenance<br>
+ 301
+ */</span><br>
+ 302
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 303
+<span style="color: rgb(102, 102, 102);">/** @memo Set or get the check bit control on<br>
+ 304
+ * @doc<br>
+ 305
+ * &nbsp;&nbsp;When check is on, the linkage integrity is checked each time a member<br>
+ 306
+ * function is called.<br>
+ 307
+ * &nbsp;&nbsp;To get the curent check level, call with level at -1.<br>
+ 308
+ * @param level (IN) Only two levels : 0 or 1. -1 for read.<br>
+ 309
+ * @return curent check level.<br>
+ 310
+ */</span><br>
+ 311
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> <A NAME="line_311"></A><A HREF="ring.c.html#f_ring_check_opt">f_ring_check_opt</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> level);<br>
+ 312
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 313
+<span style="color: rgb(102, 102, 102);">/**@name C API <br>
+ 314
+ * @memo The C fonctions set that implement rings<br>
+ 315
+ * @doc<br>
+ 316
+ * &nbsp;The C API is less "friend user" than macros because more code have to be writen<br>
+ 317
+ * to call them properly.<br>
+ 318
+ * &nbsp;In some situations where no member name can be provided to the macros for the ring<br>
+ 319
+ * datas they may be usefull.<br>
+ 320
+ * See \Ref{Implementation}<br>
+ 321
+ */</span><br>
+ 322
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 323
+<span style="color: rgb(0, 153, 0);">bool</span> <A NAME="line_323"></A><A HREF="ring.c.html#f_ring_selftest">f_ring_selftest</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *ring, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 324
+<span style="color: rgb(0, 153, 0);">bool</span> <A NAME="line_324"></A><A HREF="ring.c.html#f_dring_selftest">f_dring_selftest</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *ring, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 325
+<span style="color: rgb(0, 153, 0);">bool</span> <A NAME="line_325"></A><A HREF="ring.c.html#f_nring_selftest">f_nring_selftest</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *ring, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 326
+<span style="color: rgb(0, 153, 0);">bool</span> <A NAME="line_326"></A><A HREF="ring.c.html#f_ndring_selftest">f_ndring_selftest</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *ring, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 327
+<br>
+ 328
+<span style="color: rgb(0, 153, 0);">bool</span> <A NAME="line_328"></A><A HREF="ring.c.html#f_ring_is_in">f_ring_is_in</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *is, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *in, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 329
+<span style="color: rgb(0, 153, 0);">bool</span> <A NAME="line_329"></A><A HREF="ring.c.html#f_nring_is_in">f_nring_is_in</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *is, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *in, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 330
+<span style="color: rgb(0, 153, 0);">bool</span> <A NAME="line_330"></A><A HREF="ring.c.html#f_dring_is_in">f_dring_is_in</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *is, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *in, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 331
+<span style="color: rgb(0, 153, 0);">bool</span> <A NAME="line_331"></A><A HREF="ring.c.html#f_ndring_is_in">f_ndring_is_in</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *is, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *in, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 332
+<br>
+ 333
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_333"></A><A HREF="ring.c.html#f_ring_unlink">f_ring_unlink</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *node, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 334
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_334"></A><A HREF="ring.c.html#f_nring_unlink">f_nring_unlink</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *node, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 335
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_335"></A><A HREF="ring.c.html#f_dring_unlink">f_dring_unlink</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *node, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 336
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_336"></A><A HREF="ring.c.html#f_ndring_unlink">f_ndring_unlink</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *node, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 337
+<br>
+ 338
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_338"></A><A HREF="ring.c.html#f_ring_link">f_ring_link</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *_new, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 339
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_339"></A><A HREF="ring.c.html#f_nring_link">f_nring_link</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *_new, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 340
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_340"></A><A HREF="ring.c.html#f_dring_link">f_dring_link</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *_new, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 341
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_341"></A><A HREF="ring.c.html#f_ndring_link">f_ndring_link</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *_new, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 342
+<br>
+ 343
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_343"></A><A HREF="ring.c.html#f_nring_find">f_nring_find</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">const</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *name, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 344
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_344"></A><A HREF="ring.c.html#f_ndring_find">f_ndring_find</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">const</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *name, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 345
+<br>
+ 346
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_346"></A><A HREF="ring.c.html#f_dring_move">f_dring_move</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> hops, <span style="color: rgb(0, 153, 0);">bool</span> check, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 347
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *<A NAME="line_347"></A><A HREF="ring.c.html#f_ndring_move">f_ndring_move</A>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> hops, <span style="color: rgb(0, 153, 0);">bool</span> check, <span style="color: rgb(0, 153, 0);">size_t</span> offset);<br>
+ 348
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 349
+<br>
+ 350
+<span style="color: rgb(102, 102, 102);">/*<br>
+ 351
+struct <A NAME="line_351"></A><A HREF="ring.h.html#s_ring">s_ring</A> *f_ring_next(struct <A HREF="ring.h.html#s_ring">s_ring</A> *node);<br>
+ 352
+struct <A NAME="line_352"></A><A HREF="ring.h.html#s_ring">s_ring</A> *<A HREF="ring.c.html#f_ring_link">f_ring_link</A>(struct <A HREF="ring.h.html#s_ring">s_ring</A> *ring, struct <A HREF="ring.h.html#s_ring">s_ring</A> *node);<br>
+ 353
+struct <A NAME="line_353"></A><A HREF="ring.h.html#s_ring">s_ring</A> *<A HREF="ring.c.html#f_ring_unlink">f_ring_unlink</A>(struct <A HREF="ring.h.html#s_ring">s_ring</A> *node);<br>
+ 354
+<br>
+ 355
+struct <A NAME="line_355"></A><A HREF="ring.h.html#s_nring">s_nring</A> *f_nring_next(struct <A HREF="ring.h.html#s_nring">s_nring</A> *ring);<br>
+ 356
+struct <A NAME="line_356"></A><A HREF="ring.h.html#s_nring">s_nring</A> *<A HREF="ring.c.html#f_nring_link">f_nring_link</A>(struct <A HREF="ring.h.html#s_nring">s_nring</A> *ring, struct <A HREF="ring.h.html#s_nring">s_nring</A> *new);<br>
+ 357
+struct <A NAME="line_357"></A><A HREF="ring.h.html#s_nring">s_nring</A> *<A HREF="ring.c.html#f_nring_unlink">f_nring_unlink</A>(struct <A HREF="ring.h.html#s_nring">s_nring</A> *node);<br>
+ 358
+struct <A NAME="line_358"></A><A HREF="ring.h.html#s_nring">s_nring</A> *<A HREF="ring.c.html#f_nring_find">f_nring_find</A>(struct <A HREF="ring.h.html#s_nring">s_nring</A> *ring, const char *name);<br>
+ 359
+<br>
+ 360
+struct <A NAME="line_360"></A><A HREF="ring.h.html#s_dring">s_dring</A> *f_dring_next(struct <A HREF="ring.h.html#s_dring">s_dring</A> *ring);<br>
+ 361
+struct <A NAME="line_361"></A><A HREF="ring.h.html#s_dring">s_dring</A> *f_dring_prev(struct <A HREF="ring.h.html#s_dring">s_dring</A> *ring);<br>
+ 362
+struct <A NAME="line_362"></A><A HREF="ring.h.html#s_dring">s_dring</A> *<A HREF="ring.c.html#f_dring_move">f_dring_move</A>(struct <A HREF="ring.h.html#s_dring">s_dring</A> *ring, int hops, bool check);<br>
+ 363
+<br>
+ 364
+struct <A NAME="line_364"></A><A HREF="ring.h.html#s_dring">s_dring</A> *<A HREF="ring.c.html#f_dring_link">f_dring_link</A>(struct <A HREF="ring.h.html#s_dring">s_dring</A> *ring, struct <A HREF="ring.h.html#s_dring">s_dring</A> *new);<br>
+ 365
+struct <A NAME="line_365"></A><A HREF="ring.h.html#s_dring">s_dring</A> *<A HREF="ring.c.html#f_dring_unlink">f_dring_unlink</A>(struct <A HREF="ring.h.html#s_dring">s_dring</A> *node);<br>
+ 366
+** @memo Internal, expand to the ring structure adresse of a node.<br>
+ 367
+ * @doc<br>
+ 368
+ * &nbsp;&nbsp;The macro expand as the next node of a node, allowing you to jump each node.<br>
+ 369
+ * Note that you have to provide a stop condition yourself when you loop around the ring.<br>
+ 370
+ * @param p_ring (IN) a pointer to structure node <br>
+ 371
+ * @param field (IN) the ring structure field name in the node structure.<br>
+ 372
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 373
+ *<br>
+ 374
+#define  /*<A NAME="line_374"></A><A HREF="xref.html#m_ring_to_container">X</A>*/ <B><A NAME="m_ring_to_container">m_ring_to_container</A></B>(p_ring, field) ((typeof(p_ring))((p_ring)?((char *)(p_ring) - offsetof(typeof(*(p_ring)), field) ) :0))<br>
+ 375
+<br>
+ 376
+<br>
+ 377
+*/</span><br>
+ 378
+<br>
+ 379
+<span style="color: rgb(204, 102, 0);">#<b>endif</b> <span style="color: rgb(102, 102, 102);">/* ] <A NAME="line_379"></A><A HREF="ring.h.html#_RING_H_">_RING_H_</A> */</span></span><br>
+<P></tt>
+<P>
+<HR>
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H5>C to HTML Conversion by <I><A HREF="http://www.machinman.net/code/ctoohtml/index.html">ctoohtml</A></I></H5>
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></body>
+</HTML>

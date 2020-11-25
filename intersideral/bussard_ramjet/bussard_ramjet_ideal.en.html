@@ -1,0 +1,1075 @@
+<html lang="en">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="generator" content="HTML Tidy for Linux/x86 (vers 14 June 2007), see www.w3.org">
+<title>Ideal Bussard Ramjet Motion</title>
+<meta content="machinman.net" name="author">
+<meta content="Ideal Bussard Ramjet Motion in special relativity" name="description">
+<style type="text/css">
+   img.mimetex {vertical-align:middle;}
+  </style>
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head><body>
+<div style="text-align: center;">
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<hr style="width: 100%; height: 2px;">
+</div>
+<!-- 
+../mimetex_precompile.tcl -d img_ideal/ -u bussard_ramjet_ideal.en.html
+-->
+<a href="/">Home</a><br>
+<pre>
+Translation : Emmanuel Azencot
+Author : Emmanuel Azencot
+Creation : Fri May  2 16:13:44 CEST 2014
+Update: Tue Nov 13 10:33:03 CET 2018
+</pre>
+<br>
+<table border="0" width="100%">
+<tr>
+<td width="100%"><h2><a href="bussard_ramjet.en.html">Other bussards ramjets motion</a></h2></td>
+<td rowspan="2">
+<a href="bussard_ramjet_ideal.fr.html"><img alt="Français" src="/flags/flag_medium_france.png"></a>
+</td>
+</tr><tr>
+<td><h2>Ideal Bussard Ramjet Motion</h2></td>
+</tr>
+</table>
+
+<p>The interstellar travel is still nowadays a pure theoretical game. 
+Sending human to the nearest stars is beyond our technological reach.
+There are only very little solutions, even theoretical, that could do it.
+Here, then, it is only a matter of theory and calculations in ideal cases.</p>
+<p>
+The bussard ramjet coined in its principle by Dr. Bussard <a href="#ref_1">[1]</a>
+drag the scarce interstellar material to satisfy the propulsion energy needs.
+As no propulsion fuel is carried by the mobile, Tsiolkovsky constraint <a href="#ref_2">[2]</a> does not apply.
+</p>
+<p>
+The constraint makes all known fuels including hydrogen nuclear fusion unable to 
+reach required speed.
+The only fuels that are efficient enough are those who are almost fully converted into useful impulse.
+Some speculative theoretical solution have been proposed, including
+antimatter <a href="#ref_3">[3]</a> or micro black holes <a href="#ref_4">[4]</a>.</p>
+<p>
+Most studies on this device have shown that it is not the easiest way to the 
+nearby stars and a working implementation, if it ever happen, will probably be 
+after fuel caring vessels <a href="#ref_5">[5]</a>.</p>
+<p>Indeed, the fascinating point is, for now, that it is not subject
+the Tsiolkovsky constraint.
+For this reason, it should later be used it to reach farther targets, as 
+bussard ramjet does not seems to have terminal velocity
+ other than speed of 
+light <a href="#ref_6">[6]</a>.</p>
+<p>
+In the following we will study the ideal case where all captured material and
+ energy are converted optimally without any
+losses into impulse for the propulsion.
+This assumption leads to a case simple enough to allow a full and exact 
+algebraic resolution of motion equations.
+An other interesting point about this case is that it is the  most 
+efficient Bussard Ramjet device.</p>
+<p>
+I cannot guarantee the exactness of the following as this document have
+never be reviewed and so there should be several errors lying in. 
+For this reason it would be very unwise of you to take it for
+correct.
+So I am very interested in any feedback you may send through 
+email you will easily find on the site.</p>
+
+<h3>The perfect bussard ramjet<br>
+</h3>
+<p>
+This very theoretical device converts the whole energy collected, 
+mass and kinetic energy, into light emitted exactly in the axis of
+mobile.
+We will work in the comoving frame, instantaneously at rest relative
+to the device, as explained in "Short course in special relativity" <a href="#ref_7">[7]</a>.</p>
+<p>
+We are going to use the conservation of energy and impulse summarized
+in special relativity formalism by 4-momentum.
+We scope 4-momentum at the begining of an infinitesimal interval of proper
+time τ and at τ+dτ, corresponding to interval t to t +dτ in medium frame.
+</p>
+<h4>Symbols<br>
+</h4>
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+
+<tbody>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>c<br>
+</td><td valign="top">is the speed of light.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top" width="5%">
+<br>
+  </td>
+<td>ρ<br>
+</td><td valign="top">is the medium density.</td>
+  <td valign="top" width="5%">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>S<br>
+</td><td valign="top">is the collection cross section</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>M<br>
+</td><td valign="top">is the weight of the rocket</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>β<br>
+</td><td valign="top">is speed of the rocket relative to the speed of light, v/c, in medium frame.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>η(x)<br>
+</td><td valign="top">is the boost corresponding to the speed x. It is arctanh(x),
+ inverse hyperbolic tangent. Unlike speed, boost is additive, and thus integrable.
+</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>m<br>
+</td><td valign="top">is the mass of the collected material.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>t<br>
+</td><td valign="top">is a time stamp in the medium (or collected material) frame.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>τ<br>
+</td><td valign="top">is a time stamp in the rocket frame.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>γ(x) </td><td valign="top">is the Lorentz factor suitable for two frames moving with speed x from each other. Its value is (1-
+x<sup>2</sup>)<sup>-1/2</sup>.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>γ<br>
+</td><td valign="top">is the Lorentz factor corresponding to the speed β.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>Λ(x)  <br>
+</td><td valign="top">is the Lorentz transform matrix for the speed x, C.f (<a href="#eq_1.1">1.1</a>).</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>Β<br>
+</td><td valign="top">Reduced and relative cross section for material collection, equal to ρSc / M.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+</tbody>
+</table>
+
+<p></p>
+<h4>Collection between τ and τ +dτ :</h4>
+<p>
+Between these to instants the rocket dredge an area S in a medium of density ρ.
+As it move forward of infinitesimal distance dx, it sweep a volume S dx
+during proper time dτ.
+We start working with spacetime event 4-vector proper time interval (c(τ +dτ), 0, 0, 0) 
+and (cτ, 0, 0, 0) which can be simplified to ((c(τ +dτ), 0) -(cτ, 0,)), 
+as only the dimension of space along motion is to be taken into account.
+We will use this simplification in the following.</p>
+<p>
+We want the rocket proper time interval corresponding to (c dτ, 0) in the medium rest frame.
+According to special relativity, Lorentz transform matrix Λ(β) is the right way when the frames 
+are moving from each other with speed β :</p>
+<p>
+<table><tbody><tr>
+<td align="right" width="80em"><tt>
+<a name="eq_1.1"></a>(1.1)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\left( \begin{array}{GC+20}  c dt \\ dx \end{array} \right) = \Lambda (\beta) \left( \begin{array} c d\tau \\ 0 \end{array} \right) = \left( \begin{array} \gamma &amp; \gamma \beta \\ \gamma \beta &amp; \gamma \end{array} \right) \left( \begin{array} c d\tau \\ 0 \end{array} \right)" src="img_ideal/mimetex_img_0.gif" alt="" class="mimetex">
+</td>
+</tr></tbody></table>
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<tt><a name="eq_1.2"></a></tt><tt>(1.2)</tt>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="c dt = \gamma c d\tau " src="img_ideal/mimetex_img_1.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.3"></a></tt>(1.3)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex=" dx  =  \gamma \beta c d\tau " src="img_ideal/mimetex_img_2.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>
+From (<a href="#eq_1.3">1.3</a>) the device covered a distance dx,
+and then it sweep a volume S dx in which all the material, at density ρ,
+is collected :  m = ρSdx.
+We just have to replace dx with (<a href="#eq_1.3">1.3</a>) to have
+an expression of collected material as a function of time interval :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.4"></a></tt>(1.4)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="m = \rho S c \gamma \beta d\tau" src="img_ideal/mimetex_img_3.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<h4>Momentum at time τ or t :<br>
+</h4>
+<p>The rocket with mass M have a 4-vector momentum expressed in its own frame of :</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_M(\tau) = \left( \begin{array}{GC+20} Mc \\ 0 \end{array} \right)" src="img_ideal/mimetex_img_4.gif" alt="" class="mimetex"><p>
+</p>
+</td>
+</tr></tbody>
+</table>
+<p>In order to have the momentum of collected interstellar gas we
+express it in the medium frame and then we change to the rocket frame
+which have a velocity of -β : 
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_m(\tau) = \Lambda(-\beta)\left( \begin{array}{GC+20} mc \\ 0 \end{array} \right) = \left( \begin{array} \gamma &amp; -\beta \gamma \\ -\beta \gamma &amp; \gamma \end{array} \right) \left( \begin{array} mc \\ 0 \end{array} \right)" src="img_ideal/mimetex_img_5.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_m(\tau) = \left( \begin{array}{rGC+20} \gamma mc \\ -\beta \gamma mc \end{array} \right)" src="img_ideal/mimetex_img_6.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>The 4-vector momentum of the system is the sum of the two previous contributions :</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.5"></a></tt>(1.5)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p(\tau) = p_M(\tau) + p_m(\tau) = \left( \begin{array}{rGC+20}Mc+\gamma mc\\ -\beta \gamma mc \end{array} \right)" src="img_ideal/mimetex_img_7.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<h4>Momentum at time just after, τ +dτ :</h4>
+<p>
+All collected mater m, including its kinetic energy, 
+is converted into mass-less particles send toward x axis.
+Momentum of mass-less resulting beam is  (q, -q) <a href="#note_1">(1)</a>.</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_m(\tau+d\tau) = \left( \begin{array}{rGC+20}q\\ -q \end{array} \right)" src="img_ideal/mimetex_img_8.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>As we will see later, it useless to explicit q, although it is straightforward.
+</p>
+<p>
+During time interval device speed increase by infinitesimal increment dβ,
+which give it the new momentum :</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_M(\tau+d\tau) = \left( \begin{array}{rGC+20} \gamma(d\beta)Mc \\ d\beta\gamma(d\beta)Mc \end{array} \right)" src="img_ideal/mimetex_img_9.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>
+As speed increase dβ is as small as required, we can approximate its 
+Lorentz factor γ(dβ) as being very close from 1. Indeed, at scale of
+dβ, a second order Tailor development of γ(dβ) give classical 
+mechanic equivalent γ(dβ) ≈ 1 + <big><sub><big>½</big></sub></big> dβ<sup>2</sup>.
+As it is a second order of vanishing quantity, we can drop its contribution :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_M(\tau+d\tau) = \left( \begin{array}{rGC+20} Mc \\ d\beta Mc \end{array} \right)" src="img_ideal/mimetex_img_10.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>
+The new system momentum 4-vector at proper time τ +dτ is the sum of its contributors :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.6"></a></tt>(1.6)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p(\tau+d\tau) = p_M(\tau+d\tau) +p_m(\tau+d\tau) = \left( \begin{array}{rGC+20} Mc+q \\ d\beta Mc -q\end{array} \right) " src="img_ideal/mimetex_img_11.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>
+<a name="note_1"></a>(1) A property of mass-less particles 
+is the null self inner product of their momentum.
+As the momentum is a Lorentz transform invariant, and is
+m<sup>2</sup>c<sup>2</sup>. 
+</p>
+<h4>Momentum continuity equation</h4>
+<p>The invariance of momentum 4-vector account for both impulse
+and energy conservation :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p(\tau) = p(\tau+d\tau)" src="img_ideal/mimetex_img_12.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>
+We now split time and space dimension into separate equations :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>(E)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="Mc + \gamma mc = Mc + q" src="img_ideal/mimetex_img_13.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>(P)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="  -\beta \gamma mc = d \beta Mc - q" src="img_ideal/mimetex_img_14.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>Having still collected material expression at (<a href="#eq_1.4">1.4</a>) :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>(M)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="m = \rho S c \gamma \beta d\tau" src="img_ideal/mimetex_img_15.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>Adding (E) with (P), then using (M), and with :</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.7"></a></tt>(1.7)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="B = \Large \frac{\rho S c}{M}" src="img_ideal/mimetex_img_16.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>It comes : </p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="d\beta = B \gamma^2 \beta (1-\beta) d\tau" src="img_ideal/mimetex_img_17.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.8"></a></tt>(1.8)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="d\beta = B\ \frac{\beta}{1+\beta}\ d\tau" src="img_ideal/mimetex_img_18.gif" alt="" class="mimetex"><br>
+</td>
+</tr></tbody>
+</table>
+<p>
+The graph below is Bβ / (1 + β), at sampled values ​​of B 1, 0.1 and 10 <a href="#note_2">(2)</a>. Only part where β ≥ 0 is to be considered.
+</p>
+<p></p>
+<p align="center">
+<img alt="x/(1+x)" src="graphics/div%28x,1+x%29.png" height="405" width="830">
+</p><p>
+<a name="note_2"></a>(2) 
+The physical value of B is indeed very small as the particles in 
+the medium are scarce, less than 0.1 proton/cm<sup>3</sup>
+and as the rocket weight is a matter of thousand of tons.
+</p>
+<h4>Speed from integration of acceleration</h4>
+<p>
+Looking for an expression of β(τ), we want to integrate 
+the previous differential equation. 
+At first we try to figure the initial condition. 
+</p>
+<p>When β &gt; 0, acceleration is positive, and hence β(τ) is increasing 
+function of proper time τ as soon as β &gt; 0. Moreover if β =
+ 0, acceleration will also be null.
+It is then required an infinite amount of time for the device to get an non null speed.
+The initial condition based on β = 0, will be reach as time tend to -∞.
+</p>
+<p>
+An other issue towards integration coming from β not being additive, 
+is flattened by a variable substitution from β to boost, η(β) = η = atanh(β),
+which is additive.
+As the derivative of tanh(x) at x = 0 is 1, we can simply replace dβ with dη.
+The reworked equation (<a href="#eq_1.8">1.8</a>) become :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\int{1+\frac{1}{tanh(\eta)} d\eta} = \int{B d\tau}" src="img_ideal/mimetex_img_19.gif" alt="" class="mimetex">  
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\eta+ln(sinh(\eta))+ln(2)=ln(e^{\eta}-1)+ln(e^{\eta}+1)=B\tau +K" class="mimetex" src="img_ideal/mimetex_img_20.gif" alt="=ln(e^{B\tau}-1)"> <a href="#note_3">(3)</a><br>
+</td>
+</tr></tbody>
+</table>
+<p></p>
+<p align="center">
+<img alt="1+div(1,tanh(x)), x+ln(sinh(x))" src="graphics/1+div%281,tanh%28x%29%29,x+ln%28sinh%28x%29%29.png" align="middle" height="438" width="814">
+</p>
+<p>
+Fed in this result, initial condition constraint does no lead to any
+particular specific value of K, as any of its value is suitable for
+boost η going to zero as time τ goes to -∞.
+We then can choice K = 0 for simplify :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="(e^{\eta}-1)(e^{\eta}+1)=e^{B\tau}" class="mimetex" src="img_ideal/mimetex_img_21.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="e^{2\eta}-1=e^{B\tau}" class="mimetex" src="img_ideal/mimetex_img_22.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.9"></a></tt>(1.9)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\eta = \frac{1}{2}ln(e^{B\tau}+1)" src="img_ideal/mimetex_img_23.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>For τ = 0, <img mimetex="\eta_0 = ln(\sqrt{2}) = 0.346" src="img_ideal/mimetex_img_24.gif" alt="" class="mimetex">. 
+Converting boost back to β, we find <img mimetex="\beta_0 = tanh(ln(\sqrt{2})) = 1/3" src="img_ideal/mimetex_img_25.gif" alt="" class="mimetex">.
+It follows that all the speed curves for any value of B cross at 1/3 of light speed. This crossing happen at τ = 0.
+</p>
+<p>
+Below the graph of η(τ) for a some value of B : 1, 0.1 and 10 :
+</p>
+<p align="center"><img alt="div(1,2)ln(e%5Ex+1" src="graphics/div%281,2%29ln%28e%5Ex+1%29.png" align="middle" height="437" width="813"></p>
+<p>
+
+Its is straightforward to derive an expression of β as a function of τ using β = tanh(η) :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\beta=tanh(ln(\sqrt{e^{B\tau}+1}))=\frac{\sqrt{e^{B\tau}+1}-\frac{1}{\sqrt{e^{B\tau}+1}}}{\sqrt{e^{B\tau}+1}+\frac{1}{\sqrt{e^{B\tau}+1}}}" class="mimetex" src="img_ideal/mimetex_img_26.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.10"></a></tt>(1.10)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\beta= \Large \frac{e^{B\tau}}{2+e^{B\tau}}" class="mimetex" src="img_ideal/mimetex_img_27.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr></tbody>
+</table>
+<p>
+An approximate low speed expression, when τ tend to -∞ is an exponential motion,
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\tau \rightarrow \ - \infty,\ \beta \simeq \frac{1}{2}e^{B\tau}" class="mimetex" src="img_ideal/mimetex_img_28.gif" alt="">
+</td>
+</tr></tbody>
+</table>
+<p>
+At high speed, when τ tend to +∞ as obtain from η lead to an approximate motion : 
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\tau \rightarrow \ \infty,\ \eta \simeq \frac{B\tau}{2}, \ \ \beta \simeq tanh(\frac{B\tau}{2})" class="mimetex" src="img_ideal/mimetex_img_29.gif" alt="">
+</td>
+</tr></tbody>
+</table>
+<p>
+Below graph show evolution of β as a proper time function plotted for 3 values of B :</p>
+<p align="center"><img alt="div(1,2)ln(e%5Ex+1" src="graphics/div%28e%5Ex,2+%5Ex%29.png" align="middle" height="437" width="813"></p>
+<p>
+</p>
+<p>
+<a name="note_3"></a>(3) Thanks to <a href="http://www.wolframalpha.com/input/?i=integrate+%281%2B1%2Ftangh%28x%29%29" target="_blank">Mathématica</a> for the first form and to <a href="http://www.numberempire.com/integralcalculator.php" target="_blank">NumberEmpire</a> for the second.
+</p>
+<h4>Integration of speed for distance
+</h4>
+<p>
+We now focus on the distance traveled by the rocket in the medium frame.
+When accounting for medium collected matter, we found, according to (<a href="#eq_1.3">1.3</a>)
+an expression of dx as a function of dτ. 
+Remembering that γ = cosh(η) and βγ = sinh(η) :</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="dx = \gamma\beta c d\tau = c\ sinh(\eta)d\tau = c\ sinh(ln(\sqrt{e^{B\tau}+1}))d\tau" class="mimetex" src="img_ideal/mimetex_img_30.gif" alt="">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="dx = \frac{c}{2}(\sqrt{e^{B\tau}+1}-\frac{1}{\sqrt{e^{B\tau}+1}})d\tau = \frac{c\ e^{B\tau}}{2\sqrt{e^{B\tau}+1}}d\tau" class="mimetex" src="img_ideal/mimetex_img_31.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\int{dx} = \frac{c}{2} \int{\frac{e^{B\tau}}{\sqrt{e^{B\tau}+1}} d\tau}" class="mimetex" src="img_ideal/mimetex_img_32.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="x = \frac{c}{B}\sqrt{e^{B\tau}+1} +K" class="mimetex" src="img_ideal/mimetex_img_33.gif" alt="=">
+</td>
+</tr></tbody>
+</table>
+<p>When τ goes to -∞, x must tend to 0. This constraint B to be -c/B, hence :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.11"></a></tt>(1.11)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="x = \frac{c}{B}(\sqrt{e^{B\tau}+1} -1)" class="mimetex" src="img_ideal/mimetex_img_34.gif" alt="">
+</td>
+</tr></tbody>
+</table>
+<p>
+</p>
+<p align="center">
+<img alt="sqrt(e^x+1)-1" src="graphics/sqrt%28e%5Ex+1%29-1.png" height="405" width="828">
+</p>
+<p>
+An enhanced view with the logarithm of x :
+</p>
+<p>
+</p>
+<p align="center">
+<img alt="log(sqrt(e^x+1)-1)" src="graphics/log%28sqrt%28e%5Ex+1%29-1%29.png" height="405" width="819">
+</p>
+<p>
+We can derive the distance traveled by the device at proper time τ = 0 :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.12"></a></tt>(1.12)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="x(\tau=0) = \frac{c}{B}(\sqrt{2} -1)" class="mimetex" src="img_ideal/mimetex_img_35.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr></tbody>
+</table>
+<h4>Integration of speed for duration</h4>
+<p><i>
+A traveler to Andromeda Galaxy will see Milky way spinning.</i></p>
+<p>
+We are looking for how much time t that elapses in medium frame firstly as
+a function of rocket proper time τ.
+We start using (<a href="#eq_1.2">1.2</a>) which join the corresponding infinitesimal quantities. 
+Given boost expression from η at (<a href="#eq_1.9">1.9</a>) :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="c dt = \gamma c d\tau = c\ cosh(\eta) d\tau = c\ cosh(ln(\sqrt{e^{B\tau}+1})) d\tau = \frac{c}{2}\ (\sqrt{e^{B\tau}+1}+\frac{1}{\sqrt{e^{B\tau}+1}}) d\tau" src="img_ideal/mimetex_img_36.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\int{dt} = \int{ \frac{e^{B\tau}+2}{2\sqrt{e^{B\tau}+1}} d\tau}" src="img_ideal/mimetex_img_37.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>Thanks to <a href="http://www.numberempire.com/" target="_blank">Number Empire</a> :</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="t = \frac{1}{B}(ln(\sqrt{e^{B\tau}+1}-1) -ln(\sqrt{e^{B\tau}+1}+1) +\sqrt{e^{B\tau}+1}) +K" src="img_ideal/mimetex_img_38.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>Having t = 0 when τ = 0, require</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="K = - \frac{1}{B}(ln(\sqrt{2}-1) -ln(\sqrt{2}+1) +\sqrt{2})" src="img_ideal/mimetex_img_39.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="t = \frac{1}{B}(ln(\frac{\sqrt{e^{B\tau}+1}-1}{\sqrt{2}-1}) -ln(\frac{\sqrt{e^{B\tau}+1}+1}{\sqrt{2}+1}) +\sqrt{e^{B\tau}+1} -\sqrt{2})" src="img_ideal/mimetex_img_40.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>
+<table><tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.13"></a></tt>(1.13)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="t = \frac{1}{B}(\sqrt{e^{B\tau}+1} -\sqrt{2} +ln\frac{(\sqrt{e^{B\tau}+1}-1)(\sqrt{2}+1)}{(\sqrt{e^{B\tau}+1}+1)(\sqrt{2}-1)})" src="img_ideal/mimetex_img_41.gif" alt="" class="mimetex">
+</td>
+</tr></tbody></table>
+</p>
+<h4>Distance and duration in the "fixed" medium frame</h4>
+<p>
+Clearly fixed frame do not make any sense as for special relativity. 
+It is rather the frame of the collected matter, the medium frame,
+if indeed this material was having an homogenous motion.
+The "fixed" medium frame, can also be approximate with sun's proper frame
+neglecting the collected matter speed relative to it.
+</p>
+<p>
+The value of x of (<a href="#eq_1.11">1.11</a>) and t from (<a href="#eq_1.13">1.13</a>) are then
+stated to be time and distance observed from Earth.
+In the case of ideal bussard ramjet it is possible to derive an algebraic
+exact expression of elapsed time as a function of traveled distance.
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="t = \frac{1}{B}(\frac{Bx}{c} +1-\sqrt{2} +ln\frac{(\frac{Bx}{c})(\sqrt{2}+1)}{(\frac{Bx}{c}+2)(\sqrt{2}-1)})" src="img_ideal/mimetex_img_42.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<!-- 1−√2+ln ((√2+1)÷(√2−1))<p> !-->
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="t = \frac{x}{c} +\frac{1}{B}ln\frac{Bx}{Bx+2c} +\frac{1}{B}(1-\sqrt{2}+ln\frac{\sqrt{2}+1}{\sqrt{2}-1})" src="img_ideal/mimetex_img_43.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<tt><a name="eq_1.14"></a></tt>(1.14)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="t = \frac{x}{c} +\frac{1}{B}ln\frac{Bx}{Bx+2c} +\frac{1.348}{B}" src="img_ideal/mimetex_img_44.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<p>
+The following graph show the travel duration as a function of time that is  t(x). 
+Of course only the right part where x ≥ 0 is to be considered.
+</p>
+<p>
+</p>
+<p align="center">
+<img alt="x+log(x/(x+2))" src="graphics/x+log%28div%28x,%20x+2%29%29.png">
+</p>
+<p>
+The curve asymptote when x tend towards +<big>∞</big> for every
+values of B is x/c, which is the light speed corresponding line.
+This can also be deducted from (<a href="#eq_1.14">1.14</a>) as 
+if x/c is subtracted, the remaining terms tend to 1.348/B.
+
+The shift between curves summarize the ahead granted to a rocket with an other B
+after an infinite duration race started long in the past with both challengers 
+swimming in a perfectly steady homogenous medium.</p>
+<h4>Conclusion</h4>
+<p>
+The motion of the ideal Bussard Ramjet is now algebraically solved in its
+proper frame as well as in the medium collected matter frame which can also be
+approximate as Earth rest frame.
+</p>
+<p>
+The ideal Bussard Ramjet motion at low speed is according to (<a href="#eq_1.11">1.11</a>), at best, exponential.
+Thus clearly this kind of device need an initial speed relative to 
+the harvested medium.
+It is unlikely that this only propelling method is enough to cover
+all the travel. 
+</p>
+<p>
+However, at relativistic speed range its acceleration tend to B/2 when time goes to infinity, with respect to (<a href="#eq_1.8">1.8</a>).
+To my opinion, it is the only theoretical device that exhibit a such capability.
+This ideal rocket should head the race,
+of theoretical, faster displacement speed. 
+</p>
+<p>
+Unfortunately any Bussard Ramjet practical achievement will experiment to any kind
+of loss leading to lesser capability.
+</p>
+<p>
+</p><br>
+<br>
+<br>
+<br>
+<h4>References</h4>
+<p>
+<a name="ref_1">[1]</a> <a href="http://large.stanford.edu/courses/2013/ph241/micks1/docs/bussard.pdf" target="_blank">Galactic Matter and Interstellar Flight</a>, Robert W. Bussard; Los Alamos Scientific Laboratory, University of California, Los Alamos, NM. <a href="../references/bussard.pdf">Local mirror</a>.
+<br>
+<a name="ref_2">[2]</a> <a href="">Investigation of outer space rocket appliances</a>, Konstantin Tsiolkovsky, 1903. <a href="../references/Tsiolkovsky.html">Local mirror</a>, See also <a href="http://en.wikipedia.org/wiki/Tsiolkovsky_rocket_equation" target="_blank">Wiki</a>, if one do not read russian.
+<br>
+<a name="ref_3">[3]</a> <a href="http://www.math.ksu.edu/%7Ewestmore/norr2.pdf" target="_blank">A note on relativistic rocketry</a>, Acta Astronautica, Shawn Westmoreland, Volume 67, Issues 9-10, November-December 2010, pp. 1248 - 1251. <a href="../references/AM_0910.1965.pdf">Local mirror</a>.
+<br>
+<a name="ref_4">[4]</a> <a href="http://arxiv.org/abs/0908.1803" target="_blank">Are Black Hole Starships Possible ?</a>, Louis Crane, Shawn Westmoreland, 2009. <a href="../references/BH_0908.1803.pdf">Local mirror</a>. <br>
+  <a name="ref_5">[5]</a> <a href="http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1964IrAJ....6..299O" target="_blank">Is Interstellar Travel Possible ?</a>, Opik, E. J., Irish Astronomical Journal, vol. 6(8), p. 299. <a href="../references/1964IrAJ....6..299O.pdf">Local mirror</a>. <br>
+<a name="ref_6">[6]</a>  <a href="http://arxiv.org/abs/0710.0295" target="_blank">The equation of motion of an interstellar Bussard ramjet</a>, Claude Semay and Bernard Silvestre-Brac, Eur. J. Phys. 26 (2005) 75–83, doi:10.1088/0143-0807/26/1/009. <a href="../references/SEMAY-2005-03-JOURNAL.pdf">Local mirror</a>. <br>
+  <a name="ref_7">[7]</a> <a href="http://www.6911norfolk.com/d0lbln/110bf08/110bf08-rel.pdf" target="_blank">Short course in special relativity</a>, M. Strovink, Spring 2006, University of California, Berkeley, <a href="../references/UBC-relativite_restreinte.pdf">Local mirror</a>. <br>
+  <br>
+</p>
+<h4>Acknowledgments<br>
+</h4>
+<p>
+Mathematical image were produced with   
+<a href="http://www.forkosh.com/mimetex.html" target="_blank">mimetex</a>. 
+Most of free web hosting do not provided arbitrary binary cgi-bin,
+formulas have been processed with this especially crafted 
+<a href="./mimetex_precompile.tcl">script</a>.
+</p>
+<p>
+Reading the works quoted as reference has been a great help for this little work,
+particularly the <a href="#ref_1">Short course in special relativity</a> of M. Strovink,
+as the article from Claude Semay and Bernard Silvestre-Brac <a href="#ref_2">[6]</a>.
+</p>
+<p>
+I have also make a intensive use online calculation resources as <a href="http://www.wolframalpha.com" target="_blank">WolframAlpha</a> and <a href="http://www.numberempire.com/" target="_blank">Number Empire</a>, especially for integration and graphics.
+</p>
+<p><br>
+</p>
+
+
+<p>
+<table style="border-color: green;" border="4" cellpadding="4" align="center" width="80%">
+<tbody>
+<tr>
+<td valign="top">
+<p><b>Here are some links for kids math education suggested by </b><b><a href="http://mathcamps.org/" target="_blank">MathCamps.org</a></b><b>:</b></p>
+<ul>
+<li><a href="https://www.akc.org/public-education/educator-resources/grades-6-8-lesson-plans/6-8-math/graphing-puppies/">Graphing
+Puppies</a> - How do you get a middle schooler stoked about graphs? One word: puppies!</li>
+<li><a href="https://www.homeadvisor.com/r/home-design-activities-for-kids/">Home Design-Inspired Activities for Kids</a> - What better way to learn about geometry and other core concepts than designing a room or even a whole home?</li>
+<li><a href="https://artsycraftsymom.com/math-crafts-and-activities-for-world-maths-day/">10
+Enjoyable Math Crafts And Activities For World Maths Day</a> - If your student
+thinks they’re destined to hate math because they prefer to use the creative
+side of their brain, give a few of these activities a try.</li>
+<li><a href="https://topnotchteaching.com/lesson-ideas/cool-math-games/">70 Cool
+Math Games</a> - If you disguise math as a game (or 70!), kids won’t mind learning
+arithmetic.</li>
+<li><a href="https://www.moneyinstructor.com/wsp/recipes.asp">Cooking with Recipes</a> - Kids won’t be able
+to resist learning about fractions, multiplication and division if their
+favorite recipe plays a part. This lesson also has customizable, printable
+worksheets.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+</p>
+<p>
+<br>
+</p>
+<!-- postprod:signature:start -->
+<hr size="2" width="100%"> 
+<b><small>web design : <a href="http://www.machinman.net">machinman.net</a> all right reserved, update Tue Nov 24 11:56:00 CET 2020</small></b><br>
+<!-- postprod:signature:end -->
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+
+
+
+</body>
+</html>

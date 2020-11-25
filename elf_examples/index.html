@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+  <meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
+  <title>Elf copy and Elf object location</title>
+  <meta content="Emmanuel Azencot" name="author">
+  <meta content="Sample programms for libelf and gelf librarie" name="description">
+  <meta name="keywords" content="libelf, gelf, elf, example, source code, relocation, object, ABI">
+  <link rel="stylesheet" type="text/css" href="../machinman.css">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<div class="navbar">
+   <table width=100% cellpadding="2" cellspacing="2" border="1" ><tbody><tr>
+   <td style="width: 50%;" ><a href="../index.html">Up</a></td>
+   <td style="width: 50%;" >
+   <script type="text/javascript">eval(unescape('%76%61%72%20%73%3D%27%61%6D%6C%69%6F%74%77%3A%62%65%61%6D%74%73%72%65%6D%40%63%61%69%68%6D%6E%6E%61%6E%2E%74%65%27%3B%76%61%72%20%72%3D%27%27%3B%66%6F%72%28%76%61%72%20%69%3D%30%3B%69%3C%73%2E%6C%65%6E%67%74%68%3B%69%2B%2B%2C%69%2B%2B%29%7B%72%3D%72%2B%73%2E%73%75%62%73%74%72%69%6E%67%28%69%2B%31%2C%69%2B%32%29%2B%73%2E%73%75%62%73%74%72%69%6E%67%28%69%2C%69%2B%31%29%7D%64%6F%63%75%6D%65%6E%74%2E%77%72%69%74%65%28%27%3C%61%20%68%72%65%66%3D%22%27%2B%72%2B%27%22%3E%77%65%62%6D%61%73%74%65%72%40%6D%61%63%68%69%6E%6D%61%6E%2E%6E%65%74%3C%2F%61%3E%27%29%3B'))</script>
+   </td></tr>
+   </tbody></table>
+</div>
+</p>
+Author  : Emmanuel Azencot<br>
+Cr&eacute;ation : Fri Nov 16 16:38:21 CET 2007<br>
+Last update : Sun Nov 22 20:39:05 CET 2009<br>
+<p>
+<h1>Libelf sample programs</h1>
+At the time I have writen a simple object relocation program
+(<a href="elf_obj_loc.c">elf_obj_loc.c</a>), I have found very few code dealing with Elf format
+with libelf and gelf. One of them was the excelent 
+<a href="http://sourceforge.net/projects/elftoolchain/files/Documentation/libelf-by-example/" target="_blank">
+libelf by Example</a> writen by Joseph Koshy.
+I hope these two libelf code example will help.
+<p>
+The first source example is a demo that copies an elf to an new one.
+The result it produce from a running executable is an non-running
+Elf executable.
+<blockquote>
+<b><a href="html/elf_copy.c.html">elf_copy.c</a></b>
+<a href="elf_copy.c">(source file)</a> 
+(build : gcc -o elf_copy -lelf elf_copy.c)<br>
+</blockquote>
+The second also produce non-running Elf executable, but
+this time the result is more usefull. The only Elf type it accepts is
+relocatable object from which it produces a new Elf that can be used
+with a disassembler, like objdump.
+As a trivial link pass have been done on the result, objdump
+is fed with adresses synchronized with symbol table and can
+thus produce a far better output.
+<blockquote>
+<b><a href="html/elf_obj_loc.c.html">elf_obj_loc.c</a><a
+ href="elf_obj_loc.c"></a></b>  <a href="elf_obj_loc.c">(souce file)</a>
+(build : gcc -o elf_obj_loc -lelf elf_obj_loc.c)<br>
+</blockquote>
+Example :<br>
+Compile the file <b><a href="html/sample.c.html">sample.c</a></b>
+<a href="sample.c">(source file)</a> 
+(build : gcc -c -o sample.o sample.c)<p>
+And have a look on objdump disassembly output :<p>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td>
+      <code>
+shell$ &gt; objdump -d sample.o<br>
+<br>
+sample.o: file format elf32-i386<br>
+<br>
+Disassembly of section .text:<br>
+<br>
+00000000 &lt;whois&gt;:<br>
+ 0: 55 push %ebp<br> 1: 89 e5 mov %esp,%ebp
+</code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_red">
+      <td>
+      <code> 3: a1 00 00 00 00 mov 0x0,%eax<br></code>
+      </td>
+      <td>variable "who" </td>
+    </tr>
+    <tr>
+      <td>
+      <code>
+ 8: 5d pop %ebp<br>
+ 9: c3 ret <br>
+<br>
+0000000a &lt;what&gt;:<br>
+ a: 55 push %ebp<br> b: 89 e5 mov %esp,%ebp<br>
+</code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_red">
+      <td>
+      <code> d: a1 00 00 00 00 mov 0x0,%eax<br></code>
+      </td>
+      <td>variable "hello"</td>
+    </tr>
+    <tr>
+      <td>
+      <code>
+ 12: 5d pop %ebp<br> 13: c3 ret <br>
+<br>
+00000014 &lt;main&gt;:<br>
+ 14: 8d 4c 24 04 lea 0x4(%esp),%ecx<br>
+ 18: 83 e4 f0 and $0xfffffff0,%esp<br>
+ 1b: ff 71 fc pushl 0xfffffffc(%ecx)<br>
+ 1e: 55 push %ebp<br>
+ 1f: 89 e5 mov %esp,%ebp<br>
+ 21: 53 push %ebx<br>
+ 22: 51 push %ecx<br>
+ 23: 83 ec 10 sub $0x10,%esp<br>
+</code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_red">
+      <td>
+      <code> 26: e8 fc ff ff ff call 27 &lt;main+0x13&gt;<br></code>
+      </td>
+      <td>defined function (whois)</td>
+    </tr>
+    <tr>
+      <td>
+      <code> 2b: 89 c3 mov %eax,%ebx<br></code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_red">
+      <td>
+      <code> 2d: e8 fc ff ff ff call 2e &lt;main+0x1a&gt;<br></code>
+      </td>
+      <td>defined function (what)</td>
+    </tr>
+    <tr>
+      <td>
+      <code> 32: 89 5c 24 08 mov %ebx,0x8(%esp)<br> 36: 89 44 24 04 mov %eax,0x4(%esp)<br> 3a: c7 04 24 0c 00 00 00 movl $0xc,(%esp)<br></code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_red">
+      <td>
+      <code> 41: e8 fc ff ff ff call 42 &lt;main+0x2e&gt;<br></code>
+      </td>
+      <td>undefine function (printf)</td>
+    </tr>
+    <tr>
+      <td>
+      <code> 46: b8 00 00 00 00 mov $0x0,%eax<br> 4b: 83 c4 10 add $0x10,%esp<br> 4e: 59 pop %ecx<br> 4f: 5b pop %ebx<br> 50: 5d pop %ebp<br> 51: 8d 61 fc lea 0xfffffffc(%ecx),%esp<br> 54: c3 ret </code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<span style="font-family: monospace;"><br>
+</span>All
+adresses, including variables and functions, are left
+unchanged from the binary relocatable object which does not contain an
+address at all
+(value is set to 0 for variables and 0xFFFFFFFC for functions).<br>
+<br>
+elf_obj_loc applies .rel sections  to the
+corresponding
+sections as whould do a linker. In addition, it maps undefined symbols
+to adress 0x2500000 incrementing by 0x10 at each symbol. The output of
+objdump clearly shows that it is happier than it was with the raw
+object.<br>
+<br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td>
+      <code>shell$ &gt; ./elf_obj_loc sample.o sample.reloc<br>shell$ &gt; objdump -d sample.reloc<br>sample.reloc: file format elf32-i386<br><br>Disassembly of section .text:<br><br>08048000 &lt;whois&gt;:<br> 8048000: 55 push %ebp<br> 8048001: 89 e5 mov %esp,%ebp</code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_green">
+      <td>
+      <code> 8048003: a1 5c 80 04 08 mov 0x804805c,%eax<br></code>
+      </td>
+      <td>variable who</td>
+    </tr>
+    <tr>
+      <td>
+      <code> 8048008: 5d pop %ebp<br> 8048009: c3 ret <br><br>0804800a &lt;what&gt;:<br> 804800a: 55 push %ebp<br> 804800b: 89 e5 mov %esp,%ebp<br></code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_green">
+      <td>
+      <code> 804800d: a1 58 80 04 08 mov 0x8048058,%eax<br></code>
+      </td>
+      <td>variable hello</td>
+    </tr>
+    <tr>
+      <td>
+      <code> 8048012: 5d pop %ebp<br> 8048013: c3 ret <br><br>08048014 &lt;main&gt;:<br> 8048014: 8d 4c 24 04 lea 0x4(%esp),%ecx<br> 8048018: 83 e4 f0 and $0xfffffff0,%esp<br> 804801b: ff 71 fc pushl 0xfffffffc(%ecx)<br> 804801e: 55 push %ebp<br> 804801f: 89 e5 mov %esp,%ebp<br> 8048021: 53 push %ebx<br> 8048022: 51 push %ecx<br> 8048023: 83 ec 10 sub $0x10,%esp<br></code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_green">
+      <td>
+      <code> 8048026: e8 d5 ff ff ff call 8048000 &lt;whois&gt;<br></code>
+      </td>
+      <td>defined function</td>
+    </tr>
+    <tr>
+      <td>
+      <code> 804802b: 89 c3 mov %eax,%ebx<br></code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_green">
+      <td>
+      <code> 804802d: e8 d8 ff ff ff call 804800a &lt;what&gt;<br></code>
+      </td>
+      <td>defined function</td>
+    </tr>
+    <tr>
+      <td>
+      <code> 8048032: 89 5c 24 08 mov %ebx,0x8(%esp)<br> 8048036: 89 44 24 04 mov %eax,0x4(%esp)<br></code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <code> 804803a: c7 04 24 60 80 04 08 movl $0x8048060,(%esp)<br></code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+    <tr class="t_green">
+      <td>
+      <code> 8048041: e8 ca 7f 4b fa call 2500010 &lt;printf&gt;<br></code>
+      </td>
+      <td>undefined function</td>
+    </tr>
+    <tr>
+      <td>
+      <code> 8048046: b8 00 00 00 00 mov $0x0,%eax<br> 804804b: 83 c4 10 add $0x10,%esp<br> 804804e: 59 pop %ecx<br> 804804f: 5b pop %ebx<br> 8048050: 5d pop %ebp<br> 8048051: 8d 61 fc lea 0xfffffffc(%ecx),%esp<br> 8048054: c3 ret <br></code>
+      </td>
+      <td><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<!-- postprod:signature:start -->
+<hr size="2" width="100%"> 
+<b><small>web design : <a href="http://www.machinman.net">machinman.net</a> all right reserved, update Tue Nov 24 11:56:00 CET 2020</small></b><br>
+<!-- postprod:signature:end -->
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

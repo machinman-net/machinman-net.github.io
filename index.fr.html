@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="fr"><head>
+ <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+ <title>L'Homme machine</title>
+ <meta content="Emmanuel Azencot" name="author">
+ <meta content="Acceuil de machinman.net" name="description">
+ <meta name="keywords" content="machinman, libelf, dwarf2xml, Interstelar">
+ <link rel="stylesheet" type="text/css" href="./machinman.css">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head><body>
+<div style="text-align: center;">
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<hr style="width: 100%; height: 2px;">
+</div>
+<table border="0" cellpadding="2" cellspacing="2" width="100%"><tbody>
+ <tr>
+  <td ><pre>Translation : Emmanuel Azencot
+Author : Emmanuel Azencot
+Creation : Sun Jul 27 10:45:55 CEST 2008
+Update: Wed Nov 18 18:40:02 CET 2020</pre></td>
+  <td width="8%"><a href="/index.html"><img alt="English" src="/flags/flag_medium_english.png" border="0" height="100%" width="100%"></a></td>
+  <td width="8%"><a href="/index.fr.html"><img alt="Français" src="/flags/flag_medium_france.png" border="0" height="100%" width="100%"></a></td>
+  <td width="8%"><a href="/index.es.html"><img alt="Espagnol" src="/flags/flag_medium_spain.png" border="0" height="100%" width="100%"></a></td>
+ </tr>
+</tbody></table>
+<h1>L'Homme machine</h1>
+<h2><a href="#Origins">L'origine</a></h2>
+<h2><a href="#Politics">Politique</a></h2>
+<blockquote>
+<p>
+<a href="/pol/etoiles_ou_fin.html">Objectif collectif</a></p>
+<p>
+<a href="/pol/population_decrease.fr.html">Décroissance de la population</a></p>
+<p>
+<a href="/pol/southern_wasteland.fr.html">Friche du Sud</a></p>
+<p>
+<a href="/pol/solutions_comparison.html">Comparaison des solutions <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+<p>
+<a href="/pol/elderly_in_sos.html">La vieillesse en Station Orbitale Solaire  <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+<br>
+<p>
+<a href="/un/index.html">Résolutions et décisions du Conseil de Sécurité de l'ONU</a> en HTML.</p>
+</blockquote>
+<h2>
+  <a href="#Interstellar">Interstellaire</a></h2>
+<blockquote>
+  <p><a href="/intersideral/durees/index.html">Catalogue des durées de voyage vers les étoiles proches</a><br>
+  </p>
+<p><a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html">Mouvement du bussard ramjet idéal</a></p>
+<p><a href="/intersideral/bussard_ramjet/bussard_ramjet.fr.html">Mouvement d'autres bussards ramjets</a></p>
+</blockquote>
+<h2><a href="#Computer">Logiciel </a><br>
+</h2>
+<blockquote>
+<p>
+<a href="/code/dwarf2xml/index.html">DWARF to XML converter <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+<p>
+<a href="/elf_examples/index.html">Libelf sample programs <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+<p>
+<a href="/code/ring/index.html">C ring containers <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+<p>
+<a href="/code/ctoohtml/index.html">C to HTML converter <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+</blockquote>
+
+<hr size="2" width="100%"><br>
+<big>
+</big>
+<h2><a name="Politics"></a>Politique <br>
+</h2>
+Donner un objectif de long terme à l'Humanité est une 
+utopie, une de plus. Pratiquement, il s'agit de penser nos choix 
+politiques comme si nous voulions atteindre une étoile voisine, ce qui 
+très est loin de ce que l'Humanité est capable faire.<br>
+<blockquote>
+<a href="/pol/etoiles_ou_fin.html">Objectif collectif</a></p>
+</blockquote>
+Depuis que j'ai l'ai écris, partant de ce but, j'ai eu du temps pour 
+comparer les réponses qu'il donne comparé aux plus courantes. Du point 
+de vue d'un OLT (Objectif de Long Terme), il faut survivre et poursuivre
+ la recherche scientifique. Cette dernière activité devant être 
+maximale, mais d'abord, concentrons nous sur la survie.</p>
+<p>
+Une partie de nos actuels et futurs problèmes viennent&nbsp; notre empreinte 
+environementale, qui est la population fois sa consommation, est donc
+ en relation directe avec la surpopulation. L'impact de l'Homme est 
+également en rapport avec son extension géographique, puisque le 
+surnombre devrait ajouter un nouvel étage à la maison plutôt que de 
+couvrir tout le jardin.</p>
+<p>
+Par suite, les solutions les plus évidentes sont la décroissance démographique et la friche au sud du tropique du Cancer.<br>
+<blockquote>
+<p>
+  <a href="/pol/population_decrease.fr.html">Décroissance de la population</a></p>
+<p>
+<a href="/pol/southern_wasteland.fr.html">Friche du Sud</a></p>
+<p>
+  <a href="/pol/solutions_comparison.html">Comparaison des solutions <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+</blockquote>
+<p><i>"Je crois que la vie extraterrestre est très courante dans 
+l'univers, même si la vie intelligente l'est moins. Certains disent que sur 
+Terre elle n'est pas encore apparue." (<a href="http://www.brainyquote.com/quotes/authors/s/stephen_hawking.html" target="_blank">Stephen Hawking</a></i></p>
+<p>Je pense que cette idée lui aurait plu :</p>
+<blockquote>
+<a href="/pol/elderly_in_sos.html">La vieillesse en Station Orbitale Solaire  <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+</blockquote>
+<p><div align="center">*<br>*&nbsp;&nbsp;&nbsp;*</div></p>
+<p>
+Une partie des PDFs de l'ONU <b>"<a href="/un/index.html">Résolutions
+et décisions du Conseil de Sécurité</a>"</b> plus ou
+moins bien traduits en&nbsp;HTML.</p>
+<p>
+<h2><a name="Interstellar"></a>Interstellaire </h2>
+<p>
+Pour se rendre compte de la difficulté du voyage interstellaire, il est 
+bon de disposer de données chiffrées. N'en ayant pas trouvé beaucoup, 
+j'ai pensé que ce serait une bonne idée d'en publier pour que chacun 
+puisse choisir son étoile préférée et se rendre compte de
+l'énormité des distances et de vitesse qu'il faut
+atteindre dans tous les cas de figures. Gardez bien ne mémoire
+que les <a href="http://voyager.jpl.nasa.gov/" target="_blank">sondes voyager</a> foncent à 
+<a href="http://fr.wikipedia.org/wiki/Programme_Voyager" target="_blank">17 km/s</a>, 
+ce qui vous en conviendrez n'est pas si mal, mais pas assez pour changer d'étoile. 
+<a href="/intersideral/durees/index.html"></i></a></p>
+<blockquote>
+<p>
+&nbsp;<a href="/intersideral/durees/index.html">Table des temps de parcours vers les étoiles les plus proches</a></p>
+</blockquote>
+<p>
+La liste des <a href="https://en.wikipedia.org/wiki/List_of_nearest_stars_and_brown_dwarfs">50 étoiles les plus proches provient de wikipedia</a>.</p>
+<p>
+j'ai appris (1) que l'idée de capturer de la matière sur le
+milieu pour assurer la propulsion, avait déjà
+été proposée par le Dr
+<a href="http://en.wikipedia.org/wiki/Robert_W._Bussard" target="_blank">Robert Bussard</a> 
+dans l'article "<a href="http://www.askmar.com/Robert%20Bussard/Galactic%20Matter%20and%20Interstellar%20Flight.pdf" target="_blank">
+Galactic Matter and Interstellar Flight</a>" 
+proposé en 1960 
+(il y a une bonne <a href="http://www.askmar.com/Bussard/Robert_Bussard.html" target="_blank">bibliographie</a> 
+de <a href="http://en.wikipedia.org/wiki/Robert_W._Bussard" target="_blank">Robert Bussard</a> 
+sur ce site) avec le <a href="http://www.daviddarling.info/encyclopedia/I/interstellar_ramjet.html" target="_blank">RamJet</a>.
+Ce vaisseau met en œuvre la capture de
+protons et la fusion nucléaire de ceux-ci. Le résultat
+produit des particules de haute énergie qui permettent la propulsion. </p>
+<p>
+Par la suite, j'ai creusé le principe du Bussard Ramjet et me suis 
+penché sur une partie des publications parues à son 
+sujet et dont beaucoup concluent à l'impossibilité d'un tel engin en 
+raison notamment d'un bilan énergétique défavorable dès lors que l'on 
+utilise les protons dans une réaction de fusion. On peut d'ailleurs en 
+conclure que que la fusion de l'hydrogène, sous quelque forme que se 
+soit, n'est pas suffisamment énergétique pour satisfaire les besoins du 
+voyage intersidéral (<a href="http://www.projectrho.com/public_html/rocket/slowerlight.php" target="_blank">Voir ici un interressant inventaire</a>). </p>
+<p>
+Quoiqu'il en soit, je me suis lancé inconsidérément dans la mise en 
+équation du mouvement en mode relativiste de cet engin pour parvenir un 
+an plus tard à deux pages de calculs, l'un sur  le bussard ramjet idéal,
+ et l'autre sur des divers modèles de bussard ramjet qui introduisent 
+des pertes d'efficacité.</p>
+<blockquote>
+<p><a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html">Mouvement du bussard ramjet idéal</a></p>
+<p><a href="/intersideral/bussard_ramjet/bussard_ramjet.fr.html">Mouvement d'autres bussards ramjets</a></p>
+</blockquote>
+<p>
+&nbsp;(1) Grâce au forum <a href="http://forums.futura-sciences.com/astronautique/329564-impossibilite-voyage-intersideral-10.html" target="_blank">
+http://forums.futura-sciences.com - rubrique "impossibilite voyage intersideral"</a></p>
+<p>
+<div align="center">*<br>*&nbsp;&nbsp;&nbsp;*</div></p>
+<p>
+Une partie des PDFs de l'ONU "<a href="un/index.html">Résolutions
+et décisions du Conseil de Sécurité</a>" plus ou
+moins bien traduits en&nbsp;HTML.</p>
+<h2><a name="Computer"></a>Logiciel </h2>
+<p>
+<a href="http://dwarfstd.org/" target="_blank">DWARF (Debug With Arbitrary Record Format)</a> est le format préféré pour conserver les informations de debug dans les exécutables <a href="http://refspecs.freestandards.org/elf/" target="_blank">ELF</a>. Il fait partie de l'ABI de la plupart des systèmes basés sur Unix. Ces informations sont utilisés par les debuggeurs tels que <a href="http://www.gnu.org/software/gdb/" target="_blank">GDB</a>, pour réaliser la magie du débogage au niveau du source. </p>
+<blockquote>
+  <p><a href="/code/dwarf2xml/index.html">Voici un convertisseur DWARF vers XML <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+  <p><a href="https://github.com/ppenzin/dwarf2xml">Dwarf2xml on GitHub by ppenzin</a></p>
+</blockquote>
+<p>
+Lorsque que j'ai écrit un programme de relocation dans un fichier objet 
+(<a href="/home/manu/projets/decompile/elf_rel/elf_obj_loc.c">elf_obj_loc.c</a>), j'ai trouvé peu de code manipulant le format Elf avec libelf et gelf. L'un d'eux était l'excellent article  
+  <a href="http://sourceforge.net/projects/elftoolchain/files/Documentation/libelf-by-example/" target="_blank">
+libelf by Example</a> de Joseph Koshy.
+J'espère que les deux exemples utilisant libelf pourront aider.</p>
+<blockquote>
+  <p><a href="/elf_examples/index.html">Libelf sample programs <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+</blockquote>
+<p>
+Les rings sont une simple petite librairie C qui fournissent des listes 
+chainées simples ou doubles. L’intérêt vient ici d'un jeu de macros 
+préprocesseur qui prennent en compte le typage et règlent quelques 
+difficultés.</p>
+<blockquote>
+  <p>
+  <a href="/code/ring/index.html">The ring containers <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+</blockquote>
+<p style="font-weight: bold;">
+  <font face="Courier New, Courier, monospace">LANG=C outil de présentation, <big><big>c<span style="color: rgb(51, 51, 255);">to</span><span style="color: rgb(255, 0, 0);">o</span><span style="color: rgb(0, 153, 0);">html</span></big></big></font>&nbsp;
+converti le c en html, depuis 1995</p>
+<blockquote>
+  <p><a href="/code/ctoohtml/index.html">C to HTML converter <img style="border: 0px solid ; width: 25px; height: 17px;" alt="English" src="/flags/flag_small_english.png"></a></p>
+</blockquote>
+<h2><a name="Origins"></a>L'origine</h2>
+<p>
+Un matin, comme de nombreux autres, je suis installé dans le
+train avec mon café. En route pour 45 minutes de
+tranquillité après le métro et les
+couloirs. Je me prépare mentalement à affronter le
+sudoku et le mots croisés de 20 minutes. Si je peux les faire
+assez vite, je vais enchaîner avec ceux de métro que j'ai
+réussi à choper aujourd'hui. Le grand Chelem ...</p>
+<p>
+Juste avant le départ, arrivent 2 africains. Ils ne doivent pas
+être arrivés depuis très longtemps car
+ils parlent assez fort dans cet univers feutré. Enfin, l'un
+d'entre eux surtout. Il pose plein de questions et l'autre lui
+répond avec beaucoup d'assurance. Je commence le mots croisés.</p>
+<p>
+&nbsp;- .... Et lui ? <br>
+&nbsp;- Lui ? c'est un homme machine ... </p>
+<p>
+<i>&nbsp; Il baisse le ton brusquement, sur la fin, comme s'il craignait d'être
+compris et poursuit dans sa langue natale</i>.</p>
+<p>
+Un homme machine ? C'est de moi qu'il parle ? Ils sont
+derrière, de l'autre côté du couloir et moi je
+suis penché sur le journal. Un homme machine ? c'est ça
+que je suis devenu ? C'est vrai que de leur point de vu, mon genre de
+personnage, "salary man", ça peut paraître improbable.</p>
+<p>
+Bon, me voilà avec un nouveau statut. Traumatisé, ce weekend là, je raconte ça à Katrin. Contre toute attente,
+elle, ça lui plaît beaucoup que je puisse être perçu dans ce personnage. Du coup, j'ai reconsidéré la question
+et me voilà l'homme machine. Machin-man, ça me file une pêche d'enfer !</p>
+<blockquote>
+  <p><a href="/20141205_index.html">Version précédante</a></p>
+</blockquote>
+<p>
+<br>
+<br>
+<br></p>
+<h4>L'homme&nbsp;machine.</h4>
+<br>
+<!-- postprod:signature:start -->
+<hr size="2" width="100%"> 
+<b><small>web design : <a href="http://www.machinman.net">machinman.net</a> all right reserved, update Tue Nov 24 11:56:00 CET 2020</small></b><br>
+<!-- postprod:signature:end -->
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br>
+</body></html>

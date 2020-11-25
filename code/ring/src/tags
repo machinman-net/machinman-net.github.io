@@ -1,0 +1,164 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+EXCP_MOD	./excp/exception.h	21;"	Define	language:C
+RING_ALLOC_BLK_CHK	./config.h	5;"	Define	language:C
+RING_ALLOC_BLK_CHK	./ring_alloc.c	32;"	Undef	language:C
+RING_ALLOC_BLK_CHK	./ring_alloc.c	33;"	Define	language:C
+RING_ALLOC_POOL_CHK	./config.h	4;"	Define	language:C
+RING_ALLOC_POOL_CHK	./ring_alloc.c	28;"	Undef	language:C
+RING_ALLOC_POOL_CHK	./ring_alloc.c	29;"	Define	language:C
+RING_ALLOC_RELEASE	./ring_alloc.h	15;"	Define	language:C
+RING_ALLOC_STATS	./config.h	6;"	Define	language:C
+RING_ALLOC_VERSION	./ring_alloc.h	14;"	Define	language:C
+_EXCEPTION_H_	./excp/exception.h	8;"	Define	language:C
+_GNU_SOURCE	./ring.c	15;"	Define	language:C
+_RING_ALLOC_H_	./ring_alloc.h	12;"	Define	language:C
+_RING_H_	./ring.h	16;"	Define	language:C
+alloc	./ring_alloc.c	60;"	member	language:C	struct:s_mempool	typeref:struct:s_mempool::s_blk	file:
+alloc	./ring_alloc.h	31;"	member	language:C	struct:s_mempool_stats::__anon2::__anon3
+block_head_size	./ring_alloc.h	25;"	member	language:C	struct:s_mempool_info
+blocks	./ring_alloc.h	31;"	member	language:C	struct:s_mempool_stats::__anon2	typeref:struct:s_mempool_stats::__anon2::__anon3
+brother	./ring_alloc.c	40;"	member	language:C	struct:s_blk	typeref:struct:s_blk::s_ring	file:
+bytes	./ring_alloc.h	31;"	member	language:C	struct:s_mempool_stats::__anon2	typeref:struct:s_mempool_stats::__anon2::__anon3
+check_opt	./ring.c	24;"	variable	language:C	file:
+chk_1	./ring_alloc.c	38;"	member	language:C	struct:s_blk	file:
+chk_1	./ring_alloc.c	48;"	member	language:C	struct:s_mempool	file:
+chk_2	./ring_alloc.c	43;"	member	language:C	struct:s_blk	file:
+chk_2	./ring_alloc.c	52;"	member	language:C	struct:s_mempool	file:
+chk_3	./ring_alloc.c	58;"	member	language:C	struct:s_mempool	file:
+chk_4	./ring_alloc.c	62;"	member	language:C	struct:s_mempool	file:
+chk_5	./ring_alloc.c	66;"	member	language:C	struct:s_mempool	file:
+chk_blk	./ring_alloc.h	23;"	member	language:C	struct:s_mempool_info::__anon1
+chk_pool	./ring_alloc.h	23;"	member	language:C	struct:s_mempool_info::__anon1
+cumul	./ring_alloc.h	32;"	member	language:C	struct:s_mempool_stats	typeref:struct:s_mempool_stats::__anon2
+excp_assert	./excp/exception_errno.h	27;"	Undef	language:C
+excp_assert	./excp/exception_errno.h	29;"	Define	language:C
+excp_assert	./excp/exception_stderr.h	25;"	Undef	language:C
+excp_assert	./excp/exception_stderr.h	27;"	Define	language:C
+f_dring_is_in	./ring.c	280;"	function	language:C	signature:(struct s_dring *is, struct s_dring *in, size_t offset)
+f_dring_link	./ring.c	333;"	function	language:C	signature:(struct s_dring *ring, struct s_dring *new, size_t offset)
+f_dring_move	./ring.c	304;"	function	language:C	signature:(struct s_dring *ring, int hops, bool check, size_t offset)
+f_dring_selftest	./ring.c	256;"	function	language:C	signature:(struct s_dring *ring, size_t offset)
+f_dring_test	./tests/ring_test.c	187;"	function	language:C	signature:(void)
+f_dring_unlink	./ring.c	356;"	function	language:C	signature:(struct s_dring *node, size_t offset)
+f_mempool_calloc	./ring_alloc.c	391;"	function	language:C	signature:(to_mempool mempool, size_t nmemb, size_t size)
+f_mempool_check	./ring_alloc.c	132;"	function	language:C	signature:(struct s_mempool *mempool)
+f_mempool_check	./ring_alloc.c	177;"	Define	language:C
+f_mempool_check_blk	./ring_alloc.c	127;"	Define	language:C
+f_mempool_check_blk	./ring_alloc.c	80;"	function	language:C	signature:(struct s_mempool *pool, struct s_blk *list, struct s_blk *blk)
+f_mempool_free	./ring_alloc.c	305;"	function	language:C	signature:(to_mempool mempool, void *mem)
+f_mempool_info	./ring_alloc.c	204;"	function	language:C	signature:(struct s_mempool_info *info)
+f_mempool_init	./ring_alloc.c	180;"	function	language:C	signature:(size_t size, void *start)
+f_mempool_malloc	./ring_alloc.c	270;"	function	language:C	signature:(to_mempool mempool, size_t size)
+f_mempool_realloc	./ring_alloc.c	349;"	function	language:C	signature:(to_mempool mempool, void *mem, size_t size)
+f_mempool_stats	./ring_alloc.c	227;"	function	language:C	signature:(to_mempool mempool, struct s_mempool_stats *stats)
+f_mempool_stats	./ring_alloc.c	261;"	function	language:C	signature:(to_mempool mempool, struct s_mempool_stats *stats)
+f_ndring_find	./ring.c	458;"	function	language:C	signature:(struct s_ndring *ring, const char *name, size_t offset)
+f_ndring_is_in	./ring.c	408;"	function	language:C	signature:(struct s_ndring *is, struct s_ndring *in, size_t offset)
+f_ndring_link	./ring.c	483;"	function	language:C	signature:(struct s_ndring *ring, struct s_ndring *new, size_t offset)
+f_ndring_move	./ring.c	433;"	function	language:C	signature:(struct s_ndring *ring, int hops, bool check, size_t offset)
+f_ndring_selftest	./ring.c	384;"	function	language:C	signature:(struct s_ndring *ring, size_t offset)
+f_ndring_test	./tests/ring_test.c	280;"	function	language:C	signature:(void)
+f_ndring_unlink	./ring.c	511;"	function	language:C	signature:(struct s_ndring *node, size_t offset)
+f_nring_find	./ring.c	177;"	function	language:C	signature:(struct s_nring *ring, const char *name, size_t offset)
+f_nring_is_in	./ring.c	157;"	function	language:C	signature:(struct s_nring *is, struct s_nring *in, size_t offset)
+f_nring_link	./ring.c	202;"	function	language:C	signature:(struct s_nring *ring, struct s_nring *new, size_t offset)
+f_nring_selftest	./ring.c	139;"	function	language:C	signature:(struct s_nring *ring, size_t offset)
+f_nring_test	./tests/ring_test.c	98;"	function	language:C	signature:(void)
+f_nring_unlink	./ring.c	229;"	function	language:C	signature:(struct s_nring *node, size_t offset)
+f_ring_check_opt	./ring.c	32;"	function	language:C	signature:(int level)
+f_ring_is_in	./ring.c	65;"	function	language:C	signature:(struct s_ring *is, struct s_ring *in, size_t offset)
+f_ring_link	./ring.c	89;"	function	language:C	signature:(struct s_ring *ring, struct s_ring *new, size_t offset)
+f_ring_selftest	./ring.c	47;"	function	language:C	signature:(struct s_ring *ring, size_t offset)
+f_ring_test	./tests/ring_test.c	21;"	function	language:C	signature:(void)
+f_ring_unlink	./ring.c	112;"	function	language:C	signature:(struct s_ring *node, size_t offset)
+free	./ring_alloc.c	64;"	member	language:C	struct:s_mempool	typeref:struct:s_mempool::s_blk	file:
+free	./ring_alloc.h	31;"	member	language:C	struct:s_mempool_stats::__anon2::__anon3
+instant	./ring_alloc.h	32;"	member	language:C	struct:s_mempool_stats	typeref:struct:s_mempool_stats::__anon2
+m_blk_setup	./ring_alloc.c	128;"	Define	language:C
+m_blk_setup	./ring_alloc.c	73;"	Define	language:C
+m_dring_do	./ring.h	225;"	Define	language:C
+m_dring_done	./ring.h	227;"	Define	language:C
+m_dring_is_in	./ring.h	108;"	Define	language:C
+m_dring_link	./ring.h	134;"	Define	language:C
+m_dring_list	./ring.h	200;"	Define	language:C
+m_dring_move	./ring.h	276;"	Define	language:C
+m_dring_next	./ring.h	177;"	Define	language:C
+m_dring_prev	./ring.h	259;"	Define	language:C
+m_dring_selftest	./ring.h	85;"	Define	language:C
+m_dring_unlink	./ring.h	157;"	Define	language:C
+m_mempool_stats_alloc	./ring_alloc.c	234;"	Define	language:C
+m_mempool_stats_alloc	./ring_alloc.c	266;"	Define	language:C
+m_mempool_stats_free	./ring_alloc.c	249;"	Define	language:C
+m_mempool_stats_free	./ring_alloc.c	267;"	Define	language:C
+m_ndring_do	./ring.h	229;"	Define	language:C
+m_ndring_done	./ring.h	231;"	Define	language:C
+m_ndring_find	./ring.h	247;"	Define	language:C
+m_ndring_is_in	./ring.h	110;"	Define	language:C
+m_ndring_link	./ring.h	136;"	Define	language:C
+m_ndring_list	./ring.h	202;"	Define	language:C
+m_ndring_move	./ring.h	279;"	Define	language:C
+m_ndring_next	./ring.h	179;"	Define	language:C
+m_ndring_prev	./ring.h	261;"	Define	language:C
+m_ndring_selftest	./ring.h	88;"	Define	language:C
+m_ndring_unlink	./ring.h	159;"	Define	language:C
+m_nring_do	./ring.h	221;"	Define	language:C
+m_nring_done	./ring.h	223;"	Define	language:C
+m_nring_find	./ring.h	244;"	Define	language:C
+m_nring_is_in	./ring.h	106;"	Define	language:C
+m_nring_link	./ring.h	132;"	Define	language:C
+m_nring_list	./ring.h	198;"	Define	language:C
+m_nring_next	./ring.h	175;"	Define	language:C
+m_nring_selftest	./ring.h	82;"	Define	language:C
+m_nring_unlink	./ring.h	155;"	Define	language:C
+m_ring_do	./ring.h	217;"	Define	language:C
+m_ring_done	./ring.h	219;"	Define	language:C
+m_ring_is_in	./ring.h	104;"	Define	language:C
+m_ring_link	./ring.h	130;"	Define	language:C
+m_ring_list	./ring.h	196;"	Define	language:C
+m_ring_next	./ring.h	173;"	Define	language:C
+m_ring_selftest	./ring.h	79;"	Define	language:C
+m_ring_to_container	./ring.h	374;"	Define	language:C
+m_ring_unlink	./ring.h	153;"	Define	language:C
+main	./tests/ring_alloc_test.c	20;"	function	language:C	signature:(int argc, char *argv[])
+main	./tests/ring_test.c	390;"	function	language:C	signature:(int argc, char *argv[])
+mem	./ring_alloc.c	68;"	member	language:C	struct:s_mempool	typeref:struct:s_mempool::s_blk	file:
+name	./ring.h	58;"	member	language:C	struct:s_nring
+name	./ring.h	65;"	member	language:C	struct:s_ndring
+next	./ring.h	46;"	member	language:C	struct:s_ring	typeref:struct:s_ring::s_ring
+next	./ring.h	51;"	member	language:C	struct:s_dring	typeref:struct:s_dring::s_dring
+next	./ring.h	58;"	member	language:C	struct:s_nring	typeref:struct:s_nring::s_nring
+next	./ring.h	65;"	member	language:C	struct:s_ndring	typeref:struct:s_ndring::s_ndring
+options	./ring_alloc.h	23;"	member	language:C	struct:s_mempool_info	typeref:struct:s_mempool_info::__anon1
+pool_head_size	./ring_alloc.h	24;"	member	language:C	struct:s_mempool_info
+prev	./ring.h	51;"	member	language:C	struct:s_dring	typeref:struct:s_dring::s_dring
+prev	./ring.h	65;"	member	language:C	struct:s_ndring	typeref:struct:s_ndring::s_ndring
+raise	./excp/exception_errno.h	11;"	Undef	language:C
+raise	./excp/exception_errno.h	13;"	Define	language:C
+raise	./excp/exception_stderr.h	5;"	Undef	language:C
+raise	./excp/exception_stderr.h	7;"	Define	language:C
+region	./tests/ring_alloc_test.c	18;"	variable	language:C
+relay	./excp/exception_errno.h	20;"	Undef	language:C
+relay	./excp/exception_errno.h	22;"	Define	language:C
+relay	./excp/exception_stderr.h	16;"	Undef	language:C
+relay	./excp/exception_stderr.h	18;"	Define	language:C
+release	./ring_alloc.h	22;"	member	language:C	struct:s_mempool_info
+rotate	./ring_alloc.c	70;"	Define	language:C
+s_blk	./ring_alloc.c	36;"	struct	language:C	file:
+s_dring	./ring.h	51;"	struct	language:C
+s_mempool	./ring_alloc.c	46;"	struct	language:C	file:
+s_mempool_info	./ring_alloc.h	20;"	struct	language:C
+s_mempool_stats	./ring_alloc.h	29;"	struct	language:C
+s_ndring	./ring.h	65;"	struct	language:C
+s_nring	./ring.h	58;"	struct	language:C
+s_ring	./ring.h	46;"	struct	language:C
+size	./ring_alloc.c	41;"	member	language:C	struct:s_blk	file:
+size	./ring_alloc.c	50;"	member	language:C	struct:s_mempool	file:
+stats	./ring_alloc.c	55;"	member	language:C	struct:s_mempool	typeref:struct:s_mempool::s_mempool_stats	file:
+stats	./ring_alloc.h	23;"	member	language:C	struct:s_mempool_info::__anon1
+to_mempool	./ring_alloc.h	17;"	typedef	language:C	typeref:struct:s_mempool
+version	./ring_alloc.h	21;"	member	language:C	struct:s_mempool_info

@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<!DOCTYPE dwarf SYSTEM "dwarf-v4.02.dtd">
+<dwarf file='../Ressources/regressiontests-20100930/kartashev/combined.o' producer='dwarf2xml' >
+  <debug_pubnames>
+    <pubname id='pub:1' cu='i:11' ref='i:513'>s</pubname>
+    <pubname id='pub:2' cu='i:543' ref='i:1040'>foo</pubname>
+  </debug_pubnames>
+  <debug_info>
+    <tag_compile_unit id='i:11' ab='ab:0c1' version='2' address_size='4' sl='sl:0' >
+      <at_name>bar.c</at_name>
+      <at_language>C_plus_plus</at_language>
+      <at_comp_dir>/tmp/</at_comp_dir>
+      <at_user name='SUN_command_line'> /export/opt/12/SUNWspro/prod/bin/CC -g -c  bar.c -Qoption ccfe -prefix -Qoption ccfe \$XAIzGEKO9OTKEdm.</at_user>
+      <at_user name='SUN_compile_options'>ptf;ptx;ptk;s;g;R=5.9&lt;&lt;Sun C++ 5.9 SunOS_sparc Patch 124863-14 2009/06/23 (ccfe)&gt;&gt;;G=$XAIzGEKO9OTKEdm.;A=2;backend;raw;cd;</at_user>
+      <at_producer>DBG_GEN 5.2.2</at_producer>
+      <at_stmt_list>0</at_stmt_list>
+      <tag_base_type id='i:271' ab='ab:0c2' >
+        <at_name>char</at_name>
+        <at_encoding>signed_char</at_encoding>
+        <at_byte_size>1</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:279' ab='ab:0c2' >
+        <at_name>short</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>2</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:288' ab='ab:0c2' >
+        <at_name>int</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:295' ab='ab:0c2' >
+        <at_name>long</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:303' ab='ab:0c2' >
+        <at_name>long long</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>8</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:316' ab='ab:0c2' >
+        <at_name>unsigned char</at_name>
+        <at_encoding>unsigned_char</at_encoding>
+        <at_byte_size>1</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:333' ab='ab:0c2' >
+        <at_name>unsigned short</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>2</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:351' ab='ab:0c2' >
+        <at_name>unsigned</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:363' ab='ab:0c2' >
+        <at_name>unsigned long</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:380' ab='ab:0c2' >
+        <at_name>unsigned long long</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>8</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:402' ab='ab:0c2' >
+        <at_name>signed char</at_name>
+        <at_encoding>signed_char</at_encoding>
+        <at_byte_size>1</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:417' ab='ab:0c2' >
+        <at_name>wchar_t</at_name>
+        <at_encoding>unsigned_char</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:428' ab='ab:0c2' >
+        <at_name>void</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>0</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:436' ab='ab:0c2' >
+        <at_name>float</at_name>
+        <at_encoding>float</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:445' ab='ab:0c2' >
+        <at_name>double</at_name>
+        <at_encoding>float</at_encoding>
+        <at_byte_size>8</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:455' ab='ab:0c2' >
+        <at_name>long double</at_name>
+        <at_encoding>float</at_encoding>
+        <at_byte_size>16</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:470' ab='ab:0c2' >
+        <at_name>...</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:477' ab='ab:0c2' >
+        <at_name>bool</at_name>
+        <at_encoding>boolean</at_encoding>
+        <at_byte_size>1</at_byte_size>
+      </tag_base_type>
+      <tag_constant id='i:485' ab='ab:0c3' >
+        <at_name>true</at_name>
+        <at_type>477</at_type>
+        <at_const_value>1</at_const_value>
+      </tag_constant>
+      <tag_constant id='i:496' ab='ab:0c3' >
+        <at_name>false</at_name>
+        <at_type>477</at_type>
+        <at_const_value>0</at_const_value>
+      </tag_constant>
+      <tag_pointer_type id='i:508' ab='ab:0c4' >
+        <at_type>271</at_type>
+      </tag_pointer_type>
+      <tag_variable id='i:513' ab='ab:0c5' >
+        <at_name>s</at_name>
+        <at_type>508</at_type>
+        <at_external>true</at_external>
+        <at_visibility>exported</at_visibility>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>1</at_decl_line>
+        <at_location>
+          <loc_expr>
+            <loc_op pos='0' op='addr' p1='0x0'/>
+          </loc_expr>
+        </at_location>
+      </tag_variable>
+    </tag_compile_unit>
+    <tag_compile_unit id='i:543' ab='ab:70c1' version='2' address_size='4' sl='sl:41' >
+      <at_name>foo.c</at_name>
+      <at_language>C_plus_plus</at_language>
+      <at_comp_dir>/tmp/</at_comp_dir>
+      <at_user name='SUN_command_line'> /export/opt/12/SUNWspro/prod/bin/CC -g -c  foo.c -Qoption ccfe -prefix -Qoption ccfe \$XAIzGEKO9OTKkdm.</at_user>
+      <at_user name='SUN_compile_options'>ptf;ptx;ptk;s;g;R=5.9&lt;&lt;Sun C++ 5.9 SunOS_sparc Patch 124863-14 2009/06/23 (ccfe)&gt;&gt;;G=$XAIzGEKO9OTKkdm.;A=2;backend;raw;cd;</at_user>
+      <at_producer>DBG_GEN 5.2.2</at_producer>
+      <at_stmt_list>41</at_stmt_list>
+      <tag_base_type id='i:803' ab='ab:70c2' >
+        <at_name>char</at_name>
+        <at_encoding>signed_char</at_encoding>
+        <at_byte_size>1</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:811' ab='ab:70c2' >
+        <at_name>short</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>2</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:820' ab='ab:70c2' >
+        <at_name>int</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:827' ab='ab:70c2' >
+        <at_name>long</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:835' ab='ab:70c2' >
+        <at_name>long long</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>8</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:848' ab='ab:70c2' >
+        <at_name>unsigned char</at_name>
+        <at_encoding>unsigned_char</at_encoding>
+        <at_byte_size>1</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:865' ab='ab:70c2' >
+        <at_name>unsigned short</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>2</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:883' ab='ab:70c2' >
+        <at_name>unsigned</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:895' ab='ab:70c2' >
+        <at_name>unsigned long</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:912' ab='ab:70c2' >
+        <at_name>unsigned long long</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>8</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:934' ab='ab:70c2' >
+        <at_name>signed char</at_name>
+        <at_encoding>signed_char</at_encoding>
+        <at_byte_size>1</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:949' ab='ab:70c2' >
+        <at_name>wchar_t</at_name>
+        <at_encoding>unsigned_char</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:960' ab='ab:70c2' >
+        <at_name>void</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>0</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:968' ab='ab:70c2' >
+        <at_name>float</at_name>
+        <at_encoding>float</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:977' ab='ab:70c2' >
+        <at_name>double</at_name>
+        <at_encoding>float</at_encoding>
+        <at_byte_size>8</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:987' ab='ab:70c2' >
+        <at_name>long double</at_name>
+        <at_encoding>float</at_encoding>
+        <at_byte_size>16</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:1002' ab='ab:70c2' >
+        <at_name>...</at_name>
+        <at_encoding>unsigned</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_base_type id='i:1009' ab='ab:70c2' >
+        <at_name>bool</at_name>
+        <at_encoding>boolean</at_encoding>
+        <at_byte_size>1</at_byte_size>
+      </tag_base_type>
+      <tag_constant id='i:1017' ab='ab:70c3' >
+        <at_name>true</at_name>
+        <at_type>1009</at_type>
+        <at_const_value>1</at_const_value>
+      </tag_constant>
+      <tag_constant id='i:1028' ab='ab:70c3' >
+        <at_name>false</at_name>
+        <at_type>1009</at_type>
+        <at_const_value>0</at_const_value>
+      </tag_constant>
+      <tag_subprogram id='i:1040' ab='ab:70c4' >
+        <at_name>foo</at_name>
+        <at_external>true</at_external>
+        <at_visibility>exported</at_visibility>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>1</at_decl_line>
+        <at_low_pc>0x00000010</at_low_pc>
+        <at_high_pc>0x0000001c</at_high_pc>
+        <at_frame_base>
+          <loc_expr>
+            <loc_op pos='0' op='reg30' />
+          </loc_expr>
+        </at_frame_base>
+      </tag_subprogram>
+    </tag_compile_unit>
+  </debug_info>
+  <debug_abbrev>
+    <ab_table id='ab:0' ref='i:11' >
+      <ab_tag name='tag_compile_unit' id='ab:0c1' children='true' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='language' form='data1' />
+        <ab_attr name='comp_dir' form='string' />
+        <ab_attr name='SUN_command_line' form='string' />
+        <ab_attr name='SUN_compile_options' form='string' />
+        <ab_attr name='producer' form='string' />
+        <ab_attr name='stmt_list' form='data4' />
+      </ab_tag>
+      <ab_tag name='tag_base_type' id='ab:0c2' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='encoding' form='data1' />
+        <ab_attr name='byte_size' form='data1' />
+      </ab_tag>
+      <ab_tag name='tag_constant' id='ab:0c3' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='const_value' form='sdata' />
+      </ab_tag>
+      <ab_tag name='tag_pointer_type' id='ab:0c4' children='false' >
+        <ab_attr name='type' form='ref4' />
+      </ab_tag>
+      <ab_tag name='tag_variable' id='ab:0c5' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='external' form='flag' />
+        <ab_attr name='visibility' form='data1' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='location' form='block1' />
+      </ab_tag>
+    </ab_table>
+    <ab_table id='ab:70' ref='i:543' >
+      <ab_tag name='tag_compile_unit' id='ab:70c1' children='true' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='language' form='data1' />
+        <ab_attr name='comp_dir' form='string' />
+        <ab_attr name='SUN_command_line' form='string' />
+        <ab_attr name='SUN_compile_options' form='string' />
+        <ab_attr name='producer' form='string' />
+        <ab_attr name='stmt_list' form='data4' />
+      </ab_tag>
+      <ab_tag name='tag_base_type' id='ab:70c2' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='encoding' form='data1' />
+        <ab_attr name='byte_size' form='data1' />
+      </ab_tag>
+      <ab_tag name='tag_constant' id='ab:70c3' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='const_value' form='sdata' />
+      </ab_tag>
+      <ab_tag name='tag_subprogram' id='ab:70c4' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='external' form='flag' />
+        <ab_attr name='visibility' form='data1' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='low_pc' form='addr' />
+        <ab_attr name='high_pc' form='addr' />
+        <ab_attr name='frame_base' form='block1' />
+      </ab_tag>
+    </ab_table>
+  </debug_abbrev>
+  <debug_line>
+    <sl_compile_unit id='sl:0' ref='i:11'>
+      <sl_files id='sl:0f'>
+        <sl_file id='sl:0f1'>/tmp//bar.c</sl_file>
+      </sl_files>
+      <sl_lines id='sl:0l'>
+      </sl_lines>
+    </sl_compile_unit>
+    <sl_compile_unit id='sl:41' ref='i:543'>
+      <sl_files id='sl:41f'>
+        <sl_file id='sl:41f1'>/tmp//foo.c</sl_file>
+      </sl_files>
+      <sl_lines id='sl:41l'>
+        <sl_line id='sl:41i1' >
+          <sl_low_pc>0x00000014</sl_low_pc>
+          <sl_decl file='sl:41f1' line='1'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:41i2' >
+          <sl_low_pc>0x0000001c</sl_low_pc>
+          <sl_decl file='sl:41f1' line='1'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:41i3' >
+          <sl_low_pc>0x00000020</sl_low_pc>
+          <sl_decl file='sl:41f1' line='1'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='true' />
+        </sl_line>
+      </sl_lines>
+    </sl_compile_unit>
+  </debug_line>
+</dwarf>

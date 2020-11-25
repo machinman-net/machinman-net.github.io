@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>DWARF to XML converter</title>
+  <meta content="machinman.net" name="author">
+  <meta content="dwarf2xml convert DWARF debug sections from ELF file into XML and HTML" name="description">
+  <meta name="GENERATOR" content="SeaMonkey">
+  <meta name="keywords" content="DWARF, debug, converter, XML, ELF">
+  <link rel="stylesheet" type="text/css" href="dwarf.css">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+   <style type="text/css"><!--
+pre { font-family: "Console", monospace, sans-serif; color: #ff6010; }
+p { text-align: justify; }
+.navbar { font-family: "Comic Sans MS", cursive, sans-serif; font-size: 1.3em; }
+	--></style>
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<br>
+<table class="navbar" style="width: 100%; background-color: rgb(102, 102, 102);" border="0" cellpadding="2" cellspacing="2">
+<tbody><tr>
+<td style="width: 15%; text-align: left;"><a href="#screenshots">Screenshots</a> </td>
+<td style="width: 25%; text-align: center;"><script type="text/javascript">eval(unescape('%76%61%72%20%73%3D%27%61%6D%6C%69%6F%74%77%3A%62%65%61%6D%74%73%72%65%6D%40%63%61%69%68%6D%6E%6E%61%6E%2E%74%65%27%3B%76%61%72%20%72%3D%27%27%3B%66%6F%72%28%76%61%72%20%69%3D%30%3B%69%3C%73%2E%6C%65%6E%67%74%68%3B%69%2B%2B%2C%69%2B%2B%29%7B%72%3D%72%2B%73%2E%73%75%62%73%74%72%69%6E%67%28%69%2B%31%2C%69%2B%32%29%2B%73%2E%73%75%62%73%74%72%69%6E%67%28%69%2C%69%2B%31%29%7D%64%6F%63%75%6D%65%6E%74%2E%77%72%69%74%65%28%27%3C%61%20%68%72%65%66%3D%22%27%2B%72%2B%27%22%3E%42%75%67%20%21%3C%2F%61%3E%27%29%3B'))</script><br>
+</td>
+<td style="width: 20%; text-align: center;"><a href="#doc_and_link">Documents and links</a><br></td>
+<td style="width: 25%; text-align: center;"><a href="dwarf2xml-v4.02.tar.gz">Download</a> </td>
+<td style="text-align: right; width: 15%;"><a href="../../index.html">Home</a></td></tr>
+</tbody>
+</table>
+<p>
+<h1>Here is a new DWARF to XML converter</h1>
+<p>
+<a href="http://dwarfstd.org/" target="_blank">DWARF (Debug With Arbitrary Record Format)</a> is the preferred format for
+storing debug information in the <a href="http://refspecs.freestandards.org/elf/" target="_blank">ELF</a> executable format.
+It is part of most Unixies like system ABI. The information is used by debuggers,
+lets say <a href="http://www.gnu.org/software/gdb/" target="_blank">GDB</a>, to achieve the magic debugging at source level.
+<p>
+<a href="http://www.w3.org/TR/xml/" target="_blank">XML</a> is a
+powerful general data representation method. It is able to represent
+tree of data of arbitrary complexity, feature it shares with a lot of
+representation method but have the advantage to be a text format that
+makes it human readable. There is also plenty of way to visualize,
+check, transform and edit <a href="http://www.w3.org/TR/xml/" target="_blank">XML</a>.
+That is probably why it has been chosen by several projects aiming to
+show <a href="http://dwarfstd.org/" target="_blank">DWARF</a> content. 
+<p>
+The ability of XML to be transformed is used here to provide a HTML view
+of <a href="http://dwarfstd.org/" target="_blank">DWARF</a> using <a href="http://www.w3.org/TR/xslt" target="_blank">XSLT</a> transform.<p>
+This tool is not the first attempt to provide a XML conversion from DWARF.
+There is also a set of tools provided by the <a href="http://www.sde.cs.titech.ac.jp/%7Egondow/dwarf2-xml/" target="_blank">DWARF2-XML</a> project.
+
+<h2>Package description</h2>
+
+<h3>DWARF to XML converter : dwarf2xml</h3>
+<p>
+dwarf2xml is a binary executable written in C and using
+<a href="http://reality.sgiweb.org/davea/dwarf.html" target="_blank">libdwarf</a>
+package that is included by most distributions. It has been designed
+to show all information contained in debug sections of ELF files as
+there are stored. This is not always easy with
+<a href="http://reality.sgiweb.org/davea/dwarf.html" target="_blank">libdwarf</a>
+API which is designed to meet debuggers needs. Some extra code,
+and probably some bugs, have been necessary to achieve a dump of all
+sections as there are described in DWARF specifications. 
+<p>
+Use the option -h of dwarf2xml to see the option summary. Most of the times option 'all' will do the job: 
+<pre>	dwarf2xml -all &lt;Elf file&gt; > &lt;out XML&gt;</pre>
+
+<h3>DWARF XML validation : <a href="./dwarf-v4.02.dtd">dwarf-v4.02.dtd</a></h3>
+<p>
+I have kept the idea of having a generic tag "tag" and a generic tag "attribute" from
+<a href="http://www.sde.cs.titech.ac.jp/%7Egondow/dwarf2-xml/dwarf2.dtd" target="_blank">DTD for DWARF2-XML</a>,
+but only for tags and attributes that are not standard. This make
+possible for the validation pass to check if an element is allowed to
+be in another. For the special case of "generic" elements, all combinations are allowed.<br>
+The tree of tags and attributes have been obtained from a mix of DWARD3 specifications,
+<a href="http://reality.sgiweb.org/davea/dwarftest-20100930.tar.gz" target="_blank">libdwarf test suite</a>,
+and tag_tree.list file from dwarfdump.<br>
+<pre>	xmllint --path "&lt;path to dwarf-v4.02.dtd&gt;" --valid &lt;output of dwarf2xml&gt; 1>/dev/null</pre>
+
+<h3>DWARF to HTML converter : <a href="./dwarf_basic.xslt">dwarf_basic.xslt</a></h3>
+<p>
+If XML have a good ability to hold data set, HTML offers a great way to
+visualize them. This stylesheet transforms the result of dwarf2xml into
+HTML with a lot of useful links that make possible to browse into DWARF elements.<br>
+I used <a href="http://www.xmlsoft.org/XSLT/xsltproc2.html" target="_blank">xsltproc</a> to build HTML <a href="#screenshots">examples</a>, e.g. : <br>
+<pre>	xsltproc --novalid -o test_dwarf_enum.html ../dwarf_basic.xslt test_dwarf_enum.xml</pre>
+
+<h3>DWARF HTML stylesheet : <a href="./dwarf.css">dwarf.css</a></h3>
+<p>
+The dwarf_basic.xslt include in the result a reference to a CSS
+stylesheet for HTML look and feel customization.<br>
+<h2>Status</h2>
+<h3>dwarf2xml</h3>
+<p>
+Most of libdwarf test suite (dwarftest-20100930) items are correctly handled if dwarf2xml is build with recent version of libdwarf.<br>
+There is still a lot of situations that are not tested.<br>
+<h3>dwarf-v4.02.dtd</h3>
+<p>
+As every element possible content have to be explicitly listed in DTD,
+it may remains a lot of combinations that are not listed in this DTD.<br>
+<h3>autoconf package</h3>
+<p>
+As usual :
+<pre>	./configure && make</pre>
+In case of trouble, you may find helpfull to reconfigure :
+<pre>	autoreconf -i && autoconf</pre>
+
+<p>
+I am new to autoconf and as I test it only on my config (Centos 7), you may experience some troubles using it.<br>
+To make easier the use
+of libdwarf version different from the system one, I have added the configure option "--with-dwarf", e.g.:<br>
+<pre>	./configure --with-dwarf=&lt;path to libdwarf&gt;</pre>
+<p>
+<h3>Downloads</h3>
+<a href="dwarf2xml-v4.02.tar.gz">dwarf2xml-v4.02.tar.gz (last)</a><br>
+<a href="dwarf2xml-v4.01.tar.gz">dwarf2xml-v4.01.tar.gz (old)</a><br>
+<a href="dwarf2xml-v1.01.tar.gz">dwarf2xml-v1.01.tar.gz (old)</a>
+<h2>License</h2>
+<p>
+Most files are under GNU v2 licence and some are under GNU lesser v2.1.<br>
+<h2><a name="doc_and_link"></a>Documents and links</h2>
+<p>
+DWARF Standards can be found at <a href="http://dwarfstd.org/" target="_blank">dwarfstd.org</a><br>
+DWARF library project is on David A's <a href="https://www.prevanders.net/dwarf.html">DWARF Page</a><br>
+DWARF library document quick link <a href="ftp://ftp.software.ibm.com/software/os390/czos/dwarf/libdwarf2.1.pdf">"A Consumer Library Interface to DWARF"</a> from David Anderson<br>
+<a href="http://www.sde.cs.titech.ac.jp/%7Egondow/dwarf2-xml/" target="_blank">DWARF2-XML</a>: a markup language for DWARF2 debugging information
+<br>
+<h2><a name="screenshots"></a>Screenshots</h2>
+<a href="examples/test_dwarf_enum.dw2.html">dwarf2 - Enum type example</a>, <a href="examples/test_dwarf_enum.dw2.xml">XML</a><br>
+<a href="examples/test_dwarf_fcnt.dw2.html">dwarf2 - Function example</a>, <a href="examples/test_dwarf_fcnt.dw2.xml">XML</a><p>
+<a href="examples/test_dwarf_enum.dw3.html">dwarf3 - Enum type example</a>, <a href="examples/test_dwarf_enum.dw3.xml">XML</a><br>
+<a href="examples/test_dwarf_fcnt.dw3.html">dwarf3 - Function example</a>, <a href="examples/test_dwarf_fcnt.dw3.xml">XML</a><p>
+<a href="examples/test_dwarf_enum.dw4.html">dwarf4 - Enum type example</a>, <a href="examples/test_dwarf_enum.dw4.xml">XML</a><br>
+<a href="examples/test_dwarf_fcnt.dw4.html">dwarf4 - Function example</a>, <a href="examples/test_dwarf_fcnt.dw4.xml">XML</a><p>
+Examples from dwarf testsuite dwarftest-20100930<p>
+<a href="examples/arm--armcc-test-dwarf2.html">arm/armcc-test-dwarf2</a>, <a href="examples/arm--armcc-test-dwarf2.xml">XML</a><br>
+<a href="examples/arm--armcc-test-dwarf3.html">arm/armcc-test-dwarf3</a>, <a href="examples/arm--armcc-test-dwarf3.xml">XML</a><br>
+<a href="examples/cristi3--cristibadobj.html">cristi3/cristibadobj</a>, <a href="examples/cristi3--cristibadobj.xml">XML</a><br>
+<a href="examples/enciso2--template.elf.html">enciso2/template.elf</a>, <a href="examples/enciso2--template.elf.xml">XML</a><br>
+<a href="examples/ia32--mytry.ia32.html">ia32/mytry.ia32</a>, <a href="examples/ia32--mytry.ia32.xml">XML</a><br>
+<a href="examples/ia64--hxdump.ia64.html">ia64/hxdump.ia64</a>, <a href="examples/ia64--hxdump.ia64.xml">XML</a><br>
+<a href="examples/ia64--mytry.ia64.html">ia64/mytry.ia64</a>, <a href="examples/ia64--mytry.ia64.xml">XML</a><br>
+<a href="examples/kartashev--combined.o.html">kartashev/combined.o</a>, <a href="examples/kartashev--combined.o.xml">XML</a><br>
+<a href="examples/kartashev2--combined.o.html">kartashev2/combined.o</a>, <a href="examples/kartashev2--combined.o.xml">XML</a><br>
+<a href="examples/sparc--tcombined.o.html">sparc/tcombined.o</a>, <a href="examples/sparc--tcombined.o.xml">XML</a><br>
+<br>
+<!-- postprod:signature:start -->
+<hr size="2" width="100%"> 
+<b><small>web design : <a href="http://www.machinman.net">machinman.net</a> all right reserved, update Tue Nov 24 11:56:00 CET 2020</small></b><br>
+<!-- postprod:signature:end -->
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body></html>

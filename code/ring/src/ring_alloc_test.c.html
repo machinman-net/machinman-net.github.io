@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>Ring containers source code: ring_alloc_test.c</title>
+   <meta name="Description" content="Project Description">
+   <meta name="Author" content="Emmanuel Azencot">
+   <meta name="GENERATOR" content="ctoohtml 1.5.0">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H2>file: ring_alloc_test.c</H2>
+
+
+<HR>
+<tt>
+ &nbsp;&nbsp;1
+<span style="color: rgb(102, 102, 102);">/* <br>
+ &nbsp;&nbsp;2
+ * Copyright (C) 2008-2009 by Emmanuel Azencot under the GNU LGPL<br>
+ &nbsp;&nbsp;3
+ * license version 2.0 or 2.1. &nbsp;You should have received a copy of the<br>
+ &nbsp;&nbsp;4
+ * LGPL license along with this library if you did not you can find it<br>
+ &nbsp;&nbsp;5
+ * at http://www.gnu.org/.<br>
+ &nbsp;&nbsp;6
+ */</span><br>
+ &nbsp;&nbsp;7
+<span style="color: rgb(102, 102, 102);">/*<br>
+ &nbsp;&nbsp;8
+ * Azencot : Sat Dec &nbsp;6 11:14:08 CET 2008<br>
+ &nbsp;&nbsp;9
+ * &nbsp;Creation<br>
+ &nbsp;10
+ */</span><br>
+ &nbsp;11
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;stdio.h&gt;</span><br>
+ &nbsp;12
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;errno.h&gt;</span><br>
+ &nbsp;13
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;assert.h&gt;</span><br>
+ &nbsp;14
+<br>
+ &nbsp;15
+<span style="color: rgb(204, 102, 0);">#<b>include</b> "<A HREF="ring.h.html">ring.h</A>"</span><br>
+ &nbsp;16
+<span style="color: rgb(204, 102, 0);">#<b>include</b> "<A HREF="ring_alloc.h.html">ring_alloc.h</A>"</span><br>
+ &nbsp;17
+<br>
+ &nbsp;18
+<span style="color: rgb(0, 153, 0); font-weight: bold;">unsigned</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span>  /*<A NAME="line_18"></A><A HREF="xref.html#region">X</A>*/ <B><A NAME="region">region</A></B>[0x20000];<br>
+ &nbsp;19
+<br>
+ &nbsp;20
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_20"></A><A HREF="xref.html#main">X</A>*/ <B><A NAME="main">main</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> argc, <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *argv[]) {<br>
+ &nbsp;21
+ &nbsp;&nbsp;<A NAME="line_21"></A><A HREF="ring_alloc.h.html#to_mempool">to_mempool</A> mempool;<br>
+ &nbsp;22
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_22"></A><A HREF="ring_alloc.h.html#s_mempool_info">s_mempool_info</A> info;<br>
+ &nbsp;23
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A NAME="line_23"></A><A HREF="ring_alloc.h.html#s_mempool_stats">s_mempool_stats</A> stats;<br>
+ &nbsp;24
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *mem;<br>
+ &nbsp;25
+<br>
+ &nbsp;26
+{<br>
+ &nbsp;27
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *mem[6];<br>
+ &nbsp;28
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> size, i;<br>
+ &nbsp;29
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( !<A NAME="line_29"></A><A HREF="ring_alloc.c.html#f_mempool_info">f_mempool_info</A>(&info) );<br>
+ &nbsp;30
+ &nbsp;&nbsp;size = info.pool_head_size + 5*(info.pool_head_size +40);<br>
+ &nbsp;31
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (mempool = <A NAME="line_31"></A><A HREF="ring_alloc.c.html#f_mempool_init">f_mempool_init</A>(size, <A HREF="ring_alloc_test.c.html#region">region</A>)) ) ;<br>
+ &nbsp;32
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; 5; ++i ) {<br>
+ &nbsp;33
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (mem[i] = <A NAME="line_33"></A><A HREF="ring_alloc.c.html#f_mempool_malloc">f_mempool_malloc</A>(mempool, 40)) );<br>
+ &nbsp;34
+ &nbsp;&nbsp;}<br>
+ &nbsp;35
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_35"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, mem[1]) );<br>
+ &nbsp;36
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_36"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, mem[3]) );<br>
+ &nbsp;37
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_37"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, mem[5]) );<br>
+ &nbsp;38
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_38"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, mem[0]) );<br>
+ &nbsp;39
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_39"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, mem[2]) );<br>
+ &nbsp;40
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_40"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, mem[4]) );<br>
+ &nbsp;41
+}<br>
+ &nbsp;42
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !(mempool = <A NAME="line_42"></A><A HREF="ring_alloc.c.html#f_mempool_init">f_mempool_init</A>(0, <A HREF="ring_alloc_test.c.html#region">region</A>)) && <span style="color: rgb(204, 0, 0);">errno</span> == ENOMEM) ;<br>
+ &nbsp;43
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !(mempool = <A NAME="line_43"></A><A HREF="ring_alloc.c.html#f_mempool_init">f_mempool_init</A>(16, <A HREF="ring_alloc_test.c.html#region">region</A>)) && <span style="color: rgb(204, 0, 0);">errno</span> == ENOMEM) ;<br>
+ &nbsp;44
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !(mempool = <A NAME="line_44"></A><A HREF="ring_alloc.c.html#f_mempool_init">f_mempool_init</A>(200, 0)) && <span style="color: rgb(204, 0, 0);">errno</span> == EFAULT) ;<br>
+ &nbsp;45
+ &nbsp;&nbsp;<br>
+ &nbsp;46
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span> ( !<A NAME="line_46"></A><A HREF="ring_alloc.c.html#f_mempool_info">f_mempool_info</A>(&info) );<br>
+ &nbsp;47
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( info.options.stats && info.options.chk_pool && info.options.chk_blk );<br>
+ &nbsp;48
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( info.pool_head_size &gt;= 3*<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *) );<br>
+ &nbsp;49
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( info.block_head_size &gt;= 1*<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *) );<br>
+ &nbsp;50
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// printf("pool_head_size = %d, block_head_size = %d\n", info.pool_head_size, info.block_head_size);</span><br>
+ &nbsp;51
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !(mempool = <A NAME="line_51"></A><A HREF="ring_alloc.c.html#f_mempool_init">f_mempool_init</A>(info.pool_head_size +info.block_head_size -1, <A HREF="ring_alloc_test.c.html#region">region</A>)) && <span style="color: rgb(204, 0, 0);">errno</span> == ENOMEM) ;<br>
+ &nbsp;52
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (mempool = <A NAME="line_52"></A><A HREF="ring_alloc.c.html#f_mempool_init">f_mempool_init</A>(info.pool_head_size +info.block_head_size, <A HREF="ring_alloc_test.c.html#region">region</A>)) ) ;<br>
+ &nbsp;53
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_53"></A><A HREF="ring_alloc.c.html#f_mempool_stats">f_mempool_stats</A>(mempool, &stats) == 0 ) ;<br>
+ &nbsp;54
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( (mem = <A NAME="line_54"></A><A HREF="ring_alloc.c.html#f_mempool_malloc">f_mempool_malloc</A>(mempool, 0)) );<br>
+ &nbsp;55
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_55"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, (<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *)0x30) == -1 && <span style="color: rgb(204, 0, 0);">errno</span> == ENOTDIR);<br>
+ &nbsp;56
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">errno</span> = 0; <span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_56"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, 0) && <span style="color: rgb(204, 0, 0);">errno</span> == 0);<br>
+ &nbsp;57
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( !<A NAME="line_57"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, mem) );<br>
+ &nbsp;58
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">assert</span>( <A NAME="line_58"></A><A HREF="ring_alloc.c.html#f_mempool_free">f_mempool_free</A>(mempool, mem) == -1 && <span style="color: rgb(204, 0, 0);">errno</span> == ENOENT);<br>
+ &nbsp;59
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ &nbsp;60
+}<br>
+<P></tt>
+<P>
+<HR>
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H5>C to HTML Conversion by <I><A HREF="http://www.machinman.net/code/ctoohtml/index.html">ctoohtml</A></I></H5>
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></body>
+</HTML>

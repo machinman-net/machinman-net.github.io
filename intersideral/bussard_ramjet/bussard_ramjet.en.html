@@ -1,0 +1,1337 @@
+<html lang="en">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="generator" content="HTML Tidy for Linux/x86 (vers 14 June 2007), see www.w3.org">
+<title>Other bussards ramjets motion</title>
+<meta content="machinman.net" name="author">
+<meta content="Various case of Bussard Ramjet equation set" name="description">
+<style type="text/css">
+   img.mimetex {vertical-align:middle;}
+  </style>
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head><body>
+<div style="text-align: center;">
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<hr style="width: 100%; height: 2px;">
+</div>
+<!-- 
+../mimetex_precompile.tcl -d img_misc/ -u bussard_ramjet_ideal.fr.html
+-->
+<a href="/">Home</a><br>
+<pre>
+Translation : Emmanuel Azencot
+Author : Emmanuel Azencot
+Creation : Fri May  2 16:13:44 CEST 2014
+Update: Fri May  2 16:13:44 CEST 2014
+</pre>
+<br>
+<table border="0" width="100%">
+<tr>
+<td width="100%"><h2><a href="bussard_ramjet_ideal.en.html">Ideal Bussard Ramjet Motion</a></h2></td>
+<td rowspan="2"><a href="bussard_ramjet.fr.html"><img alt="Français" src="/flags/flag_medium_france.png"></a></td>
+</tr><tr>
+<td><h2>Other bussards ramjets motion</h2></td>
+</tr>
+</table>
+<blockquote><ul>
+<li><i><a href="#h3_symbol">Symbols</a></i></li>
+<li><i><a href="#h3_methode">Method and common calculations</a></i></li>
+<li><i><a href="#h3_ideal">The ideal Bussard Ramjet</a></i></li>
+<li><i><a href="#h3_perte_ec">Bussard ramjet with lost of kinetic energy </a></i></li>
+<li><i><a href="#h3_matiere">Bussard ramjet with mass ejection</a></i></li>
+<li><i><a href="#h3_composite">Bussard ramjet with compound ejection </a></i></li>
+<li><i><a href="#h3_brem">Bussard ramjet Bremsstrahlung</a></i></li>
+</ul></blockquote>
+<p>
+Bussard Ramjet is an idea for interstellar propulsion from Dr Robert Bussard released in 1960 <a href="#ref_1">[1]</a>. 
+This kind of rocket collects interstellar material from the surrounding medium and burn it as nuclear propellent.  
+In fact, even if the galactic medium is nearly empty, it is not really empty and even contains around 0.1 to 0.3 protons / cm<sup>3</sup> 
+<a href="#ref_4">[4]</a>.</p>
+The interstellar distances are such as it is required enormous speed,
+about 1/3 of light speed to cross then in a reasonable time, 
+even just for <a href="/intersideral/durees/">the nearest starts</a>.
+It is needed such amount of energy to reach those speeds that only
+carrying the weight corresponding to rockets kinetic energy is yet an
+issue if it is to be embedded from departure.
+In fact any solution that carry its own propellent are subject to Tsiolkovsky
+constraint <a href="#ref_2">[2]</a>, which state that Lorentz boost is less than 
+the ratio of initial to final rocket masses <a href="#ref_7">[7] p11</a>.
+
+<p>
+As Dr Bussard device does not need to carry any fuel since it get its energy
+from medium and so it is not bounded by this constraint.
+However, this process raise numerous issues around energy balance,
+especially regarding to the energy spent in material collection, most likely as electromagnetic fields,
+compared to the energy provided by this harvested material <a href="#ref_5">[5]</a>.
+</p><p><br></p>
+<p>
+Although an actual device could hardly reach relativistic range, 
+if we could ever have technology to do so, most authors drive their calculations 
+in the special relativistic frame.
+</p>
+<p>
+I spent several months to set up correct motion equation for this device 
+in the special relativistic frame, since my studies are such a long time ago 
+and I wish to avoid this burden to those who will find this page by
+posting the results I have found in different cases. 
+</p>
+<p>
+I cannot guarantee the exactness of the following as this document have
+never be reviewed and so there should be several errors lying in. 
+For this reason it would be very unwise of you to take it for
+correct.
+So I am very interested in any feedback you may send through 
+email you will easily find on the site.</p>
+<p>
+We will work in the comoving frame, instantaneously at rest relative
+to the device, as explained in "Short course in special relativity" <a href="#ref_7">[7]</a>.</p>
+<h3>
+<a name="h3_symbol">Symbols</a>
+</h3>
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+<tbody>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>c<br>
+</td><td valign="top">is the speed of light.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top" width="5%">
+<br>
+  </td>
+<td>ρ<br>
+</td><td valign="top">is the medium density.</td>
+  <td valign="top" width="5%">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>S<br>
+</td><td valign="top">is the collection cross section</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>M<br>
+</td><td valign="top">is the weight of the rocket</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>β<br>
+</td><td valign="top">is speed of the rocket relative to the speed of light, v/c, in medium frame.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>η(x)<br>
+</td><td valign="top">is the boost corresponding to the speed x. It is arctanh(x),
+ inverse hyperbolic tangent. Unlike speed, boost is additive, and thus integrable.
+</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>m<br>
+</td><td valign="top">is the mass of the collected material.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>t<br>
+</td><td valign="top">is a time stamp in the medium (or collected material) frame.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>τ<br>
+</td><td valign="top">is a time stamp in the rocket frame.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>γ(x) </td><td valign="top">is the Lorentz factor suitable for two frames moving with speed x from each other. Its value is (1-
+x<sup>2</sup>)<sup>-1/2</sup>.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>γ<br>
+</td><td valign="top">is the Lorentz factor corresponding to the speed β.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>Λ(x)  <br>
+</td><td valign="top">is the Lorentz transform matrix for the speed x, C.f (<a href="#eq_1.1">1.1</a>).</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+<tr>
+<td valign="top">
+<br>
+  </td>
+<td>Β<br>
+</td><td valign="top">Reduced and relative cross section for material collection, equal to ρSc / M.</td>
+  <td valign="top">
+<br>
+  </td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a name="h3_methode">Method and common calculations</a>
+</h3>
+<p>
+In this part is about general processing and calculations of elements
+that remain the same across the different cases, as collected matter
+ amount, for example.
+</p>
+<p>
+We only take into account the dimension of space towards motion, x.
+This way the spacetime event 4-vectors (ct, x, y, z) as well as all 
+Lorentz transform invariants, simplify to only two dimension and can
+be simply written (ct, x).
+</p>
+<p>
+We are first going to asses the 4-vector representing the difference 
+between to events infinitesimally closed in proper time  (c(τ +dτ), 0, 0,
+ 0) and (cτ, 0, 0, 0), that is  ((c(τ +dτ), 0) -(cτ, 0,)), in order to
+get the distance traveled in the collected matter rest frame, and finally
+find the amount of collected material.
+</p>
+<p>
+Then we will apply continuity equation to energy and impulse in the 
+special relativistic frame.
+</p>
+
+<h4>Collection between τ and τ +dτ :</h4>
+<p>
+In all cases studied here, matter collection process remain the same, 
+we can assess its amount here and apply it later.
+</p>
+<p>
+Between these to instants the rocket dredge an area S in a medium of density ρ.
+As it move forward of an infinitesimal distance dx, it sweep a volume S dx
+during proper time dτ.
+</p>
+<p>We want the rocket proper time interval corresponding to (c dτ, 0) in the medium rest frame.
+According to special relativity, Lorentz transform matrix Λ(β) is the right way when the frames 
+are moving from each other with speed β :
+</p>
+<p></p>
+<table>
+<tbody><tr>
+<td align="right" width="80em"><tt>
+<a name="eq_1.1"></a>(1.1)</tt></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\left( \begin{array}{GC+20}  c dt \\ dx \end{array} \right) = \Lambda (\beta) \left( \begin{array} c d\tau \\ 0 \end{array} \right) = \left( \begin{array} \gamma &amp; \gamma \beta \\ \gamma \beta &amp; \gamma \end{array} \right) \left( \begin{array} c d\tau \\ 0 \end{array} \right)" src="img_misc/mimetex_img_0.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.2"></a><tt>(1.2)</tt>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="c dt = \gamma c d\tau " src="img_misc/mimetex_img_1.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.3"></a><tt>(1.3)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex=" dx  =  \gamma \beta c d\tau " src="img_misc/mimetex_img_2.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody>
+</table>
+<p>From (<a href="#eq_1.3">1.3</a>) the device covered a distance dx,
+sweeping a volume S dx in which all the material, at density ρ,
+is collected :  m = ρSdx.
+We just have to replace dx with (<a href="#eq_1.3">1.3</a>) to have
+an expression of collected material as a function of time interval :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.4"></a><tt>(1.4)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="m = \rho S c \gamma \beta d\tau" src="img_misc/mimetex_img_3.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<h4>Momentum at time τ or t :</h4>
+<p>
+Momentum 4-vector expression as well remain the same for all cases as we
+do not make assumption on how the collected matter is converted.</p>
+<p>Momentum 4-vector of the rocket, having a mass M, in its own rest frame,
+dropping dimension y and z is :
+</p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_M(\tau) = \left( \begin{array}{GC+20} Mc \\ 0 \end{array} \right)" src="img_misc/mimetex_img_4.gif" alt="" class="mimetex"><p>
+</p>
+</td>
+</tr></tbody>
+</table>
+<p>
+In order to get the momentum of collected interstellar gas we
+express it in the medium frame and then we change to the rocket frame
+which have a velocity of -β : </p>
+<table>
+<tbody><tr>
+<td align="right" width="80em">
+<br>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p_m(\tau) = \Lambda(-\beta)\left( \begin{array}{GC+20} mc \\ 0 \end{array} \right) = \left( \begin{array} \gamma &amp; -\beta \gamma \\ -\beta \gamma &amp; \gamma \end{array} \right) \left( \begin{array} mc \\ 0 \end{array} \right)" src="img_misc/mimetex_img_5.gif" alt="" class="mimetex">
+</td>
+</tr></tbody>
+</table>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.5"></a><tt>(1.5)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="p_m(\tau) = \left( \begin{array}{rGC+20} \gamma mc \\ -\beta \gamma mc \end{array} \right)" src="img_misc/mimetex_img_6.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>The 4-vector momentum of the system is the sum of the two previous contributions :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.6"></a><tt>(1.6)</tt>
+</td><td width="20em">
+<br>
+</td><td>
+<img mimetex="p(\tau) = p_M(\tau) + p_m(\tau) = \left( \begin{array}{rGC+20}Mc+\gamma mc\\ -\beta \gamma mc \end{array} \right)" src="img_misc/mimetex_img_7.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+</p>
+<h4>Momentum at time just after, τ +dτ :</h4>
+<p>
+The way the collected material is used will depend on the case study,
+and thus will be known later. The total energy after conversion, is "e"
+and the resulting impulse is "q", The collected matter m becomes
+without loss of generality : 
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td><td>
+<img mimetex="p_m(\tau+d\tau) = \left( \begin{array}{rGC+20}e\\ -q \end{array} \right)" src="img_misc/mimetex_img_8.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+Comparing this result with equation (<a href="#eq_1.5">1.5</a>) we can
+approximately identify "e" to be γmc. The value of "q" compared to the 
+incoming energy "e" account for device efficiency. 
+</p>
+<p>
+During time interval dτ device speed increase by infinitesimal increment dβ,
+which give it the new momentum :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td><td>
+<img mimetex="p_M(\tau+d\tau) = \left( \begin{array}{rGC+20} \gamma(d\beta)Mc \\ d\beta\gamma(d\beta)Mc \end{array} \right)" src="img_misc/mimetex_img_9.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+As speed increase dβ is as small as required, we can approximate its 
+Lorentz factor γ(dβ) as being very close from 1. Indeed, at scale of
+dβ, a second order Tailor development of γ(dβ) give classical 
+mechanic equivalent γ(dβ) ≈ 1 + <big><sub><big>½</big></sub></big> dβ<sup>2</sup>.
+As it is a second order of vanishing quantity, we can drop its contribution :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td><td>
+<img mimetex="p_M(\tau+d\tau) = \left( \begin{array}{rGC+20} Mc \\ d\beta Mc \end{array} \right)" src="img_misc/mimetex_img_10.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+The new system momentum 4-vector at proper time τ +dτ is the sum of its contributors :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.7"></a><tt>(1.7)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="p(\tau+d\tau) = p_M(\tau+d\tau) +p_m(\tau+d\tau) = \left( \begin{array}{rGC+20} Mc+e \\ d\beta Mc -q\end{array} \right) " src="img_misc/mimetex_img_11.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p></p>
+<h4>Momentum continuity equation :</h4>
+<p>
+The invariance of momentum 4-vector summarize both impulse
+and energy conservation :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td><td>
+<img mimetex="p(\tau) = p(\tau+d\tau)" src="img_misc/mimetex_img_12.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>We now split time and space dimension into separate equations :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><tt>(E)</tt></td><td width="20em"><br></td><td>
+<img mimetex="Mc + \gamma mc = Mc + e" src="img_misc/mimetex_img_13.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td align="right" width="80em"><tt>(P)</tt></td><td width="20em"><br></td><td>
+<img mimetex="  -\beta \gamma mc = d \beta Mc - q" src="img_misc/mimetex_img_14.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Having still collected material expression at (<a href="#eq_1.4">1.4</a>) :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.8"></a><tt>(1.8)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="B = \Large \frac{\rho S c}{M}" src="img_misc/mimetex_img_15.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Using value of B with (<a href="#eq_1.4">1.4</a>) and simplifying, we get the general expression of motion :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.9_M"></a><tt>(M)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="m = \rho S c \gamma \beta d\tau =  M B \gamma \beta d\tau" src="img_misc/mimetex_img_16.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.9_E"></a><tt>(E)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex="e = \gamma mc" src="img_misc/mimetex_img_17.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.9_P"></a><tt>(P)</tt>
+</td><td width="20em"><br></td><td>
+<img mimetex=" Mc d \beta  = q -\beta \gamma mc" src="img_misc/mimetex_img_18.gif" alt="" class="mimetex">
+</td>
+</tr><tr>
+<td align="right" width="80em">
+<a name="eq_1.9"></a><tt>(1.9)</tt>
+</td><td width="20em"><br></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>
+With equation (1.9) and having e and q expression according to collected material conversion we will be able to derive an expression of dβ.
+</p>
+<p></p>
+<h3>
+<a name="h3_ideal"></a>
+<a href="bussard_ramjet_ideal.en.html">The ideal Bussard Ramjet</a><br>
+</h3>
+<p>
+This case being simple enough to be fully solve algebraically, it is has
+its own  <a href="bussard_ramjet_ideal.fr.html">dedicated separate page</a>.
+We can check that we find the same differential equation from here.</p>
+<p>
+In this case the overall collected energy is converted to impulse. This mean
+that all total energy is burned into light emitted exactly in direction -x.
+It comes then that e = q. 
+With (<a href="#eq_1.9_E">1.9-E</a>) it turns that q = γmc. Combined with  (<a href="#eq_1.9_P">1.9-P</a>) we obtain :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" Mc d \beta  = \gamma mc -\beta \gamma mc" src="img_misc/mimetex_img_19.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.10"></a><tt>(1.10)</tt>
+</td><td width="20em"><br></td>
+<td>
+<img mimetex=" d \beta  = B \beta \gamma ^ 2 (1 - \beta) d \tau = B\ \frac{\beta}{1 +\beta}\ d \tau" src="img_misc/mimetex_img_20.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Which happens to be the differential equation found at (<a href="bussard_ramjet_ideal.en.html#eq_1.8">1.8</a>).</p>
+<p>
+All devices listed below will be less efficient that <a href="bussard_ramjet_ideal.en.html">Ideal Bussard ramjet</a>.</p>
+<h3>
+<a name="h3_perte_ec"></a>
+Bussard ramjet with lost of kinetic energy
+</h3>
+<p>
+It is a simple case where the overall collected matter is burned into light
+sent towards -x axis, but where the kinetic energy of collected material is
+completely lost.</p>
+<p>
+If kinetic energy is lost, then mass energy is the only available contribution
+to linear momentum. Then as mass energy conversion is assumed to be loss less,
+we have q = mc. Having expression of q we can use it in equation (<a href="#eq_1.9_P">1.9-P</a>):</p>
+<p></p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><tt>
+<a name="eq_1.11"></a><tt>(1.11)</tt>
+</tt></td><td width="20em"><br></td><td>
+<img mimetex=" d \beta  = B \beta \gamma (1 - \beta \gamma) d \tau" src="img_misc/mimetex_img_21.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Terminal velocity :</p>
+From (1.11), dβ is positive until βγ is below 1. As speed increase βγ will also increase and will exceed 1. The speed at which this occurs is the maximum speed that can be reach this device : 
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td><td>
+<img mimetex=" 0\ &lt;\ B \beta \gamma (1 - \beta \gamma) d \tau" src="img_misc/mimetex_img_22.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td><td>
+<img mimetex=" 0\ &lt;\ (1 - \beta \gamma) " src="img_misc/mimetex_img_23.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td>
+<td>
+<img mimetex="\beta \gamma \ &lt;\ 1" src="img_misc/mimetex_img_24.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td>
+<td>
+<img mimetex="\beta^2 \ &lt;\ 1 - \beta^2" src="img_misc/mimetex_img_25.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td>
+<td>
+<img mimetex="2 \beta^2 \ &lt;\ 1" src="img_misc/mimetex_img_26.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr>
+<td></td><td></td>
+<td>
+<img mimetex="\beta \ &lt;\ \frac{1}{\sqrt{2}}" src="img_misc/mimetex_img_27.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p><a name="ref_integration">Integration :</a></p>
+<p>
+As β is not an additive parameter, we make a variable substitution 
+from β to boost, η(β) = η = atanh(β) which is additive, to be able 
+to integrate.
+As the derivative of tanh(x) at x = 0 is 1, we can simply replace dβ with dη.
+From <a href="http://stelio.net/stiki/Forward-reverse_trigonometric_formulae" target="_blank">
+Forward-inverse trigonometric formulae</a> it come than 
+ γ = cosh(η) and βγ = sinh(η). The equation (1.11) becomes:</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td>
+<td>
+<img mimetex="\int{\frac{1}{sinh(\eta)(1 - sinh(\eta))} d\eta} = \int{B d\tau}" src="img_misc/mimetex_img_28.gif" alt="" class="mimetex">  
+</td>
+</tr>
+</tbody></table>
+<p>
+Both <a href="http://www.wolframalpha.com" target="_blank">WolframAlpha</a> and
+<a href="http://www.numberempire.com/" target="_blank">Number Empire</a>
+give an expression for the integration. </p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"><br></td><td width="20em"><br></td>
+<td>
+<img mimetex="B \tau = sqrt{2}arctanh(\frac{tanh(\eta/2) +1}{sqrt{2}})+ln(tanh(\eta/2))+K" src="img_misc/mimetex_img_29.gif" alt="" class="mimetex">  
+</td>
+</tr>
+</tbody></table>
+<p>
+Unfortunately, it is quite complex and inverting it to derive an expression of β as a function of τ is too difficult and we will not go further.</p>
+<p></p>
+<h3>
+<a name="h3_matiere">
+Bussard ramjet with mass ejection</a>
+</h3>
+<p>
+In this device the total collected energy is converted into matter exhaust towards -x axis.
+A part, ε, of collected material is released into kinetic energy for to the remaining material.</p>
+<p>
+The total energy outgoing flow, e, can be expressed as the energy 
+of the remaining materiel (1 -ε)mc, with its new speed, -ω.
+The equation (<a href="#eq_1.9_E">1.9-E</a>) thus turn to :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" e  = \gamma mc = (1 - \epsilon) mc \gamma(- \omega )" src="img_misc/mimetex_img_30.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+In order to use (<a href="#eq_1.9_P">1.9-P</a>), we need now q which is derived in the same way as energy :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" -q  = - \omega (1 - \epsilon) mc \gamma(- \omega )" src="img_misc/mimetex_img_31.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+We note that q = e ω = γmc ω. We are only missing an expression of ω we can extract from energy :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \gamma = (1 - \epsilon) \gamma(- \omega )" src="img_misc/mimetex_img_32.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex=" \frac {\gamma}{1 - \epsilon} =  \gamma(- \omega )" src="img_misc/mimetex_img_33.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex=" \frac {(1 - \epsilon) ^2}{\gamma ^2} =  1- \omega ^2" src="img_misc/mimetex_img_34.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex="\omega  =  \frac{ \sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } }{\gamma } " src="img_misc/mimetex_img_35.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+We can now replace this value of ω into the expression of q found previously :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex=" q  = \omega e = \omega \gamma mc = \sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } mc" src="img_misc/mimetex_img_36.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+We feed this expression of q in the impulse continuity equation
+(<a href="#eq_1.9_P">1.9-P</a>) to get the speed differential equation.
+Then we replace m by its value given at (<a href="#eq_1.9_M">1.9-M</a>) : 
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td>
+<td>
+<img mimetex=" Mc d \beta  = (\sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } -\beta \gamma) mc" src="img_misc/mimetex_img_37.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"><tt>
+<a name="eq_1.12"></a>(1.12)</tt></td><td width="20em"><br></td>
+<td>
+<img mimetex=" d \beta = B \gamma \beta (\sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } -\beta \gamma ) d\tau " src="img_misc/mimetex_img_38.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>The equation (1.12) is indeed equivalent to the differential equation
+found in (15), for the same case studied by Claude Semay and Bernard Silvestre-Brac
+in <a href="#ref_6">[6]</a>. 
+Their calculations have been driven starting from collected matter rest frame and later brought to the rocket rest frame :
+</p>
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\frac{\varphi(0)}{\varphi_*} = \frac{\beta} {1 - \beta^2} (\sqrt{\beta^2 + \epsilon^,(1 - \beta^2)} - \beta), \ \ \epsilon^, = \epsilon (2 - \epsilon)" class="mimetex" src="img_misc/mimetex_img_39.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+
+
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\frac{\varphi(0)}{\varphi_*} = \beta \gamma (\sqrt{(\beta^2 \gamma^2 +1) -(1 -\epsilon)^2} - \beta\gamma)" class="mimetex" src="img_misc/mimetex_img_40.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+
+
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\frac{\varphi(0)}{\varphi_*} = \frac{1}{B}\ \frac{d \beta}{d \tau}" class="mimetex" src="img_misc/mimetex_img_41.gif" alt="=ln(e^{B\tau}-1)">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+</tbody>
+</table>
+<p>
+To integrate the differential equation, there is an algebraic solution,
+we separate terms containing β and γ on left hand side and time on right,
+then we make <a href="#ref_integration">variable substitution towards η</a> :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \frac {d \beta}{\gamma \beta (\sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } -\beta \gamma ) } = B d\tau " src="img_misc/mimetex_img_42.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \int {\frac {d \eta}{sinh(\eta) (\sqrt{ cosh(\eta) ^2 - (1 - \epsilon) ^2 } -sinh(\eta) ) } } = \int {B d\tau} " src="img_misc/mimetex_img_43.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>An expression of the integral is provided by <a href="http://www.wolframalpha.com" target="_blank">WolframAlpha</a>.</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="B \tau  = \frac{1}{1 -a^2} \left[ ln \left( sqrt{1 -2a^2+cosh(2\eta)} + sqrt{2}cosh(\eta) \right) -sqrt{1 -a^2} arctanh(\frac{sqrt{2}sqrt{1 -a^2}cosh(\eta)}{sqrt{1 -2a^2+cosh(2\eta)}})+x \right]+K,\ \ a = 1- \epsilon" src="img_misc/mimetex_img_44.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Once again it will be very difficult to invert the function τ(η) to get η(τ) and then β(τ).</p>
+
+<p>Terminal velocity :</p>
+<p>According to <a href="#eq_1.12">(1.12)</a>, dβ is positive as long as :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\sqrt{ \gamma ^2 - (1 - \epsilon) ^2 } -\beta \gamma &gt; 0" src="img_misc/mimetex_img_45.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma ^2 - (1 - \epsilon) ^2 &gt; \beta^2 \gamma^2" src="img_misc/mimetex_img_46.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma ^2 (1- \beta^2)- (1 - \epsilon) ^2  &gt; 0" src="img_misc/mimetex_img_47.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="1 &gt; (1 - \epsilon) ^2" src="img_misc/mimetex_img_48.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+As the inequality leads to an obvious true fact, it is always true.
+This device has no terminal velocity.</p>
+<h3>
+<a name="h3_composite"></a>
+Bussard ramjet with compound ejection
+</h3>
+<p>
+This model is based on the one used in <a href="#ref_3">[3]</a> as a model of matter-antimatter engine.
+The exhaust is a mix of boosted matter, light and loss.
+</p>
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img src="dessins/modele-antimatirere.en.png" alt="Utilisation de l'énergie ε, n, δ">
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+The engine convert a part ε of collected energy flow into energy available for utilization.
+The remaining (1 -ε) part is thrown out in -x direction. From the useful part ε, a fraction 
+(1 -n) of the energy is wasted most likely through isotropic radiation. The remaining energy,
+nε, is again partitioned into a δ part as a massless exhaust towards -x direction and (1 -δ)
+fraction as kinetic energy of the massive exhaust particles.
+</p>
+<p>
+Below we summarize the distribution of total collected energy into exhaust partition 
+by matter flow, loss and massless particles :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td><td>
+<img mimetex="\left( \begin{array}{GC+20} e \\ q \end{array} \right) = \left( \begin{array}{GC+20} (1 - \epsilon) \gamma(\omega) mc  \\ (1 - \epsilon) \gamma(\omega) \omega mc \end{array} \right) + \left( \begin{array}{GC+20} (1-n) \epsilon \gamma mc  \\ 0 \end{array} \right) + \left( \begin{array}{GC+20} (1 - \delta) n \epsilon \gamma mc  \\ (1 - \delta) n \epsilon \gamma mc \end{array} \right)" class="mimetex" src="img_misc/mimetex_img_49.gif" alt="">
+</td>
+</tr>
+</tbody></table>
+<p>
+Evry quantities related to q being negative as exhaust are directed to -x,
+we have simplified to the opposite.</p>
+<p>Total incoming energy still being e = γmc, we can derive exhaust massive particles speed ω :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="e = \gamma mc = (1 - \epsilon) \gamma(\omega) mc  + (1-n) \epsilon \gamma mc + (1 - \delta) n \epsilon \gamma mc" class="mimetex" src="img_misc/mimetex_img_50.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="(1 - \epsilon) \gamma(\omega)  = \gamma ( 1 - (1-n) \epsilon  - (1 - \delta) n \epsilon )" class="mimetex" src="img_misc/mimetex_img_51.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="\gamma(\omega)  = \frac{ \gamma ( 1 - \epsilon (1 - \delta n))}{ 1 - \epsilon }" class="mimetex" src="img_misc/mimetex_img_52.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="1 -\omega^2 = \frac{ (1 - \epsilon)^2 }{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2}" class="mimetex" src="img_misc/mimetex_img_53.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="\omega =  \frac{ \sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 }}{ \gamma ( 1 - \epsilon (1 - \delta n))}" class="mimetex" src="img_misc/mimetex_img_54.gif" alt=""></td>
+</tr>
+</tbody></table>
+<p>Knowing ω it is straightforward to get q and then dβ with (<a href="#eq_1.9_P">1.9-P</a>) and (<a href="#eq_1.9_M">1.9-M</a>) :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="(1 - \epsilon) \gamma(\omega) \omega = \sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 }" class="mimetex" src="img_misc/mimetex_img_55.gif" alt=""></td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td><img mimetex="q = ( \sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 } + (1 - \delta) n \epsilon \gamma ) mc" class="mimetex" src="img_misc/mimetex_img_56.gif" alt=""></td>
+</tr>
+
+</tbody></table>
+<p>
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" Mc d \beta  = (\sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 } + (1 - \delta) n \epsilon \gamma) mc -\beta \gamma mc" src="img_misc/mimetex_img_57.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.13"></a>(1.13)</td><td width="20em"><br></td>
+<td>
+<img mimetex=" d \beta = B \gamma \beta (\sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 } + (1 - \delta) n \epsilon \gamma -\beta \gamma ) d\tau " src="img_misc/mimetex_img_58.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+In order to derive an expression of β from the previous differential equation 
+one can proceed as shown before, grouping terms containing β and γ on one side and terms containing  
+proper time on the other. Then apply <a href="#ref_integration">variable substitution</a> of β and γ to boost η.
+</p>
+<p>Terminal velocity : :</p>
+<p>According to <a href="#eq_1.13">(1.13)</a>, dβ stay above zero until :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\sqrt{ \gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 } + (1 - \delta) n \epsilon \gamma -\beta \gamma \ &gt;\ 0" src="img_misc/mimetex_img_59.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma^2 ( 1 - \epsilon (1 - \delta n))^2 -(1 - \epsilon)^2 \ &gt;\ ( \beta \gamma - (1 - \delta) n \epsilon \gamma)^2" src="img_misc/mimetex_img_60.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma^2 ( (1 - \epsilon (1 - \delta n))^2 -( \beta - (1 - \delta) n \epsilon)^2 ) \ &gt;\ (1 - \epsilon)^2" src="img_misc/mimetex_img_61.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="(1 - \epsilon (1 - \delta n))^2 -( \beta - (1 - \delta) n \epsilon)^2 \ &gt;\ (1 -\beta^2) (1 - \epsilon)^2 " src="img_misc/mimetex_img_62.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\beta^2 (1 - \epsilon)^2 -( \beta - (1 - \delta) n \epsilon)^2  \ &gt;\ (1 - \epsilon)^2 -(1 - \epsilon (1 - \delta n))^2" src="img_misc/mimetex_img_63.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\beta^2 ((1 - \epsilon)^2 -1) + 2 \beta (1 - \delta) n \epsilon + (1 - \epsilon (1 - \delta n))^2 -( (1 - \delta) n \epsilon )^2 -(1 - \epsilon)^2 \ &gt;\  0" src="img_misc/mimetex_img_64.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+This is a second order equation for β, which may indicates that there is a speed limit. 
+We do not go further in the resolution, as this will be very tedious.
+</p>
+
+<h3>
+<a name="h3_brem"></a>
+Bussard ramjet Bremsstrahlung
+</h3>
+<p>
+So far it was assumed that the collected matter was used in its own rest frame.
+But as speed increase, the on-board transit time of particle will become 
+too small to allow any interaction with the rocket.  
+</p>
+<p>
+Now the collected matter is first going to be slow down at the same speed as the rocket.
+We assume that this deceleration produce a braking radiation emitted strait away towards
+-x direction with an amount of energy corresponding to the incoming kinetic energy.
+The physical phenomena which is close from is the 
+<a href="http://en.wikipedia.org/wiki/Bremsstrahlung" target="_blank">Bremsstrahlung radiation</a>, which
+is considered as a major concern for bussard ramjet <a href="#ref_8">[8]</a>. 
+
+</p><p>
+We assume that the part of kinetic energy successfully re-emitted as massless exhaust is t. 
+The part (1 -t) is lost. Collected matter, now stationary from the rocket is converted
+in a massless flow towards -x. Recalling that kinetic energy of massive particle is (1-γ)mc : 
+</p>
+<table>
+<tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em">
+<br>
+</td><td>
+<img mimetex="\left( \begin{array}{GC+20} e \\ q \end{array} \right) = \left( \begin{array}{GC+20} t (\gamma -1) mc  \\  t (\gamma -1) mc \end{array} \right) + \left( \begin{array}{GC+20} (1-t) ( \gamma -1) mc  \\ 0 \end{array} \right) + \left( \begin{array}{GC+20} mc  \\ mc \end{array} \right)" class="mimetex" src="img_misc/mimetex_img_65.gif" alt="">
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+Energy equation is useless as it fully simplify. Never mind, we only need q
+to complement (<a href="#eq_1.9_M">1.9-M</a>) :</p>
+
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" Mc d \beta  = ( t (\gamma -1) mc + mc ) -\beta \gamma mc" src="img_misc/mimetex_img_66.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em">
+<a name="eq_1.14"></a>(1.14)</td><td width="20em"><br></td>
+<td>
+<img mimetex=" d \beta  = B \beta \gamma ( t (\gamma -1) + 1 -\beta \gamma ) d \tau" src="img_misc/mimetex_img_67.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+If we assume t = 1, then one can check he finds the ideal bussard given at (<a href="#eq_1.10">1.10</a>).
+Similarly, if we take t = 0, we find the bussard with loss of kinetic energy given at (<a href="#eq_1.11">1.11</a>).</p>
+<p>
+Integration is as usual, grouping terms and <a href="#ref_integration">variable substitution</a> towards boost.</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \frac{d \beta}{\beta \gamma (  t \gamma + 1 - t -\beta \gamma) )}  = B d \tau" src="img_misc/mimetex_img_68.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" \int { \frac{d \eta}{sinh(\eta) ( t cosh(\eta) + 1 -t -sinh(\eta)) } } = \int { B d \tau }" src="img_misc/mimetex_img_69.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Terminal velocity :</p>
+<p>
+According to <a href="#eq_1.14">(1.14)</a>, dβ is positive if :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="t (\gamma -1) + 1 -\beta \gamma &gt;\ 0" src="img_misc/mimetex_img_70.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\gamma (t -\beta) &gt;\ -(1-t)" src="img_misc/mimetex_img_71.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>
+From this we can state that terminal velocity is at least greater than t.c where t is the part of kinetic energy transferred.
+We now looking to the roots of equation :
+</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex=" (t -\beta)^2 = (1-\beta^2)(1-t)^2" src="img_misc/mimetex_img_72.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="t^2 -2t\beta +\beta^2 +\beta^2(1-t)^2 =\ (1-t)^2" src="img_misc/mimetex_img_73.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="(1 +(1-t)^2)\beta^2 -2t\beta +t^2 -(1-t)^2 =\ 0" src="img_misc/mimetex_img_74.gif" alt="" class="mimetex">
+</td>
+</tr>
+</tbody></table>
+<p>Which happens to be a second order equation with β.
+</p>
+<p align="center">
+<img alt="Racines de Beta max" src="graphics/Bremsstrahlung_beta_max_roots.png" height="405" width="830">
+<!-- (β(t=0.1),,(1+(1-0.1)^2)*x^2-2*0.1*x+0.1^2-(1-0.1)^2),(β(t=0.9),,(1+(1-0.9)^2)*x^2-2*0.9*x+0.9^2-(1-0.9)^2) -->
+</p>
+<p>Which solution is in our reach :</p>
+<table><tbody>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta = 4t^2 -4(1 +(1-t)^2)(t^2 -(1-t)^2)" src="img_misc/mimetex_img_75.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta = 4t^2 -4(t^2 -(1-t)^2 +t^2(1-t)^2 -(1-t)^4)" src="img_misc/mimetex_img_76.gif" alt="" class="mimetex">
+</td>
+</tr>
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta = +4( +1 -t^2 +(1-t)^2)(1-t)^2" src="img_misc/mimetex_img_77.gif" alt="" class="mimetex">
+</td>
+</tr>
+
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta = +4( +2 -2t)(1-t)^2" src="img_misc/mimetex_img_78.gif" alt="" class="mimetex">
+</td>
+</tr>
+
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\Delta =+8(1-t)^3" src="img_misc/mimetex_img_79.gif" alt="" class="mimetex">
+</td>
+</tr>
+
+<tr><td hight="1em"></td></tr>
+<tr>
+<td align="right" width="80em"></td><td width="20em"><br></td>
+<td>
+<img mimetex="\beta_1 = \frac{2t-(2(1-t))^{3/2}}{2(1 +(1-t)^2)}, \ \beta_2 = \frac{2t+(2(1-t))^{3/2}}{2(1 +(1-t)^2)}" src="img_misc/mimetex_img_80.gif" alt="" class="mimetex">
+</td>
+</tr>
+
+</tbody></table>
+
+<p>
+Terminal velocity is given by β<sub>2</sub> which is always positive.
+This correspond to the limit speeds found from the bussard with
+ kinetic energy lost (β<sub>max</sub> = 1/√2) for t = 0, and 
+ideal bussard (β<sub>max</sub> = 1) for t = 1.
+</p>
+<p>
+We can plot the graph of β<sub>max</sub> as a function of kinetic energy transfer rate t :
+</p>
+<p align="center">
+<img alt="Racines de Beta max" src="graphics/Bremsstrahlung_beta_max.png" height="405" width="830">
+</p>
+
+<p>
+</p>
+
+<p>
+</p>
+ 
+
+<h4>Conclusion</h4>
+<p>
+Rather simple in the ideal case, the motion of bussards very quickly gets heavier as soon as inefficiency is taken into account.
+On most cases, the expression of β as a function of τ, obtained after integration, is not invertible which make next steps difficult.
+</p>
+<p>
+All those devices assume that matter collection, through the B constant, is simple and at no cost, which will certainly not 
+be true for a real device. The study of matter collectors taking into account required electromagnetic fields and their efficiency 
+would be very interesting but surpasses my skills.
+</p>
+
+<p>
+</p>
+<br>
+<br>
+<br>
+<br>
+<h4>References</h4>
+<p>
+<a name="ref_1">[1]</a> <a href="http://large.stanford.edu/courses/2013/ph241/micks1/docs/bussard.pdf" target="_blank">Galactic Matter and Interstellar Flight</a>, Robert W. Bussard; Los Alamos Scientific Laboratory, University of California, Los Alamos, NM. <a href="../references/bussard.pdf">Local mirror</a>.
+<br>
+<a name="ref_2">[2]</a> <a href="">Investigation of outer space rocket appliances</a>, Konstantin Tsiolkovsky, 1903. <a href="../references/Tsiolkovsky.html">Local mirror</a>, See also <a href="http://en.wikipedia.org/wiki/Tsiolkovsky_rocket_equation" target="_blank">Wiki</a>, if one do not read russian.
+<br>
+<a name="ref_3">[3]</a> <a href="http://www.math.ksu.edu/%7Ewestmore/norr2.pdf" target="_blank">A note on relativistic rocketry</a>, Acta Astronautica, Shawn Westmoreland, Volume 67, Issues 9-10, November-December 2010, pp. 1248 - 1251. <a href="../references/AM_0910.1965.pdf">Local mirror</a>.
+<br>
+
+<a name="ref_4">[4]</a> <a href="http://interstellar.jpl.nasa.gov/interstellar/probe/introduction/neighborhood.html" target="_blank">Our Local Galactic Neighborhood</a>, Dr. Paulett Liewer. Gives a density around ~0.3 atoms/cm<sup>3</sup>.
+Cette autre reférence <a href="http://www.solstation.com/x-objects/chimney.htm" target="_blank">Local Chimney and Superbubbles</a> is more exhaustive about local bubble medium.<br>
+  <a name="ref_5">[5]</a> <a href="http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1964IrAJ....6..299O" target="_blank">Is Interstellar Travel Possible ?</a>, Opik, E. J., Irish Astronomical Journal, vol. 6(8), p. 299. <a href="../references/1964IrAJ....6..299O.pdf">Local mirror</a>. <br>
+<a name="ref_6">[6]</a>  <a href="http://arxiv.org/abs/0710.0295" target="_blank">The equation of motion of an interstellar Bussard ramjet</a>, Claude Semay and Bernard Silvestre-Brac, Eur. J. Phys. 26 (2005) 75–83, doi:10.1088/0143-0807/26/1/009. <a href="../references/SEMAY-2005-03-JOURNAL.pdf">Local mirror</a>. <br>
+<a name="ref_7">[7]</a>  <a href="http://www.6911norfolk.com/d0lbln/110bf08/110bf08-rel.pdf" target="_blank">Short course in special relativity</a>, M. Strovink, Spring 2006, University of California, Berkeley, <a href="../references/UBC-relativite_restreinte.pdf">Local mirror</a>. <br>
+<a name="ref_8">[8]</a>  <a href="http://www.askmar.com/Fusion_files/EMC2%20Reports/EMC2-0891-04%201991%20Bremmstrahlung%20Radiation%20Losses.pdf" target="_blank">Bremmstrahlung radiation losses in polywell<sup>tm</sup> systems</a>, Robert W. Bussard and Katherine E. King, Oct 1992, . <br>
+
+
+
+
+
+</p>
+<h4>Acknowledgments<br>
+</h4>
+<p>Mathematical image were produced with   
+<a href="http://www.forkosh.com/mimetex.html" target="_blank">mimetex</a>. 
+Most of free web hosting do not provided arbitrary binary cgi-bin,
+formulas have been processed with this especially crafted 
+<a href="./mimetex_precompile.tcl">script</a>.
+</p>
+<p>
+Reading the works quoted as reference has been a great help for this little work,
+particularly the <a href="#ref_1">Short course in special relativity</a> of M. Strovink,
+as the article from Claude Semay and Bernard Silvestre-Brac <a href="#ref_2">[6]</a>.
+</p>
+<p>
+I have also make a intensive use online calculation resources as <a href="http://www.wolframalpha.com" target="_blank">WolframAlpha</a> and <a href="http://www.numberempire.com/" target="_blank">Number Empire</a>, especially for integration and graphics.
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+<p>
+<br><br><br>
+</p>
+
+<!-- postprod:signature:start -->
+<hr size="2" width="100%"> 
+<b><small>web design : <a href="http://www.machinman.net">machinman.net</a> all right reserved, update Tue Nov 24 11:56:00 CET 2020</small></b><br>
+<!-- postprod:signature:end -->
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+
+</body>
+</html>

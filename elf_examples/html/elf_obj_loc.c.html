@@ -1,0 +1,1534 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>Elf sample code: elf_obj_loc.c</title>
+   <meta name="Description" content="Elf sample code">
+   <meta name="Author" content="Emmanuel Azencot">
+   <meta name="GENERATOR" content="ctoohtml 1.5.0">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">Elf sample home</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H2>file: elf_obj_loc.c</H2>
+
+
+<HR>
+<tt>
+ &nbsp;&nbsp;1
+<span style="color: rgb(102, 102, 102);">/*<br>
+ &nbsp;&nbsp;2
+ * Copyright (C) 2007 Emmanuel AZENCOT All Rights Reserved. * <br>
+ &nbsp;&nbsp;3
+ *<br>
+ &nbsp;&nbsp;4
+ * This program is free software; you can redistribute it and/or modify it<br>
+ &nbsp;&nbsp;5
+ * under the terms of version 2 of the GNU General Public License as<br>
+ &nbsp;&nbsp;6
+ * published by the Free Software Foundation.<br>
+ &nbsp;&nbsp;7
+ *<br>
+ &nbsp;&nbsp;8
+ * The address of the Free Software Foundation is<br>
+ &nbsp;&nbsp;9
+ * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, <br>
+ &nbsp;10
+ * Boston, MA 02110-1301, USA.<br>
+ &nbsp;11
+ */</span><br>
+ &nbsp;12
+<br>
+ &nbsp;13
+<span style="color: rgb(102, 102, 102);">/*<br>
+ &nbsp;14
+ * Prepare an elf relocatable object for disassemby (objdump)<br>
+ &nbsp;15
+ *<br>
+ &nbsp;16
+ * 2007-11-14 16:11:49 Emmanuel AZENCOT<br>
+ &nbsp;17
+ * &nbsp;&nbsp;Creation<br>
+ &nbsp;18
+ * 2008-01-21 15:44:08<br>
+ &nbsp;19
+ * &nbsp;&nbsp;Fix resolution for data<br>
+ &nbsp;20
+ * Sun Nov 22 20:33:20 CET 2009<br>
+ &nbsp;21
+ * &nbsp;&nbsp;bug fix in error message \%s\"<br>
+ &nbsp;22
+ *<br>
+ &nbsp;23
+ * build : gcc -Wall -g -o elf_obj_loc -lelf elf_obj_loc.c<br>
+ &nbsp;24
+ * TODO :<br>
+ &nbsp;25
+ * &nbsp;clean output, have a verbose mode<br>
+ &nbsp;26
+ * &nbsp;use info file to retreive .rel corresponding section (instead of name)<br>
+ &nbsp;27
+ * &nbsp;test big endian object<br>
+ &nbsp;28
+ * &nbsp;test 64 bits object<br>
+ &nbsp;29
+ * &nbsp;test other processors<br>
+ &nbsp;30
+ * &nbsp;deal with other ABI<br>
+ &nbsp;31
+ */</span><br>
+ &nbsp;32
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;string.h&gt;</span><br>
+ &nbsp;33
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;stdio.h&gt;</span><br>
+ &nbsp;34
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;stdlib.h&gt;</span><br>
+ &nbsp;35
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;sysexits.h&gt;</span><br>
+ &nbsp;36
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;unistd.h&gt;</span><br>
+ &nbsp;37
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;fcntl.h&gt;</span><br>
+ &nbsp;38
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;errno.h&gt;</span><br>
+ &nbsp;39
+<br>
+ &nbsp;40
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;err.h&gt;</span><br>
+ &nbsp;41
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;gelf.h&gt;</span><br>
+ &nbsp;42
+<br>
+ &nbsp;43
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;/usr/include/asm/byteorder.h&gt;</span><br>
+ &nbsp;44
+<br>
+ &nbsp;45
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_45"></A><A HREF="xref.html#endian_to_target">X</A>*/ <B><A NAME="endian_to_target">endian_to_target</A></B>(tgt_is_be, value) ( (<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(value) == 4)?\<br>
+ &nbsp;46
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((tgt_is_be)?__cpu_to_be32(value):__cpu_to_le32(value)): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<br>
+ &nbsp;47
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((tgt_is_be)?__cpu_to_be64(value):__cpu_to_le64(value)) )</span><br>
+ &nbsp;48
+<br>
+ &nbsp;49
+<br>
+ &nbsp;50
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_50"></A><A HREF="xref.html#errx">X</A>*/ <B><A NAME="errx">errx</A></B>(code, fmt, args...) { \<br>
+ &nbsp;51
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr,#code <span style="color: rgb(51, 102, 255);">": error&nbsp;in&nbsp;file&nbsp;%s&nbsp;at&nbsp;line&nbsp;%d&nbsp;in&nbsp;function&nbsp;%s:"</span>, __FILE__,__LINE__,__FUNCTION__); \<br>
+ &nbsp;52
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr,fmt <span style="color: rgb(51, 102, 255);">"\n"</span>, ##args); \<br>
+ &nbsp;53
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">exit</span>(1); \<br>
+ &nbsp;54
+}</span><br>
+ &nbsp;55
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_55"></A><A HREF="xref.html#merrx">X</A>*/ <B><A NAME="merrx">merrx</A></B>(code, fmt, args...) { \<br>
+ &nbsp;56
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr,#code <span style="color: rgb(51, 102, 255);">": error&nbsp;in&nbsp;file&nbsp;%s&nbsp;at&nbsp;line&nbsp;%d&nbsp;in&nbsp;function&nbsp;%s:"</span>, __FILE__,__LINE__,__FUNCTION__); \<br>
+ &nbsp;57
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr,fmt <span style="color: rgb(51, 102, 255);">"\n"</span>, ##args); \<br>
+ &nbsp;58
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> -1; \<br>
+ &nbsp;59
+}</span><br>
+ &nbsp;60
+<span style="color: rgb(102, 102, 102);">/**<br>
+ &nbsp;61
+ * @memo Find a section given its name<br>
+ &nbsp;62
+ * @doc<br>
+ &nbsp;63
+ * &nbsp;&nbsp;Look in evry secttion until it find a section name "scn_name"<br>
+ &nbsp;64
+ * @param __elf Elf Handle to search in<br>
+ &nbsp;65
+ * @param scn_name section name<br>
+ &nbsp;66
+ * @return -1 error, 0 not found, section index<br>
+ &nbsp;67
+ */</span><br>
+ &nbsp;68
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_68"></A><A HREF="xref.html#melf_scn_by_name">X</A>*/ <B><A NAME="melf_scn_by_name">melf_scn_by_name</A></B>(Elf *__elf, <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *scn_name) {<br>
+ &nbsp;69
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> shstrndx;<br>
+ &nbsp;70
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> scn_ndx = 0;<br>
+ &nbsp;71
+ &nbsp;&nbsp;Elf_Scn *scn;<br>
+ &nbsp;72
+ &nbsp;&nbsp;GElf_Shdr shdr;<br>
+ &nbsp;73
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *name;<br>
+ &nbsp;74
+<br>
+ &nbsp;75
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (elf_getshstrndx(__elf, &shstrndx) != 0)<br>
+ &nbsp;76
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_76"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshstrndx() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ &nbsp;77
+<br>
+ &nbsp;78
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ((scn = elf_getscn(__elf, scn_ndx)) != NULL) {<br>
+ &nbsp;79
+<br>
+ &nbsp;80
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn, &shdr) != &shdr)<br>
+ &nbsp;81
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_81"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ &nbsp;82
+<br>
+ &nbsp;83
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((name = elf_strptr(__elf, shstrndx, shdr.sh_name)) == NULL)<br>
+ &nbsp;84
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_84"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_strptr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ &nbsp;85
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !<span style="color: rgb(204, 0, 0);">strcmp</span>(scn_name, name) ) <br>
+ &nbsp;86
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> scn_ndx;<br>
+ &nbsp;87
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scn_ndx++;<br>
+ &nbsp;88
+ &nbsp;&nbsp;}<br>
+ &nbsp;89
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ &nbsp;90
+}<br>
+ &nbsp;91
+<span style="color: rgb(102, 102, 102);">/** <br>
+ &nbsp;92
+ * @memo Symbol table section adtatation<br>
+ &nbsp;93
+ * @doc <br>
+ &nbsp;94
+ * &nbsp;&nbsp;As symbol table contains section indexes, there must be changed according to new elf<br>
+ &nbsp;95
+ * section layout<br>
+ &nbsp;96
+ * @param __elf a valid input/output elf handle<br>
+ &nbsp;97
+ * @param conv_tbl a section table conversion (see <A NAME="line_97"></A><A HREF="elf_obj_loc.c.html#melf_rel_scn_layout">melf_rel_scn_layout</A>)<br>
+ &nbsp;98
+ * @param len conv_tbl number of entries<br>
+ &nbsp;99
+ * @return -1 error, symbol table section index<br>
+ 100
+ */</span><br>
+ 101
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_101"></A><A HREF="xref.html#melf_scn_sym_shconv">X</A>*/ <B><A NAME="melf_scn_sym_shconv">melf_scn_sym_shconv</A></B>(Elf *__elf, <span style="color: rgb(0, 153, 0);">ssize_t</span> *conv_tbl, <span style="color: rgb(0, 153, 0);">size_t</span> len) {<br>
+ 102
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">ssize_t</span> scn_ndx_sym;<br>
+ 103
+ &nbsp;&nbsp;Elf_Scn *scn_sym;<br>
+ 104
+ &nbsp;&nbsp;Elf_Data *data_sym;<br>
+ 105
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> ndx_sym;<br>
+ 106
+ &nbsp;&nbsp;GElf_Sym sym;<br>
+ 107
+<br>
+ 108
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_ndx_sym = <A NAME="line_108"></A><A HREF="elf_obj_loc.c.html#melf_scn_by_name">melf_scn_by_name</A>(__elf, <span style="color: rgb(51, 102, 255);">".symtab"</span>)) &lt;= 0) <br>
+ 109
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_109"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_scn_by_name() failed&nbsp;to&nbsp;find&nbsp;section&nbsp;.symtab."</span>);<br>
+ 110
+<br>
+ 111
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_sym = elf_getscn(__elf, scn_ndx_sym)) == NULL) <br>
+ 112
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_112"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 113
+<br>
+ 114
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (data_sym = elf_getdata(scn_sym, 0)) == NULL )<br>
+ 115
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_115"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_getdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 116
+<br>
+ 117
+ &nbsp;&nbsp;ndx_sym = 0;<br>
+ 118
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( gelf_getsym (data_sym, ndx_sym, &sym) == &sym ) {<br>
+ 119
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102); font-weight: bold;">// if ( sym.st_shndx > SHN_LORESERVE && ++ndx_sym) continue;</span><br>
+ 120
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( 0 &lt; (<span style="color: rgb(0, 153, 0);">ssize_t</span>) sym.st_shndx && (<span style="color: rgb(0, 153, 0);">ssize_t</span>) sym.st_shndx &lt; len) {<br>
+ 121
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( conv_tbl[sym.st_shndx] == -1 )<br>
+ 122
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_122"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"Can't convert&nbsp;section&nbsp;(0x%x)&nbsp;for&nbsp;symbol&nbsp;index&nbsp;%d"</span>, sym.st_shndx, ndx_sym);<br>
+ 123
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sym.st_shndx = conv_tbl[sym.st_shndx];<br>
+ 124
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_update_sym (data_sym, ndx_sym, &sym) == 0)<br>
+ 125
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_125"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_update_sym() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 126
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 127
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ndx_sym;<br>
+ 128
+ &nbsp;&nbsp;}<br>
+ 129
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( elf_flagdata (data_sym, ELF_C_SET, ELF_F_DIRTY) == 0)<br>
+ 130
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_130"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_flagdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 131
+<br>
+ 132
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> scn_ndx_sym;<br>
+ 133
+}<br>
+ 134
+<span style="color: rgb(102, 102, 102);">/**<br>
+ 135
+ * @memo Section content Hexa dump <br>
+ 136
+ * @ doc<br>
+ 137
+ * &nbsp;Output section content in hexadecimal format.<br>
+ 138
+ * &nbsp;Section can be given by handle or by name.<br>
+ 139
+ * @param __elf a valid input elf handle<br>
+ 140
+ * @param scn a valid scn handle or 0<br>
+ 141
+ * @param scn_name a section name or 0<br>
+ 142
+ * @return -1 error, 0 okay<br>
+ 143
+ */</span><br>
+ 144
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_144"></A><A HREF="xref.html#melf_scn_dump">X</A>*/ <B><A NAME="melf_scn_dump">melf_scn_dump</A></B>(Elf *__elf, Elf_Scn *scn, <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *scn_name) {<br>
+ 145
+ &nbsp;&nbsp;GElf_Shdr shdr;<br>
+ 146
+ &nbsp;&nbsp;Elf_Data *data;<br>
+ 147
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> shstrndx;<br>
+ 148
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *p; <span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> i;<br>
+ 149
+<br>
+ 150
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !scn ) {<br>
+ 151
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> scn_ndx;<br>
+ 152
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !scn_name ) <br>
+ 153
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_153"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"Both name&nbsp;and&nbsp;scn&nbsp;handle&nbsp;are&nbsp;nul"</span>);<br>
+ 154
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_ndx = <A NAME="line_154"></A><A HREF="elf_obj_loc.c.html#melf_scn_by_name">melf_scn_by_name</A>(__elf, scn_name)) &lt;= 0) <br>
+ 155
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_155"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_scn_by_name() failed&nbsp;to&nbsp;find&nbsp;section&nbsp;%s."</span>, scn_name);<br>
+ 156
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn = elf_getscn(__elf, scn_ndx)) == NULL) <br>
+ 157
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_157"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 158
+<br>
+ 159
+ &nbsp;&nbsp;}<br>
+ 160
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (elf_getshstrndx(__elf, &shstrndx) != 0)<br>
+ 161
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_161"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshstrndx() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 162
+<br>
+ 163
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn, &shdr) != &shdr)<br>
+ 164
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_164"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr(shstrndx) failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 165
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((scn_name = elf_strptr(__elf, shstrndx, shdr.sh_name)) == NULL)<br>
+ 166
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_166"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_strptr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 167
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (data = elf_getdata(scn, 0)) == NULL )<br>
+ 168
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_168"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_getdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 169
+<br>
+ 170
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"Dump section&nbsp;%s:&nbsp;size=%jd\n"</span>, scn_name, (uintmax_t) shdr.sh_size);<br>
+ 171
+<br>
+ 172
+ &nbsp;&nbsp;p = (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *) data-&gt;d_buf;<br>
+ 173
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( i = 0; i &lt; data-&gt;d_size; i++ ) {<br>
+ 174
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"%02hhx "</span>, *p++);<br>
+ 175
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !((i + 17) %16) ) <span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"\n"</span>);<br>
+ 176
+ &nbsp;&nbsp;}<br>
+ 177
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"\n"</span>);<br>
+ 178
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 179
+}<br>
+ 180
+<span style="color: rgb(102, 102, 102);">/** <br>
+ 181
+ * @memo Symbol table listing<br>
+ 182
+ * @doc<br>
+ 183
+ * &nbsp;&nbsp;print the symbol table. Symbol strings are taken from the section named<br>
+ 184
+ * ".strtab". (Usualy, the strings and taken from section index pointed by<br>
+ 185
+ * sh_link field of section header).<br>
+ 186
+ * @param __elf valid input elf handle<br>
+ 187
+ * @return -1 error, symbol table section index<br>
+ 188
+ */</span><br>
+ 189
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_189"></A><A HREF="xref.html#melf_scn_sym_list">X</A>*/ <B><A NAME="melf_scn_sym_list">melf_scn_sym_list</A></B>(Elf *__elf) {<br>
+ 190
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">ssize_t</span> scn_ndx_sym, scn_ndx_str;<br>
+ 191
+ &nbsp;&nbsp;Elf_Scn *scn_sym;<br>
+ 192
+ &nbsp;&nbsp;Elf_Data *data_sym;<br>
+ 193
+ &nbsp;&nbsp;GElf_Sym sym;<br>
+ 194
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> ndx_sym;<br>
+ 195
+<br>
+ 196
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_ndx_sym = <A NAME="line_196"></A><A HREF="elf_obj_loc.c.html#melf_scn_by_name">melf_scn_by_name</A>(__elf, <span style="color: rgb(51, 102, 255);">".symtab"</span>)) &lt;= 0) <br>
+ 197
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_197"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_scn_by_name() failed&nbsp;to&nbsp;find&nbsp;section&nbsp;.symtab."</span>);<br>
+ 198
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* should use shdr_sym.sh_link ? */</span><br>
+ 199
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_ndx_str = <A NAME="line_199"></A><A HREF="elf_obj_loc.c.html#melf_scn_by_name">melf_scn_by_name</A>(__elf, <span style="color: rgb(51, 102, 255);">".strtab"</span>)) &lt;= 0) <br>
+ 200
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_200"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_scn_by_name() failed&nbsp;to&nbsp;find&nbsp;section&nbsp;.symtab."</span>);<br>
+ 201
+<br>
+ 202
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_sym = elf_getscn(__elf, scn_ndx_sym)) == NULL) <br>
+ 203
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_203"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 204
+<br>
+ 205
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (data_sym = elf_getdata(scn_sym, 0)) == NULL )<br>
+ 206
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_206"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_getdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 207
+<br>
+ 208
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* walk throught symbols table */</span><br>
+ 209
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"name &nbsp;&nbsp;value&nbsp;&nbsp;&nbsp;size&nbsp;&nbsp;&nbsp;info&nbsp;&nbsp;&nbsp;other&nbsp;shndx\n"</span>);<br>
+ 210
+ &nbsp;&nbsp;ndx_sym = 0;<br>
+ 211
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( gelf_getsym (data_sym, ndx_sym, &sym) == &sym ) {<br>
+ 212
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *name;<br>
+ 213
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((name = elf_strptr(__elf, scn_ndx_str, sym.st_name)) == NULL)<br>
+ 214
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_214"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_strptr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 215
+<br>
+ 216
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"%05x %08llx&nbsp;%04llx&nbsp;%08x&nbsp;%05x&nbsp;%04x&nbsp;%s\n"</span>,<br>
+ 217
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sym.st_name, sym.st_value, sym.st_size, sym.st_info, sym.st_other, sym.st_shndx, name);<br>
+ 218
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ndx_sym;<br>
+ 219
+ &nbsp;&nbsp;}<br>
+ 220
+<br>
+ 221
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> scn_ndx_sym;<br>
+ 222
+}<br>
+ 223
+<br>
+ 224
+<span style="color: rgb(102, 102, 102);">/**<br>
+ 225
+ * @memo Symbol table locatioon adtatation<br>
+ 226
+ * @doc<br>
+ 227
+ * &nbsp;&nbsp;Produce a trivial memory mapping for the alloc sections. Change sections adresses<br>
+ 228
+ * according to it.<br>
+ 229
+ * &nbsp;&nbsp;Give all UNDEF symbol a recognisable location and change value in symbol table.<br>
+ 230
+ * @param __elf a valid input/output elf handle<br>
+ 231
+ * @return -1 error, symbol table section index<br>
+ 232
+ */</span><br>
+ 233
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_233"></A><A HREF="xref.html#melf_scn_sym_lnk">X</A>*/ <B><A NAME="melf_scn_sym_lnk">melf_scn_sym_lnk</A></B>(Elf *__elf) {<br>
+ 234
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">ssize_t</span> scn_ndx_sym, scn_ndx;<br>
+ 235
+ &nbsp;&nbsp;Elf_Scn *scn_sym, *scn;<br>
+ 236
+ &nbsp;&nbsp;GElf_Shdr shdr;<br>
+ 237
+ &nbsp;&nbsp;Elf_Data *data_sym;<br>
+ 238
+ &nbsp;&nbsp;Elf64_Addr PC = 0x08048000;<br>
+ 239
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> ndx_sym;<br>
+ 240
+ &nbsp;&nbsp;GElf_Sym sym;<br>
+ 241
+<br>
+ 242
+<br>
+ 243
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_ndx_sym = <A NAME="line_243"></A><A HREF="elf_obj_loc.c.html#melf_scn_by_name">melf_scn_by_name</A>(__elf, <span style="color: rgb(51, 102, 255);">".symtab"</span>)) &lt;= 0) <br>
+ 244
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_244"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_scn_by_name() failed&nbsp;to&nbsp;find&nbsp;section&nbsp;.symtab."</span>);<br>
+ 245
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_sym = elf_getscn(__elf, scn_ndx_sym)) == NULL) <br>
+ 246
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_246"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 247
+<br>
+ 248
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (data_sym = elf_getdata(scn_sym, 0)) == NULL )<br>
+ 249
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_249"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_getdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 250
+<br>
+ 251
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* Map alloc sectionq in memory */</span><br>
+ 252
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn = 0; (scn = elf_nextscn(__elf, scn)) != NULL; ) {<br>
+ 253
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scn_ndx = elf_ndxscn (scn);<br>
+ 254
+<br>
+ 255
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn, &shdr) != &shdr)<br>
+ 256
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_256"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 257
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !(shdr.sh_flags & SHF_ALLOC) && ++scn_ndx ) <br>
+ 258
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 259
+<br>
+ 260
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shdr.sh_addr = PC;<br>
+ 261
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shdr.sh_addralign ) <br>
+ 262
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC += ((shdr.sh_size + shdr.sh_addralign-1)/shdr.sh_addralign)*shdr.sh_addralign;<br>
+ 263
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">else</span> <br>
+ 264
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC += shdr.sh_size;<br>
+ 265
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( elf_flagshdr (scn, ELF_C_SET, ELF_F_DIRTY) == 0)<br>
+ 266
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_266"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_flagshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 267
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_update_shdr (scn, &shdr) == 0)<br>
+ 268
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_268"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_update_shdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 269
+ &nbsp;&nbsp;}<br>
+ 270
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* give UNDEF a decent location */</span><br>
+ 271
+ &nbsp;&nbsp;PC = 0x02500000;<br>
+ 272
+ &nbsp;&nbsp;ndx_sym = 0;<br>
+ 273
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( gelf_getsym (data_sym, ndx_sym, &sym) == &sym ) {<br>
+ 274
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( sym.st_shndx != 0 && ++ndx_sym) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 275
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sym.st_value = PC;<br>
+ 276
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sym.st_shndx = SHN_ABS;<br>
+ 277
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PC += 0x10;<br>
+ 278
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_update_sym (data_sym, ndx_sym, &sym) == 0)<br>
+ 279
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_279"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_update_sym() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 280
+<br>
+ 281
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ndx_sym;<br>
+ 282
+ &nbsp;&nbsp;}<br>
+ 283
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( elf_flagdata (data_sym, ELF_C_SET, ELF_F_DIRTY) == 0)<br>
+ 284
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_284"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_flagdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 285
+<br>
+ 286
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> scn_ndx_sym;<br>
+ 287
+}<br>
+ 288
+<span style="color: rgb(102, 102, 102);">/**<br>
+ 289
+ * @memo target data encoding <br>
+ 290
+ * 0 little endian<br>
+ 291
+ * 1 big endian<br>
+ 292
+ */</span><br>
+ 293
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_293"></A><A HREF="xref.html#target_is_big_endian">X</A>*/ <B><A NAME="target_is_big_endian">target_is_big_endian</A></B>;<br>
+ 294
+<span style="color: rgb(102, 102, 102);">/** <br>
+ 295
+ * @memo Relocate section<br>
+ 296
+ * @doc<br>
+ 297
+ * &nbsp;&nbsp;Apply the relocations contained in .rel section to a section.<br>
+ 298
+ * Note : Symbole table section .symtab must have adapted prior.<br>
+ 299
+ * @param elf Elf handler for section beeing relocated<br>
+ 300
+ * @param scn_ndx_out Section index to relocate<br>
+ 301
+ * @param scn_ndx_rel Reloc section index <br>
+ 302
+ * @param scn_ndx_sym Symbol table section <br>
+ 303
+ * @return -1 on error, 0 else<br>
+ 304
+ */</span><br>
+ 305
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_305"></A><A HREF="xref.html#melf_scn_rel">X</A>*/ <B><A NAME="melf_scn_rel">melf_scn_rel</A></B>(Elf *elf_out, <span style="color: rgb(0, 153, 0);">size_t</span> scn_ndx_out, <br>
+ 306
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Elf *elf_rel, <span style="color: rgb(0, 153, 0);">size_t</span> scn_ndx_rel, <br>
+ 307
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Elf *elf_sym, <span style="color: rgb(0, 153, 0);">size_t</span> scn_ndx_sym) {<br>
+ 308
+ &nbsp;&nbsp;Elf_Scn *scn_out, *scn_rel, *scn_sym;<br>
+ 309
+ &nbsp;&nbsp;GElf_Shdr shdr_out, shdr_rel, shdr_sym;<br>
+ 310
+ &nbsp;&nbsp;Elf_Data *data_out, *data_rel, *data_sym;<br>
+ 311
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> rel_i;<br>
+ 312
+<br>
+ 313
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"index out&nbsp;:&nbsp;%d,&nbsp;rel&nbsp;:&nbsp;%d,&nbsp;sym&nbsp;:&nbsp;%d"</span>, scn_ndx_out, scn_ndx_rel, scn_ndx_sym);<br>
+ 314
+<br>
+ 315
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_rel = elf_getscn(elf_rel, scn_ndx_rel)) == NULL) <br>
+ 316
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_316"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 317
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_out = elf_getscn(elf_out, scn_ndx_out)) == NULL) <br>
+ 318
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_318"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 319
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_sym = elf_getscn(elf_sym, scn_ndx_sym)) == NULL) <br>
+ 320
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_320"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 321
+<br>
+ 322
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn_rel, &shdr_rel) != &shdr_rel)<br>
+ 323
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_323"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 324
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn_out, &shdr_out) != &shdr_out)<br>
+ 325
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_325"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 326
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn_sym, &shdr_sym) != &shdr_sym)<br>
+ 327
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_327"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 328
+<br>
+ 329
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (data_out = elf_getdata(scn_out, 0)) == NULL)<br>
+ 330
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_330"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 331
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shdr_out.sh_size != data_out-&gt;d_size ) <br>
+ 332
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr, <span style="color: rgb(51, 102, 255);">"warning tgt&nbsp;data&nbsp;containt&nbsp;more&nbsp;than&nbsp;one&nbsp;chunk\n"</span>);<br>
+ 333
+<br>
+ 334
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (data_rel = elf_getdata(scn_rel, 0)) == NULL)<br>
+ 335
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_335"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 336
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shdr_rel.sh_size != data_rel-&gt;d_size ) <br>
+ 337
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr, <span style="color: rgb(51, 102, 255);">"warning rel&nbsp;data&nbsp;is&nbsp;in&nbsp;more&nbsp;than&nbsp;one&nbsp;chunk\n"</span>);<br>
+ 338
+<br>
+ 339
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (data_sym = elf_getdata(scn_sym, 0)) == NULL)<br>
+ 340
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_340"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 341
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shdr_sym.sh_size != data_sym-&gt;d_size ) <br>
+ 342
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr, <span style="color: rgb(51, 102, 255);">"warning tgt&nbsp;data&nbsp;containt&nbsp;more&nbsp;than&nbsp;one&nbsp;chunk\n"</span>);<br>
+ 343
+<br>
+ 344
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> (rel_i = 0; ; rel_i++ ) {<br>
+ 345
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GElf_Rel rel;<br>
+ 346
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GElf_Sym sym;<br>
+ 347
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Elf_Scn *scn_dst;<br>
+ 348
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GElf_Shdr shdr_dst;<br>
+ 349
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Elf64_Addr shaddr = 0;<br>
+ 350
+ &nbsp;&nbsp;&nbsp;&nbsp;<br>
+ 351
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_getrel (data_rel, rel_i, &rel) != &rel ) <br>
+ 352
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 353
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ 354
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_getsym (data_sym, GELF_R_SYM(rel.r_info), &sym) != &sym )<br>
+ 355
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_355"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_getsym() failed:&nbsp;%s.&nbsp;Symbol&nbsp;%lld&nbsp;not&nbsp;found"</span>, elf_errmsg(-1), GELF_R_SYM(rel.r_info));<br>
+ 356
+<br>
+ 357
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( sym.st_shndx &lt; SHN_LORESERVE ) {<br>
+ 358
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_dst = elf_getscn(elf_out, sym.st_shndx)) == NULL) <br>
+ 359
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_359"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 360
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn_dst, &shdr_dst) != &shdr_dst)<br>
+ 361
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_361"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 362
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shaddr = shdr_dst.sh_addr;<br>
+ 363
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 364
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">switch</span> (GELF_R_TYPE(rel.r_info)) {<br>
+ 365
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">case</span> R_386_32:<br>
+ 366
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*((<span style="color: rgb(0, 153, 0);">uint32_t</span> *)(((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)data_out-&gt;d_buf) + rel.r_offset)) += <br>
+ 367
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_367"></A><A HREF="elf_obj_loc.c.html#endian_to_target">endian_to_target</A>(<A HREF="elf_obj_loc.c.html#target_is_big_endian">target_is_big_endian</A>,(<span style="color: rgb(0, 153, 0);">uint32_t</span>)(sym.st_value + &nbsp;shaddr));<br>
+ 368
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 369
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">case</span> R_386_PC32: {<br>
+ 370
+<br>
+ 371
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*((<span style="color: rgb(0, 153, 0);">uint32_t</span> *)(((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)data_out-&gt;d_buf) + rel.r_offset)) = <br>
+ 372
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_372"></A><A HREF="elf_obj_loc.c.html#endian_to_target">endian_to_target</A>(<A HREF="elf_obj_loc.c.html#target_is_big_endian">target_is_big_endian</A>,(<span style="color: rgb(0, 153, 0);">uint32_t</span>)(sym.st_value + shaddr - (shdr_out.sh_addr + rel.r_offset) - 4));<br>
+ 373
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 374
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 375
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">default</span>:<br>
+ 376
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_376"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"Can you&nbsp;help&nbsp;me&nbsp;to&nbsp;about&nbsp;this&nbsp;type&nbsp;of&nbsp;reloc&nbsp;(%lld)&nbsp;?&nbsp;Oh&nbsp;I&nbsp;would&nbsp;do&nbsp;much&nbsp;you&nbsp;tacke&nbsp;care&nbsp;of&nbsp;this&nbsp;...&nbsp;please&nbsp;...\n"</span>, GELF_R_TYPE(rel.r_info));<br>
+ 377
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 378
+ &nbsp;&nbsp;}<br>
+ 379
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( elf_flagdata (data_out, ELF_C_SET, ELF_F_DIRTY) == 0)<br>
+ 380
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_380"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_flagdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 381
+<br>
+ 382
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_update_shdr (scn_out, &shdr_out) == 0)<br>
+ 383
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_383"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_update_shdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 384
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102); font-weight: bold;">// printf("@%d ELF error %s\n", __LINE__, elf_errmsg(-1));</span><br>
+ 385
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 386
+}<br>
+ 387
+<span style="color: rgb(102, 102, 102);">/**<br>
+ 388
+ * @memo Build output section table<br>
+ 389
+ * @doc<br>
+ 390
+ * &nbsp;&nbsp;The table is indexed by input section indexes. For each of them, the value<br>
+ 391
+ * can be (-1) not used or the output section.<br>
+ 392
+ * @param __elf valid input elf handle<br>
+ 393
+ * @param conv_tbl an array of at least the number of section in __elf<br>
+ 394
+ * @return -1 on error, number of sections in output.<br>
+ 395
+ */</span><br>
+ 396
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_396"></A><A HREF="xref.html#melf_rel_scn_layout">X</A>*/ <B><A NAME="melf_rel_scn_layout">melf_rel_scn_layout</A></B>(Elf *__elf, <span style="color: rgb(0, 153, 0);">ssize_t</span> *conv_tbl) {<br>
+ 397
+ &nbsp;&nbsp;GElf_Ehdr ehdr;<br>
+ 398
+ &nbsp;&nbsp;GElf_Shdr shdr;<br>
+ 399
+ &nbsp;&nbsp;Elf_Scn *scn;<br>
+ 400
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> ndx_out = 1;<br>
+ 401
+<br>
+ 402
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getehdr(__elf, &ehdr) != &ehdr)<br>
+ 403
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_403"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_getehdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 404
+<br>
+ 405
+ &nbsp;&nbsp;conv_tbl[0] = 0;<br>
+ 406
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* set allocable sections first */</span><br>
+ 407
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn = 0; (scn = elf_nextscn(__elf, scn)) != NULL; ) {<br>
+ 408
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conv_tbl[elf_ndxscn (scn)] = -1;<br>
+ 409
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn, &shdr) != &shdr)<br>
+ 410
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_410"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 411
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shdr.sh_type == SHT_REL || shdr.sh_type == SHT_RELA) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 412
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !(shdr.sh_flags & SHF_ALLOC) ) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 413
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conv_tbl[elf_ndxscn (scn)] = ndx_out++;<br>
+ 414
+ &nbsp;&nbsp;}<br>
+ 415
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn = 0; (scn = elf_nextscn(__elf, scn)) != NULL; ) {<br>
+ 416
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn, &shdr) != &shdr)<br>
+ 417
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_417"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 418
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shdr.sh_type == SHT_REL || shdr.sh_type == SHT_RELA) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 419
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (shdr.sh_flags & SHF_ALLOC) ) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 420
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conv_tbl[elf_ndxscn (scn)] = ndx_out++;<br>
+ 421
+ &nbsp;&nbsp;}<br>
+ 422
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn = 0; (scn = elf_nextscn(__elf, scn)) != NULL; ) {<br>
+ 423
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span> ( <span style="color: rgb(51, 102, 255);">"section transfert&nbsp;table[%2d]&nbsp;=&nbsp;%2d\n"</span>, elf_ndxscn (scn), conv_tbl[elf_ndxscn (scn)]);<br>
+ 424
+ &nbsp;&nbsp;}<br>
+ 425
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> ndx_out;<br>
+ 426
+}<br>
+ 427
+<span style="color: rgb(102, 102, 102);">/** <br>
+ 428
+ * @memo Find .rel section correspondind to a section<br>
+ 429
+ * @doc<br>
+ 430
+ * &nbsp;&nbsp;Get peer section .rel that correspond to a section. The criteria to find peer is <br>
+ 431
+ * done througth the section name. <br>
+ 432
+ * &nbsp;Should use sh_link and sh_info instead.<br>
+ 433
+ * @param elf Elf handler<br>
+ 434
+ * @param scn_ndx Section index<br>
+ 435
+ * @return -1 on error, 0 not find, or scn index<br>
+ 436
+ */</span><br>
+ 437
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_437"></A><A HREF="xref.html#melf_find_rel_section">X</A>*/ <B><A NAME="melf_find_rel_section">melf_find_rel_section</A></B>(Elf *__elf, <span style="color: rgb(0, 153, 0);">size_t</span> scn_ndx) {<br>
+ 438
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> shstrndx;<br>
+ 439
+ &nbsp;&nbsp;Elf_Scn *scn, *scn_r;<br>
+ 440
+ &nbsp;&nbsp;GElf_Shdr shdr, shdr_r;<br>
+ 441
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *scn_name, *scn_name_r;<br>
+ 442
+<br>
+ 443
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (elf_getshstrndx(__elf, &shstrndx) != 0)<br>
+ 444
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_444"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshstrndx() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 445
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn = elf_getscn(__elf, scn_ndx)) == NULL) <br>
+ 446
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_446"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 447
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn, &shdr) != &shdr)<br>
+ 448
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_448"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 449
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((scn_name = elf_strptr(__elf, shstrndx, shdr.sh_name)) == NULL)<br>
+ 450
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_450"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_strptr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 451
+<br>
+ 452
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn_r = 0; (scn_r = elf_nextscn(__elf, scn_r)) != NULL; ) {<br>
+ 453
+<br>
+ 454
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_getshdr(scn_r, &shdr_r) != &shdr_r)<br>
+ 455
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_455"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 456
+<br>
+ 457
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shdr_r.sh_type != SHT_REL && shdr_r.sh_type != SHT_RELA) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 458
+<br>
+ 459
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((scn_name_r = elf_strptr(__elf, shstrndx, shdr_r.sh_name)) == NULL)<br>
+ 460
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_460"></A><A HREF="elf_copy.c.html#merrx">merrx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_strptr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 461
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <span style="color: rgb(204, 0, 0);">memcmp</span>(scn_name_r, <span style="color: rgb(51, 102, 255);">".rel"</span>, 4) ) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 462
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <span style="color: rgb(204, 0, 0);">strcmp</span>(scn_name_r + 4, scn_name) ) <span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 463
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> elf_ndxscn (scn_r);<br>
+ 464
+ &nbsp;&nbsp;}<br>
+ 465
+<br>
+ 466
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 467
+}<br>
+ 468
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_468"></A><A HREF="xref.html#melf_is_scn_reloc">X</A>*/ <B><A NAME="melf_is_scn_reloc">melf_is_scn_reloc</A></B>(Elf_Scn &nbsp;*scn) {<br>
+ 469
+ &nbsp;&nbsp;GElf_Shdr shdr;<br>
+ 470
+<br>
+ 471
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn, &shdr) != &shdr)<br>
+ 472
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_472"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 473
+<br>
+ 474
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shdr.sh_type == SHT_REL || shdr.sh_type == SHT_RELA) {<br>
+ 475
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 476
+ &nbsp;&nbsp;} <span style="color: rgb(204, 0, 0); font-weight: bold;">else</span> {<br>
+ 477
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 478
+ &nbsp;&nbsp;}<br>
+ 479
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> -1;<br>
+ 480
+}<br>
+ 481
+<span style="color: rgb(102, 102, 102);">/**<br>
+ 482
+ * @memo Prepare an elf from relocatable object for disassemble<br>
+ 483
+ * @doc<br>
+ 484
+ * &nbsp;binutils objdump disassemble does not give a correct output for relocatable<br>
+ 485
+ * object, mainly because it does not apply relocation section indications to <br>
+ 486
+ * the corresponding section.<br>
+ 487
+ * This tool handle this relocation.<br>
+ 488
+ */</span><br>
+ 489
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_489"></A><A HREF="xref.html#main">X</A>*/ <B><A NAME="main">main</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> argc, <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *argv[]) {<br>
+ 490
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> fd_in = -1, fd_out = -1;<br>
+ 491
+ &nbsp;&nbsp;Elf *elf_in = 0, *elf_out = 0;<br>
+ 492
+<br>
+ 493
+ &nbsp;&nbsp;Elf_Scn &nbsp;*scn_in, *scn_out;<br>
+ 494
+ &nbsp;&nbsp;Elf_Data *data_in, *data_out;<br>
+ 495
+ &nbsp;&nbsp;GElf_Ehdr ehdr_in, ehdr_out;<br>
+ 496
+<br>
+ 497
+ &nbsp;&nbsp;GElf_Shdr shdr_in, shdr_out;<br>
+ 498
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">size_t</span> n, shstrndx;<br>
+ 499
+<br>
+ 500
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">ssize_t</span> *v_scn_in_2_out;<br>
+ 501
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> **sh_names;<br>
+ 502
+<br>
+ 503
+ &nbsp;&nbsp;<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> scn_ndx_sym, scn_ndx_out = 0, scn_ndx_in;<br>
+ 504
+<br>
+ 505
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (argc != 3)<br>
+ 506
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_506"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_USAGE, <span style="color: rgb(51, 102, 255);">"USAGE: %s&nbsp;in-file-name&nbsp;out-file-name"</span>, argv[0]);<br>
+ 507
+<br>
+ 508
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (elf_version(EV_CURRENT) == EV_NONE)<br>
+ 509
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_509"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"ELF library&nbsp;initialization&nbsp;failed:&nbsp;%s"</span>, elf_errmsg(-1));<br>
+ 510
+<br>
+ 511
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* Elf input setup */</span><br>
+ 512
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((fd_in = <span style="color: rgb(204, 0, 0);">open</span>(argv[1], O_RDONLY, 0)) &lt; 0)<br>
+ 513
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err(EX_NOINPUT, <span style="color: rgb(51, 102, 255);">"open \"%s\" failed"</span>, argv[1]);<br>
+ 514
+<br>
+ 515
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((elf_in = elf_begin(fd_in, ELF_C_READ, NULL)) == NULL)<br>
+ 516
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_516"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_begin() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 517
+<br>
+ 518
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getehdr(elf_in, &ehdr_in) != &ehdr_in)<br>
+ 519
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_519"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_getehdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 520
+<br>
+ 521
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* Checks and warns */</span><br>
+ 522
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( elf_kind(elf_in) != ELF_K_ELF || ehdr_in.e_type != ET_REL) {<br>
+ 523
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr, <span style="color: rgb(51, 102, 255);">"%s :&nbsp;%s&nbsp;must&nbsp;be&nbsp;an&nbsp;elf&nbsp;relocatable&nbsp;object\n"</span>, argv[0], argv[1]);<br>
+ 524
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">exit</span>(1);<br>
+ 525
+ &nbsp;&nbsp;}<br>
+ 526
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ehdr_in.e_ident[EI_OSABI] != ELFOSABI_LINUX ) {<br>
+ 527
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr, <span style="color: rgb(51, 102, 255);">"%s warning&nbsp;:&nbsp;target&nbsp;OS&nbsp;not&nbsp;implemented\n"</span>, argv[0]);<br>
+ 528
+ &nbsp;&nbsp;}<br>
+ 529
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">switch</span> ( ehdr_in.e_ident[EI_DATA] ) {<br>
+ 530
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">case</span> ELFDATA2LSB:<br>
+ 531
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_531"></A><A HREF="elf_obj_loc.c.html#target_is_big_endian">target_is_big_endian</A> = 0;<br>
+ 532
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 533
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">case</span> ELFDATA2MSB:<br>
+ 534
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr, <span style="color: rgb(51, 102, 255);">"%s warning&nbsp;:&nbsp;big&nbsp;endian&nbsp;data&nbsp;encoding&nbsp;is&nbsp;not&nbsp;tested\n"</span>, argv[0]);<br>
+ 535
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_535"></A><A HREF="elf_obj_loc.c.html#target_is_big_endian">target_is_big_endian</A> = 1;<br>
+ 536
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 537
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">default</span> :<br>
+ 538
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr, <span style="color: rgb(51, 102, 255);">"%s :&nbsp;unsupported&nbsp;data&nbsp;type&nbsp;(%d)\n"</span>, argv[0], ehdr_in.e_ident[EI_DATA]);<br>
+ 539
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 540
+ &nbsp;&nbsp;}<br>
+ 541
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ehdr_in.e_machine != EM_386 ) {<br>
+ 542
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">fprintf</span>(stderr, <span style="color: rgb(51, 102, 255);">"%s warning&nbsp;:&nbsp;machine&nbsp;not&nbsp;implemented\n"</span>, argv[0]);<br>
+ 543
+ &nbsp;&nbsp;}<br>
+ 544
+<br>
+ 545
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"ELF %s&nbsp;contains&nbsp;%d&nbsp;sections\n"</span>, argv[1], ehdr_in.e_shnum);<br>
+ 546
+<br>
+ 547
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (!(sh_names = (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> **)<span style="color: rgb(204, 0, 0);">malloc</span>(ehdr_in.e_shnum*<span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *))))<br>
+ 548
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_548"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"malloc \"%s\" failed"</span>, <span style="color: rgb(204, 0, 0);">strerror</span>(<span style="color: rgb(204, 0, 0);">errno</span>));<br>
+ 549
+<br>
+ 550
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (elf_getshstrndx(elf_in, &shstrndx) != 0)<br>
+ 551
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_551"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshstrndx() failed:&nbsp;%s,&nbsp;%d."</span>, elf_errmsg(-1), shstrndx);<br>
+ 552
+<br>
+ 553
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn_ndx_in = 0; scn_ndx_in &lt; ehdr_in.e_shnum; scn_ndx_in++ ) {<br>
+ 554
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((scn_in = elf_getscn(elf_in, scn_ndx_in)) == NULL)<br>
+ 555
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_555"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 556
+<br>
+ 557
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn_in, &shdr_in) != &shdr_in)<br>
+ 558
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_558"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 559
+<br>
+ 560
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((sh_names[scn_ndx_in] = elf_strptr(elf_in, shstrndx, shdr_in.sh_name)) == NULL)<br>
+ 561
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_561"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_strptr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 562
+ &nbsp;&nbsp;}<br>
+ 563
+<br>
+ 564
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;if ((fd_out = open(argv[2], O_WRONLY|O_CREAT, 0777)) &lt; 0) </span><br>
+ 565
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((fd_out = <span style="color: rgb(204, 0, 0);">open</span>(argv[2], O_RDWR|O_CREAT, 0777)) &lt; 0) <br>
+ 566
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_566"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_OSERR, <span style="color: rgb(51, 102, 255);">"open \"%s\" failed"</span>, argv[2]);<br>
+ 567
+<br>
+ 568
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((elf_out = elf_begin(fd_out, ELF_C_WRITE, NULL)) == NULL)<br>
+ 569
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;if ((elf_out = elf_begin(fd_out, ELF_C_RDWR, NULL)) == NULL)</span><br>
+ 570
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_570"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_begin() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 571
+<br>
+ 572
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* Create and set new Elf header */</span><br>
+ 573
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_newehdr(elf_out, ehdr_in.e_ident[EI_CLASS]) == 0)<br>
+ 574
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_574"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_newehdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 575
+<br>
+ 576
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_getehdr(elf_out, &ehdr_out) != &ehdr_out)<br>
+ 577
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_577"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_getehdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 578
+ &nbsp;&nbsp;&nbsp;ehdr_out = ehdr_in;<br>
+ 579
+ &nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_update_ehdr (elf_out, &ehdr_out) == 0)<br>
+ 580
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_580"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_update_ehdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 581
+<br>
+ 582
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* Build section layout table */</span><br>
+ 583
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (!(v_scn_in_2_out = (<span style="color: rgb(0, 153, 0);">ssize_t</span> *)<span style="color: rgb(204, 0, 0);">malloc</span>(ehdr_in.e_shnum * <span style="color: rgb(204, 0, 0); font-weight: bold;">sizeof</span>(<span style="color: rgb(0, 153, 0);">ssize_t</span>))))<br>
+ 584
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_584"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"malloc \"%s\" failed"</span>, <span style="color: rgb(204, 0, 0);">strerror</span>(<span style="color: rgb(204, 0, 0);">errno</span>));<br>
+ 585
+ &nbsp;&nbsp;v_scn_in_2_out[0] = 0;<br>
+ 586
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (<span style="color: rgb(0, 153, 0);">ssize_t</span>)(scn_ndx_out = <A NAME="line_586"></A><A HREF="elf_obj_loc.c.html#melf_rel_scn_layout">melf_rel_scn_layout</A>(elf_in, v_scn_in_2_out)) &lt; 0 )<br>
+ 587
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_587"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_rel_scn_layout() failed."</span>);<br>
+ 588
+ &nbsp;&nbsp;ehdr_out.e_shnum = scn_ndx_out;<br>
+ 589
+<br>
+ 590
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* copy all sections to new elf execpt rel.section followin v_scn_in2_out layout */</span><br>
+ 591
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"Copy section&nbsp;to&nbsp;new&nbsp;elf&nbsp;:&nbsp;"</span>);<br>
+ 592
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn_ndx_out = 1; scn_ndx_out &lt; ehdr_out.e_shnum; scn_ndx_out++ ) {<br>
+ 593
+<br>
+ 594
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* get source section corresponding to scn_ndx_out in layout */</span><br>
+ 595
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn_ndx_in = 0; scn_ndx_in &lt; ehdr_in.e_shnum; scn_ndx_in++) {<br>
+ 596
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( scn_ndx_out == v_scn_in_2_out[scn_ndx_in] ) <span style="color: rgb(204, 0, 0); font-weight: bold;">goto</span> found_scn_source;<br>
+ 597
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 598
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 599
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;found_scn_source:<br>
+ 600
+<br>
+ 601
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* Recognize and set section names string table index */</span><br>
+ 602
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shstrndx == scn_ndx_in ) ehdr_out.e_shstrndx = scn_ndx_out;<br>
+ 603
+<br>
+ 604
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((scn_in = elf_getscn(elf_in, scn_ndx_in)) == NULL)<br>
+ 605
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_605"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"getscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 606
+<br>
+ 607
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* copy section to new elf */</span><br>
+ 608
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (gelf_getshdr(scn_in, &shdr_in) != &shdr_in)<br>
+ 609
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_609"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 610
+<br>
+ 611
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((scn_out = elf_newscn(elf_out)) == NULL)<br>
+ 612
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_612"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_newscn() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 613
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data_in = NULL; n = 0;<br>
+ 614
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> (n &lt; shdr_in.sh_size && (data_in = elf_getdata(scn_in, data_in)) != NULL) {<br>
+ 615
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((data_out = elf_newdata(scn_out)) == NULL)<br>
+ 616
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_616"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_newdata() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 617
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*data_out = *data_in;<br>
+ 618
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n += &nbsp;data_in-&gt;d_size;<br>
+ 619
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 620
+<br>
+ 621
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_getshdr(scn_out, &shdr_out) != &shdr_out)<br>
+ 622
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_622"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_getshdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 623
+<br>
+ 624
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shdr_out = shdr_in;<br>
+ 625
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* convert link to new section numbering */</span><br>
+ 626
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( shdr_in.sh_link )<br>
+ 627
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shdr_out.sh_link = v_scn_in_2_out[shdr_in.sh_link];<br>
+ 628
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ 629
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_update_shdr (scn_out, &shdr_out) == 0)<br>
+ 630
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_630"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_update_shdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 631
+<br>
+ 632
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"%d&lt;%d "</span>, scn_ndx_out, scn_ndx_in);<br>
+ 633
+ &nbsp;&nbsp;}<br>
+ 634
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"done\n"</span>);<br>
+ 635
+<br>
+ 636
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* update ehdr to record e_shstrndx */</span><br>
+ 637
+ &nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( gelf_update_ehdr (elf_out, &ehdr_out) == 0)<br>
+ 638
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_638"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"gelf_update_ehdr() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 639
+<br>
+ 640
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (elf_update(elf_out, ELF_C_WRITE) &lt; 0)<br>
+ 641
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_641"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_update() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 642
+<br>
+ 643
+ &nbsp;&nbsp;elf_end(elf_out);<br>
+ 644
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* <br>
+ 645
+ &nbsp;&nbsp;&nbsp;* I did not found an other way to modify section in out elf <br>
+ 646
+ &nbsp;&nbsp;&nbsp;* other than to reopen it in read/write mode <br>
+ 647
+ &nbsp;&nbsp;&nbsp;*/</span> <br>
+ 648
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ((elf_out = elf_begin(fd_out, ELF_C_RDWR, NULL)) == NULL)<br>
+ 649
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_649"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_begin() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 650
+<br>
+ 651
+ &nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_651"></A><A HREF="elf_obj_loc.c.html#melf_scn_sym_shconv">melf_scn_sym_shconv</A>(elf_out, v_scn_in_2_out, ehdr_in.e_shnum) &lt; 0)<br>
+ 652
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_652"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_scn_sym_shconv failled"</span>);<br>
+ 653
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (elf_update(elf_out, ELF_C_NULL) &lt; 0)<br>
+ 654
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_654"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_update() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 655
+<br>
+ 656
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* Adapt symbol table */</span><br>
+ 657
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( (scn_ndx_sym = <A NAME="line_657"></A><A HREF="elf_obj_loc.c.html#melf_scn_sym_lnk">melf_scn_sym_lnk</A>(elf_out)) &lt; 0) <br>
+ 658
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_658"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_scn_sym_lnk() failed"</span>);<br>
+ 659
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (elf_update(elf_out, ELF_C_NULL) &lt; 0)<br>
+ 660
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_660"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_update() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 661
+<br>
+ 662
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;&nbsp;&nbsp;if (<A NAME="line_662"></A><A HREF="elf_obj_loc.c.html#melf_scn_sym_list">melf_scn_sym_list</A>(elf_out) &lt; 0 ) exit(1);</span><br>
+ 663
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;&nbsp;&nbsp;if (<A NAME="line_663"></A><A HREF="elf_obj_loc.c.html#melf_scn_dump">melf_scn_dump</A>(elf_out, 0, ".symtab") &lt;0 ) exit(1);</span><br>
+ 664
+<span style="color: rgb(102, 102, 102); font-weight: bold;">// &nbsp;&nbsp;&nbsp;&nbsp;if (<A NAME="line_664"></A><A HREF="elf_obj_loc.c.html#melf_scn_dump">melf_scn_dump</A>(elf_out, 0, ".shstrtab") &lt;0 ) exit(1);</span><br>
+ 665
+<br>
+ 666
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* peer section and rel.section */</span><br>
+ 667
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn_ndx_out = 1; scn_ndx_out &lt; ehdr_out.e_shnum; scn_ndx_out++ ) {<br>
+ 668
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(0, 153, 0);">ssize_t</span> scn_rel_i;<br>
+ 669
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* skip .rel&lt;.sections> */</span><br>
+ 670
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( scn_ndx_in = 0; scn_ndx_in &lt; ehdr_in.e_shnum; scn_ndx_in++) {<br>
+ 671
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( scn_ndx_out == v_scn_in_2_out[scn_ndx_in] ) <span style="color: rgb(204, 0, 0); font-weight: bold;">goto</span> found_scn_source_2;<br>
+ 672
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 673
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">continue</span>;<br>
+ 674
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;found_scn_source_2:<br>
+ 675
+<br>
+ 676
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* track section count for section names string table index */</span><br>
+ 677
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"[%d] :&nbsp;%s"</span>, scn_ndx_in, sh_names[scn_ndx_in]);<br>
+ 678
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">switch</span> ( (scn_rel_i = <A NAME="line_678"></A><A HREF="elf_obj_loc.c.html#melf_find_rel_section">melf_find_rel_section</A>(elf_in, scn_ndx_in)) ) {<br>
+ 679
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">case</span> -1: <A NAME="line_679"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_find_rel_section() failed"</span>); <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 680
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">case</span> &nbsp;0: <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 681
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">default</span> : <br>
+ 682
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* Locate section if there is a .rel for it */</span><br>
+ 683
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">" linked with&nbsp;section&nbsp;:&nbsp;[%d]"</span>, scn_rel_i);<br>
+ 684
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_684"></A><A HREF="elf_obj_loc.c.html#melf_scn_rel">melf_scn_rel</A>(elf_out, scn_ndx_out, elf_in, scn_rel_i, elf_out, scn_ndx_sym) &lt; 0 ) <br>
+ 685
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_685"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"melf_scn_reloc() failed"</span>);<br>
+ 686
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+ 687
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">printf</span>(<span style="color: rgb(51, 102, 255);">"\n"</span>);<br>
+ 688
+ &nbsp;&nbsp;}<br>
+ 689
+<br>
+ 690
+<span style="color: rgb(102, 102, 102);">/*<br>
+ 691
+ &nbsp;&nbsp;if (elf_update(elf_out, ELF_C_NULL) &lt; 0)<br>
+ 692
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_692"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, "elf_update(NULL) failed: %s.", elf_errmsg(-1));<br>
+ 693
+*/</span><br>
+ 694
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> (elf_update(elf_out, ELF_C_WRITE) &lt; 0)<br>
+ 695
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A NAME="line_695"></A><A HREF="elf_copy.c.html#errx">errx</A>(EX_SOFTWARE, <span style="color: rgb(51, 102, 255);">"elf_update() failed:&nbsp;%s."</span>, elf_errmsg(-1));<br>
+ 696
+<br>
+ 697
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( elf_out ) elf_end(elf_out);<br>
+ 698
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( fd_out &gt;= 0 ) <span style="color: rgb(204, 0, 0);">close</span>(fd_out);<br>
+ 699
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( elf_in ) elf_end(elf_in);<br>
+ 700
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( fd_in &gt;= 0 ) <span style="color: rgb(204, 0, 0);">close</span>(fd_in);<br>
+ 701
+<br>
+ 702
+<br>
+ 703
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">exit</span>(EX_OK);<br>
+ 704
+}<br>
+ 705
+ <br>
+<P></tt>
+<P>
+<HR>
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">Elf sample home</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H5>C to HTML Conversion by <I><A HREF="http://www.machinman.net/code/ctoohtml/index.html">ctoohtml</A></I></H5>
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></body>
+</HTML>

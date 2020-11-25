@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<!DOCTYPE dwarf SYSTEM "dwarf-v4.02.dtd">
+<dwarf file='../Ressources/regressiontests-20100930/sparc/tcombined.o' producer='dwarf2xml' >
+  <debug_pubnames>
+    <pubname id='pub:1' cu='i:11' ref='i:250'>main</pubname>
+    <pubname id='pub:2' cu='i:330' ref='i:569'>foo</pubname>
+  </debug_pubnames>
+  <debug_info>
+    <tag_compile_unit id='i:11' ab='ab:0c1' version='2' address_size='4' sl='sl:0' >
+      <at_name>t1.c</at_name>
+      <at_language>C99</at_language>
+      <at_comp_dir>/home/quenelle</at_comp_dir>
+      <at_user name='SUN_command_line'> /shared/dp/sstrunk/090727/output/sparc-S2/pseudoinst/opt/SUNWspro/prod/bin/cc -c -g  t1.c -W0,-xp\$XA6prkB4nebKWIv.</at_user>
+      <at_user name='SUN_compile_options'>Xa;g;R=Sun C 5.11 SunOS_sparc Aten 2009/07/27;G=$XA6prkB4nebKWIv.;backend;raw;cd;</at_user>
+      <at_producer>DBG_GEN 5.2.7</at_producer>
+      <at_stmt_list>0</at_stmt_list>
+      <tag_subprogram id='i:250' ab='ab:0c2' >
+        <at_name>main</at_name>
+        <at_external>true</at_external>
+        <at_visibility>exported</at_visibility>
+        <at_calling_convention>program</at_calling_convention>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>3</at_decl_line>
+        <at_low_pc>0x00000010</at_low_pc>
+        <at_high_pc>0x00000030</at_high_pc>
+        <at_frame_base>
+          <loc_expr>
+            <loc_op pos='0' op='reg30' />
+          </loc_expr>
+        </at_frame_base>
+        <at_type>298</at_type>
+        <at_user name='SUN_language'>1</at_user>
+        <at_sibling>298</at_sibling>
+        <tag_variable id='i:280' ab='ab:0c3' >
+          <at_name>x</at_name>
+          <at_type>298</at_type>
+          <at_visibility>local</at_visibility>
+          <at_decl_file>1</at_decl_file>
+          <at_decl_line>4</at_decl_line>
+          <at_location>
+            <loc_expr>
+              <loc_op pos='0' op='fbreg' p1='0xfffffffffffffff8'/>
+            </loc_expr>
+          </at_location>
+        </tag_variable>
+        <tag_user name='SUN_codeflags' id='i:293' ab='ab:0c4' >
+          <at_user name='SUN_cf_kind'>68</at_user>
+          <at_user name='SUN_func_offsets'>[04 ]</at_user>
+        </tag_user>
+      </tag_subprogram>
+      <tag_base_type id='i:298' ab='ab:0c5' >
+        <at_name>int</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+      <tag_subprogram id='i:305' ab='ab:0c6' >
+        <at_name>foo</at_name>
+        <at_external>true</at_external>
+        <at_declaration>true</at_declaration>
+        <at_type>298</at_type>
+        <at_user name='SUN_language'>1</at_user>
+      </tag_subprogram>
+    </tag_compile_unit>
+    <tag_compile_unit id='i:330' ab='ab:109c1' version='2' address_size='4' sl='sl:70' >
+      <at_name>t2.c</at_name>
+      <at_language>C99</at_language>
+      <at_comp_dir>/home/quenelle</at_comp_dir>
+      <at_user name='SUN_command_line'> /shared/dp/sstrunk/090727/output/sparc-S2/pseudoinst/opt/SUNWspro/prod/bin/cc -c -g  t2.c -W0,-xp\$XA6prkB6nebKWJv.</at_user>
+      <at_user name='SUN_compile_options'>Xa;g;R=Sun C 5.11 SunOS_sparc Aten 2009/07/27;G=$XA6prkB6nebKWJv.;backend;raw;cd;</at_user>
+      <at_producer>DBG_GEN 5.2.7</at_producer>
+      <at_stmt_list>70</at_stmt_list>
+      <tag_subprogram id='i:569' ab='ab:109c2' >
+        <at_name>foo</at_name>
+        <at_external>true</at_external>
+        <at_visibility>exported</at_visibility>
+        <at_decl_file>1</at_decl_file>
+        <at_decl_line>2</at_decl_line>
+        <at_low_pc>0x00000050</at_low_pc>
+        <at_high_pc>0x00000070</at_high_pc>
+        <at_frame_base>
+          <loc_expr>
+            <loc_op pos='0' op='reg30' />
+          </loc_expr>
+        </at_frame_base>
+        <at_type>615</at_type>
+        <at_user name='SUN_language'>1</at_user>
+        <at_sibling>615</at_sibling>
+        <tag_variable id='i:597' ab='ab:109c3' >
+          <at_name>y</at_name>
+          <at_type>615</at_type>
+          <at_visibility>local</at_visibility>
+          <at_decl_file>1</at_decl_file>
+          <at_decl_line>3</at_decl_line>
+          <at_location>
+            <loc_expr>
+              <loc_op pos='0' op='fbreg' p1='0xfffffffffffffff8'/>
+            </loc_expr>
+          </at_location>
+        </tag_variable>
+        <tag_user name='SUN_codeflags' id='i:610' ab='ab:109c4' >
+          <at_user name='SUN_cf_kind'>68</at_user>
+          <at_user name='SUN_func_offsets'>[04 ]</at_user>
+        </tag_user>
+      </tag_subprogram>
+      <tag_base_type id='i:615' ab='ab:109c5' >
+        <at_name>int</at_name>
+        <at_encoding>signed</at_encoding>
+        <at_byte_size>4</at_byte_size>
+      </tag_base_type>
+    </tag_compile_unit>
+  </debug_info>
+  <debug_abbrev>
+    <ab_table id='ab:0' ref='i:11' >
+      <ab_tag name='tag_compile_unit' id='ab:0c1' children='true' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='language' form='data1' />
+        <ab_attr name='comp_dir' form='string' />
+        <ab_attr name='SUN_command_line' form='string' />
+        <ab_attr name='SUN_compile_options' form='string' />
+        <ab_attr name='producer' form='string' />
+        <ab_attr name='stmt_list' form='data4' />
+      </ab_tag>
+      <ab_tag name='tag_subprogram' id='ab:0c2' children='true' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='external' form='flag' />
+        <ab_attr name='visibility' form='data1' />
+        <ab_attr name='calling_convention' form='data1' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='low_pc' form='addr' />
+        <ab_attr name='high_pc' form='addr' />
+        <ab_attr name='frame_base' form='block1' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='SUN_language' form='data1' />
+        <ab_attr name='sibling' form='ref4' />
+      </ab_tag>
+      <ab_tag name='tag_variable' id='ab:0c3' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='visibility' form='data1' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='location' form='block1' />
+      </ab_tag>
+      <ab_tag name='tag_SUN_codeflags' id='ab:0c4' children='false' >
+        <ab_attr name='SUN_cf_kind' form='data1' />
+        <ab_attr name='SUN_func_offsets' form='block' />
+      </ab_tag>
+      <ab_tag name='tag_base_type' id='ab:0c5' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='encoding' form='data1' />
+        <ab_attr name='byte_size' form='data1' />
+      </ab_tag>
+      <ab_tag name='tag_subprogram' id='ab:0c6' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='external' form='flag' />
+        <ab_attr name='declaration' form='flag' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='SUN_language' form='data1' />
+      </ab_tag>
+    </ab_table>
+    <ab_table id='ab:109' ref='i:330' >
+      <ab_tag name='tag_compile_unit' id='ab:109c1' children='true' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='language' form='data1' />
+        <ab_attr name='comp_dir' form='string' />
+        <ab_attr name='SUN_command_line' form='string' />
+        <ab_attr name='SUN_compile_options' form='string' />
+        <ab_attr name='producer' form='string' />
+        <ab_attr name='stmt_list' form='data4' />
+      </ab_tag>
+      <ab_tag name='tag_subprogram' id='ab:109c2' children='true' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='external' form='flag' />
+        <ab_attr name='visibility' form='data1' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='low_pc' form='addr' />
+        <ab_attr name='high_pc' form='addr' />
+        <ab_attr name='frame_base' form='block1' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='SUN_language' form='data1' />
+        <ab_attr name='sibling' form='ref4' />
+      </ab_tag>
+      <ab_tag name='tag_variable' id='ab:109c3' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='type' form='ref4' />
+        <ab_attr name='visibility' form='data1' />
+        <ab_attr name='decl_file' form='data1' />
+        <ab_attr name='decl_line' form='data1' />
+        <ab_attr name='location' form='block1' />
+      </ab_tag>
+      <ab_tag name='tag_SUN_codeflags' id='ab:109c4' children='false' >
+        <ab_attr name='SUN_cf_kind' form='data1' />
+        <ab_attr name='SUN_func_offsets' form='block' />
+      </ab_tag>
+      <ab_tag name='tag_base_type' id='ab:109c5' children='false' >
+        <ab_attr name='name' form='string' />
+        <ab_attr name='encoding' form='data1' />
+        <ab_attr name='byte_size' form='data1' />
+      </ab_tag>
+    </ab_table>
+  </debug_abbrev>
+  <debug_line>
+    <sl_compile_unit id='sl:0' ref='i:11'>
+      <sl_files id='sl:0f'>
+        <sl_file id='sl:0f1'>/home/quenelle/t1.c</sl_file>
+      </sl_files>
+      <sl_lines id='sl:0l'>
+        <sl_line id='sl:0i1' >
+          <sl_low_pc>0x00000014</sl_low_pc>
+          <sl_decl file='sl:0f1' line='4'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:0i2' >
+          <sl_low_pc>0x0000001c</sl_low_pc>
+          <sl_decl file='sl:0f1' line='5'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:0i3' >
+          <sl_low_pc>0x00000028</sl_low_pc>
+          <sl_decl file='sl:0f1' line='6'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:0i4' >
+          <sl_low_pc>0x00000030</sl_low_pc>
+          <sl_decl file='sl:0f1' line='7'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:0i5' >
+          <sl_low_pc>0x00000034</sl_low_pc>
+          <sl_decl file='sl:0f1' line='7'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='true' />
+        </sl_line>
+      </sl_lines>
+    </sl_compile_unit>
+    <sl_compile_unit id='sl:70' ref='i:330'>
+      <sl_files id='sl:70f'>
+        <sl_file id='sl:70f1'>/home/quenelle/t2.c</sl_file>
+      </sl_files>
+      <sl_lines id='sl:70l'>
+        <sl_line id='sl:70i1' >
+          <sl_low_pc>0x00000054</sl_low_pc>
+          <sl_decl file='sl:70f1' line='3'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:70i2' >
+          <sl_low_pc>0x0000005c</sl_low_pc>
+          <sl_decl file='sl:70f1' line='4'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:70i3' >
+          <sl_low_pc>0x00000068</sl_low_pc>
+          <sl_decl file='sl:70f1' line='5'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:70i4' >
+          <sl_low_pc>0x00000070</sl_low_pc>
+          <sl_decl file='sl:70f1' line='6'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='false' />
+        </sl_line>
+        <sl_line id='sl:70i5' >
+          <sl_low_pc>0x00000074</sl_low_pc>
+          <sl_decl file='sl:70f1' line='6'/>
+          <sl_properties stm_start='true' block_start='false' seq_end='true' />
+        </sl_line>
+      </sl_lines>
+    </sl_compile_unit>
+  </debug_line>
+</dwarf>

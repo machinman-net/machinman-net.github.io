@@ -1,0 +1,1174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>Ring containers source code: ring.c</title>
+   <meta name="Description" content="Project Description">
+   <meta name="Author" content="Emmanuel Azencot">
+   <meta name="GENERATOR" content="ctoohtml 1.5.0">
+<!-- postprod:header:start -->
+<style type="text/css"><!--  
+.post * { font-family: Arial; font-size: 1em; font-weight: normal; } 
+.postmenu * img { border: 0px solid ; width: 19px; height: 10px; }  
+--></style> 
+<!-- postprod:analytics:start -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-16166284-1");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- postprod::analytics:end -->
+<!-- postprod:header:end -->
+</head>
+<body>
+<!-- postprod:top:start -->
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a> 
+<a href="/pol/etoiles_ou_fin_arab.html"><img alt="arab" src="/flags/flag_small_arab.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<hr size="2" width="100%">
+<!-- postprod:top:end -->
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H2>file: ring.c</H2>
+
+
+<HR>
+<tt>
+ &nbsp;&nbsp;1
+<span style="color: rgb(102, 102, 102);">/* <br>
+ &nbsp;&nbsp;2
+ * Copyright (C) 2008-2009 by Emmanuel Azencot under the GNU LGPL<br>
+ &nbsp;&nbsp;3
+ * license version 2.0 or 2.1. &nbsp;You should have received a copy of the<br>
+ &nbsp;&nbsp;4
+ * LGPL license along with this library if you did not you can find it<br>
+ &nbsp;&nbsp;5
+ * at http://www.gnu.org/.<br>
+ &nbsp;&nbsp;6
+ */</span><br>
+ &nbsp;&nbsp;7
+<span style="color: rgb(102, 102, 102);">/*<br>
+ &nbsp;&nbsp;8
+ * Azencot : Wed Nov 12 21:45:57 CET 2008<br>
+ &nbsp;&nbsp;9
+ * &nbsp;Creation<br>
+ &nbsp;10
+ * Azencot : Tue Nov 18 21:31:30 CET 2008<br>
+ &nbsp;11
+ * &nbsp;Add doc++ comments<br>
+ &nbsp;12
+ * Azencot : Sat Dec 13 00:20:02 CET 2008<br>
+ &nbsp;13
+ * &nbsp;f_ring_off_xxx -> f_ring_xxx<br>
+ &nbsp;14
+ */</span><br>
+ &nbsp;15
+<span style="color: rgb(204, 102, 0);">#<b>define</b>  /*<A NAME="line_15"></A><A HREF="xref.html#_GNU_SOURCE">X</A>*/ <B><A NAME="_GNU_SOURCE">_GNU_SOURCE</A></B></span><br>
+ &nbsp;16
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;errno.h&gt;</span><br>
+ &nbsp;17
+<span style="color: rgb(204, 102, 0);">#<b>include</b> &lt;string.h&gt;</span><br>
+ &nbsp;18
+<br>
+ &nbsp;19
+<span style="color: rgb(204, 102, 0);">#<b>include</b> "<A HREF="config.h.html">config.h</A>"</span><br>
+ &nbsp;20
+<span style="color: rgb(204, 102, 0);">#<b>include</b> "<A HREF="exception.h.html">exception.h</A>"</span><br>
+ &nbsp;21
+<span style="color: rgb(204, 102, 0);">#<b>include</b> "<A HREF="ring.h.html">ring.h</A>"</span><br>
+ &nbsp;22
+<br>
+ &nbsp;23
+<span style="color: rgb(102, 102, 102);">/** @memo Hold check option. */</span><br>
+ &nbsp;24
+<span style="color: rgb(0, 153, 0); font-weight: bold;">static</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_24"></A><A HREF="xref.html#check_opt">X</A>*/ <B><A NAME="check_opt">check_opt</A></B>;<br>
+ &nbsp;25
+<span style="color: rgb(102, 102, 102);">/** @memo Set or get check option.<br>
+ &nbsp;26
+ * @doc<br>
+ &nbsp;27
+ * &nbsp;The check option provides integrity check on the ring on each call to<br>
+ &nbsp;28
+ * API funtions.<br>
+ &nbsp;29
+ * @param level (IN) 0 set to disable, 1 enable, -1 read curent value.<br>
+ &nbsp;30
+ * @return curent value.<br>
+ &nbsp;31
+ */</span><br>
+ &nbsp;32
+<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span>  /*<A NAME="line_32"></A><A HREF="xref.html#f_ring_check_opt">X</A>*/ <B><A NAME="f_ring_check_opt">f_ring_check_opt</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> level) { <span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( level != -1 ) <A HREF="ring.c.html#check_opt">check_opt</A> = level; <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> <A HREF="ring.c.html#check_opt">check_opt</A>; }<br>
+ &nbsp;33
+<br>
+ &nbsp;34
+<span style="color: rgb(102, 102, 102);">/** @name Ring<br>
+ &nbsp;35
+ */</span><br>
+ &nbsp;36
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ &nbsp;37
+<span style="color: rgb(102, 102, 102);">/** @memo Ring self integrity test<br>
+ &nbsp;38
+ * @doc<br>
+ &nbsp;39
+ * &nbsp;Walk around the ring to check link ptrs.<br>
+ &nbsp;40
+ * &nbsp;In most of the errors situation the functions will not give or even<br>
+ &nbsp;41
+ * cleanly return.<br>
+ &nbsp;42
+ * @param ring (IN) Ring to be checked<br>
+ &nbsp;43
+ * @param offset (IN) offset of structure <A NAME="line_43"></A><A HREF="ring.h.html#s_ring">s_ring</A><br>
+ &nbsp;44
+ * @return 1 if OK, 0 and errno if faulty.<br>
+ &nbsp;45
+ * @exception EMLINK null pointer found in ring link.<br>
+ &nbsp;46
+ */</span> <br>
+ &nbsp;47
+<span style="color: rgb(0, 153, 0);">bool</span>  /*<A NAME="line_47"></A><A HREF="xref.html#f_ring_selftest">X</A>*/ <B><A NAME="f_ring_selftest">f_ring_selftest</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *ring, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ &nbsp;48
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(ring) r;<br>
+ &nbsp;49
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ &nbsp;50
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring; r; r = r-&gt;next ) {<br>
+ &nbsp;51
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == ring ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ &nbsp;52
+ &nbsp;&nbsp;}<br>
+ &nbsp;53
+ &nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EMLINK, <span style="color: rgb(51, 102, 255);">"nul node&nbsp;found&nbsp;in&nbsp;ring"</span>);<br>
+ &nbsp;54
+}<br>
+ &nbsp;55
+<span style="color: rgb(102, 102, 102);">/** @memo Test if an element is in a ring<br>
+ &nbsp;56
+ * @doc<br>
+ &nbsp;57
+ * &nbsp;Return true if element is in.<br>
+ &nbsp;58
+ * @param is (IN) Element to search<br>
+ &nbsp;59
+ * @param in (IN) Ring<br>
+ &nbsp;60
+ * @param offset (IN) offset of structure <A NAME="line_60"></A><A HREF="ring.h.html#s_ring">s_ring</A><br>
+ &nbsp;61
+ * @return 1 if OK, 0 and errno if faulty.<br>
+ &nbsp;62
+ * @exception EFAULT is is nil.<br>
+ &nbsp;63
+ * @exception EMLINK null pointer found in ring link.<br>
+ &nbsp;64
+ */</span> <br>
+ &nbsp;65
+<span style="color: rgb(0, 153, 0);">bool</span>  /*<A NAME="line_65"></A><A HREF="xref.html#f_ring_is_in">X</A>*/ <B><A NAME="f_ring_is_in">f_ring_is_in</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *is, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *in, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ &nbsp;66
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(in) r;<br>
+ &nbsp;67
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( is == (<span style="color: rgb(204, 0, 0);">typeof</span>(in))offset ) excp_raise(<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EFAULT, <span style="color: rgb(51, 102, 255);">"is, is&nbsp;nil,&nbsp;indeed"</span>);<br>
+ &nbsp;68
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( in == (<span style="color: rgb(204, 0, 0);">typeof</span>(in))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ &nbsp;69
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_69"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_ring_selftest">f_ring_selftest</A>(in, offset) ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>) ;<br>
+ &nbsp;70
+ &nbsp;&nbsp;r = in;<br>
+ &nbsp;71
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">do</span> {<br>
+ &nbsp;72
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == is ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ &nbsp;73
+ &nbsp;&nbsp;} <span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( r = r-&gt;next, r != in );<br>
+ &nbsp;74
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ &nbsp;75
+}<br>
+ &nbsp;76
+<span style="color: rgb(102, 102, 102);">/** @memo Add a new element in the ring.<br>
+ &nbsp;77
+ * @doc<br>
+ &nbsp;78
+ * &nbsp;Insert a new pearl in a ring. <br>
+ &nbsp;79
+ * &nbsp;Return is always valid, even if ring is nil.<br>
+ &nbsp;80
+ * Be carefull if new can be nil, as you can lose the ring handle.<br>
+ &nbsp;81
+ * @param ring (IN) a pointer to ring part of a ring's node <br>
+ &nbsp;82
+ * @param new (IN) a pointer to the ring part of the node<br>
+ &nbsp;83
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ &nbsp;84
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ &nbsp;85
+ * @exception EEXIST, new is already in ring.<br>
+ &nbsp;86
+ * @exception EFAULT new is nil.<br>
+ &nbsp;87
+ * @exception EMLINK null pointer found in ring link.<br>
+ &nbsp;88
+ */</span><br>
+ &nbsp;89
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_89"></A><A HREF="xref.html#f_ring_link">X</A>*/ <B><A NAME="f_ring_link">f_ring_link</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *new, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ &nbsp;90
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_90"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_ring_selftest">f_ring_selftest</A>(ring, offset) == 0 ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">"Memory jam"</span>);<br>
+ &nbsp;91
+<br>
+ &nbsp;92
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( new == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EFAULT, <span style="color: rgb(51, 102, 255);">"new node&nbsp;is&nbsp;nil"</span>);<br>
+ &nbsp;93
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_93"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && <A HREF="ring.c.html#f_ring_is_in">f_ring_is_in</A>(new, ring, offset) ) <br>
+ &nbsp;94
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EEXIST, <span style="color: rgb(51, 102, 255);">"node is&nbsp;already&nbsp;in&nbsp;ring"</span>);<br>
+ &nbsp;95
+<br>
+ &nbsp;96
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) ring = new;<br>
+ &nbsp;97
+<br>
+ &nbsp;98
+ &nbsp;&nbsp;new-&gt;next = ring-&gt;next;<br>
+ &nbsp;99
+ &nbsp;&nbsp;ring-&gt;next = new;<br>
+ 100
+<br>
+ 101
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> new?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)new - offset):0;<br>
+ 102
+}<br>
+ 103
+<span style="color: rgb(102, 102, 102);">/** @memo Remove an element from a ring<br>
+ 104
+ * @doc<br>
+ 105
+ * &nbsp;&nbsp;The ring is relinked to exclude the element.<br>
+ 106
+ * Return ptr is 0 if ring becomes empty.<br>
+ 107
+ * @param node (IN) a pointer to ring part of the node <br>
+ 108
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 109
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 110
+ * @exception EMLINK null pointer found in ring link.<br>
+ 111
+ */</span><br>
+ 112
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_112"></A><A HREF="xref.html#f_ring_unlink">X</A>*/ <B><A NAME="f_ring_unlink">f_ring_unlink</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ring">s_ring</A> *node, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 113
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(node) r;<br>
+ 114
+<br>
+ 115
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_115"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_ring_selftest">f_ring_selftest</A>(node, offset) == 0) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">"Memory jam"</span>);<br>
+ 116
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( node == (<span style="color: rgb(204, 0, 0);">typeof</span>(node))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 117
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( node == node-&gt;next ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 118
+<br>
+ 119
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = node; r-&gt;next != node; r = r-&gt;next );<br>
+ 120
+ &nbsp;&nbsp;r-&gt;next = node-&gt;next;<br>
+ 121
+ &nbsp;&nbsp;node-&gt;next = 0;<br>
+ 122
+<br>
+ 123
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> r?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)r - offset):0;<br>
+ 124
+}<br>
+ 125
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 126
+<span style="color: rgb(102, 102, 102);">/** @name Named ring<br>
+ 127
+ */</span><br>
+ 128
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 129
+<span style="color: rgb(102, 102, 102);">/** @memo Name ring integrity test<br>
+ 130
+ * @doc<br>
+ 131
+ * &nbsp;Walk around the ring to check link ptrs.<br>
+ 132
+ * &nbsp;In most of the errors situation the functions will not give or even<br>
+ 133
+ * cleanly return.<br>
+ 134
+ * @param ring (IN) Ring to be checked<br>
+ 135
+ * @param offset (IN) offset of structure <A NAME="line_135"></A><A HREF="ring.h.html#s_ring">s_ring</A><br>
+ 136
+ * @return 1 if OK, 0 and errno if faulty.<br>
+ 137
+ * @exception EMLINK null pointer found in ring link.<br>
+ 138
+ */</span> <br>
+ 139
+<span style="color: rgb(0, 153, 0);">bool</span>  /*<A NAME="line_139"></A><A HREF="xref.html#f_nring_selftest">X</A>*/ <B><A NAME="f_nring_selftest">f_nring_selftest</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *ring, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 140
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(ring) r;<br>
+ 141
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 142
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring; r; r = r-&gt;next ) {<br>
+ 143
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == ring ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 144
+ &nbsp;&nbsp;}<br>
+ 145
+ &nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EMLINK, <span style="color: rgb(51, 102, 255);">"nul node&nbsp;found&nbsp;in&nbsp;ring"</span>);<br>
+ 146
+}<br>
+ 147
+<span style="color: rgb(102, 102, 102);">/** @memo Test if an element is in a ring<br>
+ 148
+ * @doc<br>
+ 149
+ * &nbsp;Return true if element is in.<br>
+ 150
+ * @param is (IN) Element to search<br>
+ 151
+ * @param in (IN) Ring<br>
+ 152
+ * @param offset (IN) offset of structure <A NAME="line_152"></A><A HREF="ring.h.html#s_ring">s_ring</A><br>
+ 153
+ * @return 1 if OK, 0 and errno if faulty.<br>
+ 154
+ * @exception EFAULT is is nil.<br>
+ 155
+ * @exception EMLINK null pointer found in ring link.<br>
+ 156
+ */</span> <br>
+ 157
+<span style="color: rgb(0, 153, 0);">bool</span>  /*<A NAME="line_157"></A><A HREF="xref.html#f_nring_is_in">X</A>*/ <B><A NAME="f_nring_is_in">f_nring_is_in</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *is, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *in, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 158
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(in) r;<br>
+ 159
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( is == (<span style="color: rgb(204, 0, 0);">typeof</span>(in))offset ) excp_raise(<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EFAULT, <span style="color: rgb(51, 102, 255);">"is, is&nbsp;nil,&nbsp;indeed"</span>);<br>
+ 160
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( in == (<span style="color: rgb(204, 0, 0);">typeof</span>(in))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 161
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_161"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_nring_selftest">f_nring_selftest</A>(in, offset) ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>) ;<br>
+ 162
+ &nbsp;&nbsp;r = in;<br>
+ 163
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">do</span> {<br>
+ 164
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == is ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 165
+ &nbsp;&nbsp;} <span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( r = r-&gt;next, r != in );<br>
+ 166
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 167
+}<br>
+ 168
+<span style="color: rgb(102, 102, 102);">/** @memo Find a node in a named ring by its name.<br>
+ 169
+ * @doc<br>
+ 170
+ * &nbsp;&nbsp;Names are limited to 1000 bytes.<br>
+ 171
+ * @param ring (IN) a pointer to ring part of a ring's node <br>
+ 172
+ * @param name (IN) name to look for<br>
+ 173
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 174
+ * @return 0 the ring is not found, or a node.<br>
+ 175
+ * @exception EMLINK null pointer found in ring link.<br>
+ 176
+ */</span><br>
+ 177
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_177"></A><A HREF="xref.html#f_nring_find">X</A>*/ <B><A NAME="f_nring_find">f_nring_find</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">const</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *name, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 178
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(ring) r;<br>
+ 179
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_179"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_nring_selftest">f_nring_selftest</A>(ring, offset) == 0) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>);<br>
+ 180
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 181
+<br>
+ 182
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring-&gt;next; r && <span style="color: rgb(204, 0, 0);">strncmp</span>(r-&gt;name, name, 1000); r = r-&gt;next ) {<br>
+ 183
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == ring ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 184
+ &nbsp;&nbsp;}<br>
+ 185
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (r)?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)r - offset):0;<br>
+ 186
+}<br>
+ 187
+<span style="color: rgb(102, 102, 102);">/** @memo Add a new element in the ring.<br>
+ 188
+ * @doc<br>
+ 189
+ * &nbsp;Insert a new pearl in a ring. <br>
+ 190
+ * &nbsp;Return is always valid, even if ring is nil.<br>
+ 191
+ * Be carefull if new can be nil, as you can lose the ring handle.<br>
+ 192
+ * @param ring (IN) a pointer to ring part of a ring's node <br>
+ 193
+ * @param new (IN) a pointer to the ring part of the node<br>
+ 194
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 195
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 196
+ * @exception ENOTNAM, Name is nil.<br>
+ 197
+ * @exception ENAMETOOLONG, Name is too long.<br>
+ 198
+ * @exception EEXIST, new is already in ring.<br>
+ 199
+ * @exception EFAULT new is nil.<br>
+ 200
+ * @exception EMLINK null pointer found in ring link.<br>
+ 201
+ */</span><br>
+ 202
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_202"></A><A HREF="xref.html#f_nring_link">X</A>*/ <B><A NAME="f_nring_link">f_nring_link</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *new, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 203
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_203"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_nring_selftest">f_nring_selftest</A>(ring, offset) == 0 ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">"Memory jam"</span>);<br>
+ 204
+<br>
+ 205
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( new == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EFAULT, <span style="color: rgb(51, 102, 255);">"new node&nbsp;is&nbsp;nil"</span>);<br>
+ 206
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !new-&gt;name ) excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, ENOTNAM, <span style="color: rgb(51, 102, 255);">"new node&nbsp;name&nbsp;is&nbsp;nil"</span>);<br>
+ 207
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <span style="color: rgb(204, 0, 0);">strnlen</span>(new-&gt;name, 1000) == 1000 ) excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, ENAMETOOLONG, <span style="color: rgb(51, 102, 255);">"new node&nbsp;name&nbsp;is&nbsp;too&nbsp;long"</span>);<br>
+ 208
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_208"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && <A HREF="ring.c.html#f_nring_is_in">f_nring_is_in</A>(new, ring, offset) ) <br>
+ 209
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EEXIST, <span style="color: rgb(51, 102, 255);">"node is&nbsp;already&nbsp;in&nbsp;ring"</span>);<br>
+ 210
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_210"></A><A HREF="ring.c.html#f_nring_find">f_nring_find</A>(ring, new-&gt;name, offset) ) <br>
+ 211
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp_raise(<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, ENOTUNIQ, <span style="color: rgb(51, 102, 255);">"A node&nbsp;named&nbsp;\"%s\" already exists"</span>,new-&gt;name);<br>
+ 212
+<br>
+ 213
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) ring = new;<br>
+ 214
+<br>
+ 215
+ &nbsp;&nbsp;new-&gt;next = ring-&gt;next;<br>
+ 216
+ &nbsp;&nbsp;ring-&gt;next = new;<br>
+ 217
+<br>
+ 218
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> new?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)new - offset):0;<br>
+ 219
+}<br>
+ 220
+<span style="color: rgb(102, 102, 102);">/** @memo Remove an element from a ring<br>
+ 221
+ * @doc<br>
+ 222
+ * &nbsp;&nbsp;The ring is relinked to exclude the element.<br>
+ 223
+ * Return ptr is 0 if ring becomes empty.<br>
+ 224
+ * @param node (IN) a pointer to ring part of the node <br>
+ 225
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 226
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 227
+ * @exception EMLINK null pointer found in ring link.<br>
+ 228
+ */</span><br>
+ 229
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_229"></A><A HREF="xref.html#f_nring_unlink">X</A>*/ <B><A NAME="f_nring_unlink">f_nring_unlink</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_nring">s_nring</A> *node, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 230
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(node) r;<br>
+ 231
+<br>
+ 232
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_232"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_nring_selftest">f_nring_selftest</A>(node, offset) == 0) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">"Memory jam"</span>);<br>
+ 233
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( node == (<span style="color: rgb(204, 0, 0);">typeof</span>(node))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 234
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( node == node-&gt;next ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 235
+<br>
+ 236
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = node; r-&gt;next != node; r = r-&gt;next );<br>
+ 237
+ &nbsp;&nbsp;r-&gt;next = node-&gt;next;<br>
+ 238
+<br>
+ 239
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> r?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)r - offset):0;<br>
+ 240
+}<br>
+ 241
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 242
+<br>
+ 243
+<span style="color: rgb(102, 102, 102);">/** @name Double linked ring<br>
+ 244
+ */</span><br>
+ 245
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 246
+<span style="color: rgb(102, 102, 102);">/** @memo Ring integrity test<br>
+ 247
+ * @doc<br>
+ 248
+ * &nbsp;Walk around the ring to check link ptrs.<br>
+ 249
+ * &nbsp;In most of the errors situation the functions will not give or even<br>
+ 250
+ * cleanly return.<br>
+ 251
+ * @param ring (IN) Ring to be checked<br>
+ 252
+ * @param offset (IN) offset of structure <A NAME="line_252"></A><A HREF="ring.h.html#s_ring">s_ring</A><br>
+ 253
+ * @return 1 if OK, 0 and errno if faulty.<br>
+ 254
+ * @exception EMLINK null pointer found in ring link.<br>
+ 255
+ */</span> <br>
+ 256
+<span style="color: rgb(0, 153, 0);">bool</span>  /*<A NAME="line_256"></A><A HREF="xref.html#f_dring_selftest">X</A>*/ <B><A NAME="f_dring_selftest">f_dring_selftest</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *ring, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 257
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(ring) r;<br>
+ 258
+<br>
+ 259
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 260
+ &nbsp;&nbsp;<br>
+ 261
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring; r; r = r-&gt;next ) {<br>
+ 262
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !r-&gt;next ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 263
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !r-&gt;prev ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 264
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r-&gt;next-&gt;prev != r || r-&gt;prev-&gt;next != r)<br>
+ 265
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EMLINK, <span style="color: rgb(51, 102, 255);">"Broken link&nbsp;for&nbsp;node&nbsp;%p"</span>, r);<br>
+ 266
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == ring ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 267
+ &nbsp;&nbsp;}<br>
+ 268
+ &nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EMLINK, <span style="color: rgb(51, 102, 255);">"Nul link&nbsp;found&nbsp;in&nbsp;node&nbsp;%p"</span>, r);<br>
+ 269
+}<br>
+ 270
+<span style="color: rgb(102, 102, 102);">/** @memo Test if an element is in a ring<br>
+ 271
+ * @doc<br>
+ 272
+ * &nbsp;Return true if element is in.<br>
+ 273
+ * @param is (IN) Element to search<br>
+ 274
+ * @param in (IN) Ring<br>
+ 275
+ * @param offset (IN) offset of structure <A NAME="line_275"></A><A HREF="ring.h.html#s_ring">s_ring</A><br>
+ 276
+ * @return 1 if OK, 0 and errno if faulty.<br>
+ 277
+ * @exception EFAULT is is nil.<br>
+ 278
+ * @exception EMLINK null pointer found in ring link.<br>
+ 279
+ */</span> <br>
+ 280
+<span style="color: rgb(0, 153, 0);">bool</span>  /*<A NAME="line_280"></A><A HREF="xref.html#f_dring_is_in">X</A>*/ <B><A NAME="f_dring_is_in">f_dring_is_in</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *is, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *in, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 281
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(in) r;<br>
+ 282
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( is == (<span style="color: rgb(204, 0, 0);">typeof</span>(in))offset ) excp_raise(<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EFAULT, <span style="color: rgb(51, 102, 255);">"is, is&nbsp;nil,&nbsp;indeed"</span>);<br>
+ 283
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( in == (<span style="color: rgb(204, 0, 0);">typeof</span>(in))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 284
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_284"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_dring_selftest">f_dring_selftest</A>(in, offset) ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>) ;<br>
+ 285
+ &nbsp;&nbsp;r = in;<br>
+ 286
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">do</span> {<br>
+ 287
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == is ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 288
+ &nbsp;&nbsp;} <span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( r = r-&gt;next, r != in );<br>
+ 289
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 290
+}<br>
+ 291
+<span style="color: rgb(102, 102, 102);">/** @memo Return +/- nth node frome curent<br>
+ 292
+ * @doc<br>
+ 293
+ * &nbsp;Provide a abitrary position displacement in a ring. It is probably<br>
+ 294
+ * usefull only for small values of hop counts (1 or -1), as ring order<br>
+ 295
+ * does not matter.<br>
+ 296
+ * @param ring (IN) a pointer to ring part of a ring's node <br>
+ 297
+ * @param hops (IN) number of hops to move<br>
+ 298
+ * @param check (IN) Check circular overshoot<br>
+ 299
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 300
+ * @return 0 the ring is empty or check error, node at pos + hops in the ring.<br>
+ 301
+ * @exception ELOOP Move made a complete loop<br>
+ 302
+ * @exception EMLINK null pointer found in ring link.<br>
+ 303
+ */</span><br>
+ 304
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_304"></A><A HREF="xref.html#f_dring_move">X</A>*/ <B><A NAME="f_dring_move">f_dring_move</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> hops, <span style="color: rgb(0, 153, 0);">bool</span> check, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 305
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(ring) r = ring;<br>
+ 306
+<br>
+ 307
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset || !hops ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)ring -offset;<br>
+ 308
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_308"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_dring_selftest">f_dring_selftest</A>(ring, offset) ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>) ;<br>
+ 309
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( hops &gt; 0 ) {<br>
+ 310
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring-&gt;next, --hops; hops; --hops, r = r-&gt;next ) {<br>
+ 311
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( check && r-&gt;next == ring ) excp_raise( <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *) -offset, ELOOP, <span style="color: rgb(51, 102, 255);">"Move made&nbsp;a&nbsp;complete&nbsp;loop"</span>); <br>
+ 312
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 313
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)r - offset;<br>
+ 314
+ &nbsp;&nbsp;}<br>
+ 315
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring-&gt;prev, ++hops; hops; ++hops, r = r-&gt;prev ) {<br>
+ 316
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( check && r-&gt;prev == ring ) excp_raise( <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *) -offset, ELOOP, <span style="color: rgb(51, 102, 255);">"Move made&nbsp;a&nbsp;complete&nbsp;loop"</span>); <br>
+ 317
+ &nbsp;&nbsp;}<br>
+ 318
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)r - offset;<br>
+ 319
+}<br>
+ 320
+<span style="color: rgb(102, 102, 102);">/** @memo Add a new element in the ring.<br>
+ 321
+ * @doc<br>
+ 322
+ * &nbsp;Insert a new pearl in a ring. <br>
+ 323
+ * &nbsp;Return is always valid, even if ring is nil.<br>
+ 324
+ * Be carefull if new can be nil, as you can lose the ring handle.<br>
+ 325
+ * @param ring (IN) a pointer to ring part of a ring's node <br>
+ 326
+ * @param new (IN) a pointer to the ring part of the node<br>
+ 327
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 328
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 329
+ * @exception EEXIST, new is already in ring.<br>
+ 330
+ * @exception EFAULT new is nil.<br>
+ 331
+ * @exception EMLINK null pointer found in ring link.<br>
+ 332
+ */</span><br>
+ 333
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_333"></A><A HREF="xref.html#f_dring_link">X</A>*/ <B><A NAME="f_dring_link">f_dring_link</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *new, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 334
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_334"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_dring_selftest">f_dring_selftest</A>(ring, offset) == 0 ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>);<br>
+ 335
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( new == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EFAULT, <span style="color: rgb(51, 102, 255);">"new node&nbsp;is&nbsp;nil"</span>);<br>
+ 336
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_336"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && <A HREF="ring.c.html#f_dring_is_in">f_dring_is_in</A>(new, ring, offset) ) <br>
+ 337
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EEXIST, <span style="color: rgb(51, 102, 255);">"node is&nbsp;already&nbsp;in&nbsp;ring"</span>);<br>
+ 338
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) ring = new; <br>
+ 339
+<br>
+ 340
+ &nbsp;&nbsp;new-&gt;next = ring-&gt;next;<br>
+ 341
+ &nbsp;&nbsp;new-&gt;prev = ring;<br>
+ 342
+ &nbsp;&nbsp;ring-&gt;next = new;<br>
+ 343
+ &nbsp;&nbsp;new-&gt;next-&gt;prev = new;<br>
+ 344
+<br>
+ 345
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> new?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)new - offset):0;<br>
+ 346
+}<br>
+ 347
+<span style="color: rgb(102, 102, 102);">/** @memo Remove an element from a ring<br>
+ 348
+ * @doc<br>
+ 349
+ * &nbsp;&nbsp;The ring is relinked to exclude the element.<br>
+ 350
+ * Return ptr is 0 if ring becomes empty.<br>
+ 351
+ * @param node (IN) a pointer to ring part of the node <br>
+ 352
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 353
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 354
+ * @exception EMLINK null pointer found in ring link.<br>
+ 355
+ */</span><br>
+ 356
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_356"></A><A HREF="xref.html#f_dring_unlink">X</A>*/ <B><A NAME="f_dring_unlink">f_dring_unlink</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_dring">s_dring</A> *node, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 357
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( node == (<span style="color: rgb(204, 0, 0);">typeof</span>(node))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0; <span style="color: rgb(102, 102, 102);">/* node = 0 */</span><br>
+ 358
+<br>
+ 359
+ &nbsp;&nbsp;<span style="color: rgb(102, 102, 102);">/* AZT sam, 09 mai 2009 13:00:46 +0200 <br>
+ 360
+ &nbsp;&nbsp;if ( node == (typeof(node))offset ) return 0; */</span><br>
+ 361
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_361"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_dring_selftest">f_dring_selftest</A>(node, offset) == 0) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>);<br>
+ 362
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( node == node-&gt;next ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 363
+<br>
+ 364
+ &nbsp;&nbsp;node-&gt;prev-&gt;next = node-&gt;next;<br>
+ 365
+ &nbsp;&nbsp;node-&gt;next-&gt;prev = node-&gt;prev;<br>
+ 366
+<br>
+ 367
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> node?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)node-&gt;prev - offset):0;<br>
+ 368
+}<br>
+ 369
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 370
+<br>
+ 371
+<span style="color: rgb(102, 102, 102);">/** @name Double linked named ring<br>
+ 372
+ */</span><br>
+ 373
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@{</span><br>
+ 374
+<span style="color: rgb(102, 102, 102);">/** @memo Ring integrity test<br>
+ 375
+ * @doc<br>
+ 376
+ * &nbsp;Walk around the ring to check link ptrs.<br>
+ 377
+ * &nbsp;In most of the errors situation the functions will not give or even<br>
+ 378
+ * cleanly return.<br>
+ 379
+ * @param ring (IN) Ring to be checked<br>
+ 380
+ * @param offset (IN) offset of structure <A NAME="line_380"></A><A HREF="ring.h.html#s_ring">s_ring</A><br>
+ 381
+ * @return 1 if OK, 0 and errno if faulty.<br>
+ 382
+ * @exception EMLINK null pointer found in ring link.<br>
+ 383
+ */</span> <br>
+ 384
+<span style="color: rgb(0, 153, 0);">bool</span>  /*<A NAME="line_384"></A><A HREF="xref.html#f_ndring_selftest">X</A>*/ <B><A NAME="f_ndring_selftest">f_ndring_selftest</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *ring, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 385
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(ring) r;<br>
+ 386
+<br>
+ 387
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 388
+ &nbsp;&nbsp;<br>
+ 389
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring; r; r = r-&gt;next ) {<br>
+ 390
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !r-&gt;next ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 391
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !r-&gt;prev ) <span style="color: rgb(204, 0, 0); font-weight: bold;">break</span>;<br>
+ 392
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r-&gt;next-&gt;prev != r || r-&gt;prev-&gt;next != r)<br>
+ 393
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EMLINK, <span style="color: rgb(51, 102, 255);">"Broken link&nbsp;for&nbsp;node&nbsp;%p"</span>, r);<br>
+ 394
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == ring ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 395
+ &nbsp;&nbsp;}<br>
+ 396
+ &nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EMLINK, <span style="color: rgb(51, 102, 255);">"Nul link&nbsp;found&nbsp;in&nbsp;node&nbsp;%p"</span>, r);<br>
+ 397
+}<br>
+ 398
+<span style="color: rgb(102, 102, 102);">/** @memo Test if an element is in a ring<br>
+ 399
+ * @doc<br>
+ 400
+ * &nbsp;Return true if element is in.<br>
+ 401
+ * @param is (IN) Element to search<br>
+ 402
+ * @param in (IN) Ring<br>
+ 403
+ * @param offset (IN) offset of structure <A NAME="line_403"></A><A HREF="ring.h.html#s_ring">s_ring</A><br>
+ 404
+ * @return 1 if OK, 0 and errno if faulty.<br>
+ 405
+ * @exception EFAULT is is nil.<br>
+ 406
+ * @exception EMLINK null pointer found in ring link.<br>
+ 407
+ */</span> <br>
+ 408
+<span style="color: rgb(0, 153, 0);">bool</span>  /*<A NAME="line_408"></A><A HREF="xref.html#f_ndring_is_in">X</A>*/ <B><A NAME="f_ndring_is_in">f_ndring_is_in</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *is, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *in, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 409
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(in) r;<br>
+ 410
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( is == (<span style="color: rgb(204, 0, 0);">typeof</span>(in))offset ) excp_raise(<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EFAULT, <span style="color: rgb(51, 102, 255);">"is, is&nbsp;nil,&nbsp;indeed"</span>);<br>
+ 411
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( in == (<span style="color: rgb(204, 0, 0);">typeof</span>(in))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 412
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_412"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_ndring_selftest">f_ndring_selftest</A>(in, offset) ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>) ;<br>
+ 413
+ &nbsp;&nbsp;r = in;<br>
+ 414
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">do</span> {<br>
+ 415
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == is ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 1;<br>
+ 416
+ &nbsp;&nbsp;} <span style="color: rgb(204, 0, 0); font-weight: bold;">while</span> ( r = r-&gt;next, r != in );<br>
+ 417
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 418
+}<br>
+ 419
+<br>
+ 420
+<span style="color: rgb(102, 102, 102);">/** @memo Return +/- nth node frome curent<br>
+ 421
+ * @doc<br>
+ 422
+ * &nbsp;Provide a abritrary position displacement in a ring. It is probably<br>
+ 423
+ * usefull only for small values of hop counsts (1 or -1), as ring order<br>
+ 424
+ * does not matter.<br>
+ 425
+ * @param ring (IN) a pointer to ring part of a ring's node <br>
+ 426
+ * @param hops (IN) number of hops to move<br>
+ 427
+ * @param check (IN) Check circular overshoot<br>
+ 428
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 429
+ * @return 0 the ring is empty or check error, node at pos + hops in the ring.<br>
+ 430
+ * @exception ELOOP Move made a complete loop<br>
+ 431
+ * @exception EMLINK null pointer found in ring link.<br>
+ 432
+ */</span><br>
+ 433
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_433"></A><A HREF="xref.html#f_ndring_move">X</A>*/ <B><A NAME="f_ndring_move">f_ndring_move</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">int</span> hops, <span style="color: rgb(0, 153, 0);">bool</span> check, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 434
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(ring) r = ring;<br>
+ 435
+<br>
+ 436
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset || !hops ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)ring -offset;<br>
+ 437
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_437"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_ndring_selftest">f_ndring_selftest</A>(ring, offset) ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>) ;<br>
+ 438
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( hops &gt; 0 ) {<br>
+ 439
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring-&gt;next, --hops; hops; --hops, r = r-&gt;next ) {<br>
+ 440
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( check && r-&gt;next == ring ) excp_raise( <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *) -offset, ELOOP, <span style="color: rgb(51, 102, 255);">"Move made&nbsp;a&nbsp;complete&nbsp;loop"</span>); <br>
+ 441
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+ 442
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)r - offset;<br>
+ 443
+ &nbsp;&nbsp;}<br>
+ 444
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring-&gt;prev, ++hops; hops; ++hops, r = r-&gt;prev ) {<br>
+ 445
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( check && r-&gt;prev == ring ) excp_raise( <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> *) -offset, ELOOP, <span style="color: rgb(51, 102, 255);">"Move made&nbsp;a&nbsp;complete&nbsp;loop"</span>); <br>
+ 446
+ &nbsp;&nbsp;}<br>
+ 447
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)r - offset;<br>
+ 448
+}<br>
+ 449
+<span style="color: rgb(102, 102, 102);">/** @memo Find a node in a named ring by its name.<br>
+ 450
+ * @doc<br>
+ 451
+ * &nbsp;&nbsp;Names are limited to 1000 bytes.<br>
+ 452
+ * @param ring (IN) a pointer to ring part of a ring's node <br>
+ 453
+ * @param name (IN) name to look for<br>
+ 454
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 455
+ * @return 0 the ring is not found, or a node.<br>
+ 456
+ * @exception EMLINK null pointer found in ring link.<br>
+ 457
+ */</span><br>
+ 458
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_458"></A><A HREF="xref.html#f_ndring_find">X</A>*/ <B><A NAME="f_ndring_find">f_ndring_find</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">const</span> <span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *name, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 459
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0);">typeof</span>(ring) r;<br>
+ 460
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_460"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_ndring_selftest">f_ndring_selftest</A>(ring, offset) == 0) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>);<br>
+ 461
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 462
+<br>
+ 463
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">for</span> ( r = ring-&gt;next; r && <span style="color: rgb(204, 0, 0);">strncmp</span>(r-&gt;name, name, 1000); r = r-&gt;next ) {<br>
+ 464
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( r == ring ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 465
+ &nbsp;&nbsp;}<br>
+ 466
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> (r)?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)r - offset):0;<br>
+ 467
+}<br>
+ 468
+<span style="color: rgb(102, 102, 102);">/** @memo Add a new element in the ring.<br>
+ 469
+ * @doc<br>
+ 470
+ * &nbsp;Insert a new pearl in a ring. <br>
+ 471
+ * &nbsp;Return is always valid, even if ring is nil.<br>
+ 472
+ * Be carefull if new can be nil, as you can lose the ring handle.<br>
+ 473
+ * @param ring (IN) a pointer to ring part of a ring's node <br>
+ 474
+ * @param new (IN) a pointer to the ring part of the node<br>
+ 475
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 476
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 477
+ * @exception ENOTNAM, Name is nil.<br>
+ 478
+ * @exception ENAMETOOLONG, Name is too long.<br>
+ 479
+ * @exception EEXIST, new is already in ring.<br>
+ 480
+ * @exception EFAULT new is nil.<br>
+ 481
+ * @exception EMLINK null pointer found in ring link.<br>
+ 482
+ */</span> <br>
+ 483
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_483"></A><A HREF="xref.html#f_ndring_link">X</A>*/ <B><A NAME="f_ndring_link">f_ndring_link</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *ring, <span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *new, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 484
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_484"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_ndring_selftest">f_ndring_selftest</A>(ring, offset) == 0 ) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>);<br>
+ 485
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( new == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EFAULT, <span style="color: rgb(51, 102, 255);">"new node&nbsp;is&nbsp;nil"</span>);<br>
+ 486
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( !new-&gt;name ) excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, ENOTNAM, <span style="color: rgb(51, 102, 255);">"new node&nbsp;name&nbsp;is&nbsp;nil"</span>);<br>
+ 487
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <span style="color: rgb(204, 0, 0);">strnlen</span>(new-&gt;name, 1000) == 1000 ) excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, ENAMETOOLONG, <span style="color: rgb(51, 102, 255);">"new node&nbsp;name&nbsp;is&nbsp;too&nbsp;long"</span>);<br>
+ 488
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_488"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && <A HREF="ring.c.html#f_ndring_is_in">f_ndring_is_in</A>(new, ring, offset) ) <br>
+ 489
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp_raise (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, EEXIST, <span style="color: rgb(51, 102, 255);">"node is&nbsp;already&nbsp;in&nbsp;ring"</span>);<br>
+ 490
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_490"></A><A HREF="ring.c.html#f_ndring_find">f_ndring_find</A>(ring, new-&gt;name, offset) ) <br>
+ 491
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp_raise(<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, ENOTUNIQ, <span style="color: rgb(51, 102, 255);">"A node&nbsp;named&nbsp;\"%s\" already exists"</span>,new-&gt;name);<br>
+ 492
+<br>
+ 493
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( ring == (<span style="color: rgb(204, 0, 0);">typeof</span>(ring))offset ) ring = new; <br>
+ 494
+<br>
+ 495
+ &nbsp;&nbsp;new-&gt;next = ring-&gt;next;<br>
+ 496
+ &nbsp;&nbsp;new-&gt;prev = ring;<br>
+ 497
+ &nbsp;&nbsp;ring-&gt;next = new;<br>
+ 498
+ &nbsp;&nbsp;new-&gt;next-&gt;prev = new;<br>
+ 499
+<br>
+ 500
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> new?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)new - offset):0;<br>
+ 501
+}<br>
+ 502
+<span style="color: rgb(102, 102, 102);">/** @memo Remove an element from a ring<br>
+ 503
+ * @doc<br>
+ 504
+ * &nbsp;&nbsp;The ring is relinked to exclude the element.<br>
+ 505
+ * Return ptr is 0 if ring becomes empty.<br>
+ 506
+ * @param node (IN) a pointer to ring part of the node <br>
+ 507
+ * @param offset (IN) the offset of the ring part in the node.<br>
+ 508
+ * @return 0 the ring is empty, or the next node in the ring.<br>
+ 509
+ * @exception EMLINK null pointer found in ring link.<br>
+ 510
+ */</span><br>
+ 511
+<span style="color: rgb(0, 153, 0); font-weight: bold;">void</span> * /*<A NAME="line_511"></A><A HREF="xref.html#f_ndring_unlink">X</A>*/ <B><A NAME="f_ndring_unlink">f_ndring_unlink</A></B>(<span style="color: rgb(0, 153, 0); font-weight: bold;">struct</span> <A HREF="ring.h.html#s_ndring">s_ndring</A> *node, <span style="color: rgb(0, 153, 0);">size_t</span> offset) {<br>
+ 512
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( node == (<span style="color: rgb(204, 0, 0);">typeof</span>(node))offset ) node = 0;<br>
+ 513
+<br>
+ 514
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( node == (<span style="color: rgb(204, 0, 0);">typeof</span>(node))offset ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 515
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( <A NAME="line_515"></A><A HREF="ring.c.html#check_opt">check_opt</A> &gt; 0 && !<A HREF="ring.c.html#f_ndring_selftest">f_ndring_selftest</A>(node, offset) == 0) excp_relay (<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0, <span style="color: rgb(51, 102, 255);">" "</span>);<br>
+ 516
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">if</span> ( node == node-&gt;next ) <span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> 0;<br>
+ 517
+<br>
+ 518
+ &nbsp;&nbsp;node-&gt;prev-&gt;next = node-&gt;next;<br>
+ 519
+ &nbsp;&nbsp;node-&gt;next-&gt;prev = node-&gt;prev;<br>
+ 520
+<br>
+ 521
+ &nbsp;&nbsp;<span style="color: rgb(204, 0, 0); font-weight: bold;">return</span> node?((<span style="color: rgb(0, 153, 0); font-weight: bold;">char</span> *)node-&gt;prev - offset):0;<br>
+ 522
+}<br>
+ 523
+<br>
+ 524
+<span style="color: rgb(102, 102, 102); font-weight: bold;">//@}</span><br>
+ 525
+<br>
+<P></tt>
+<P>
+<HR>
+<table border="0" cellpadding="1" cellspacing="2" width="100%"><tr><td>
+<H3><A HREF="../index.html">To rings Doc++</A></H3>
+</td>
+<td><H3><A HREF="index.html">File Index</A></H3>
+</td>
+<td><H3><A HREF="tags.all.html">All Tags</A></H3>
+</td>
+<td><H3><A HREF="tags.file.html">Tags by File</A></H3>
+</td>
+<td><H3><A HREF="xref.html">Tags referrers</A></H3>
+</td></tr></table>
+<H5>C to HTML Conversion by <I><A HREF="http://www.machinman.net/code/ctoohtml/index.html">ctoohtml</A></I></H5>
+<!-- postprod:bottom:start -->
+<hr size="2" width="100%"> 
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="2" class="post"><tbody><tr><td style="width: 50%;"> 
+<!-- postprod:hosted:start -->
+Hosted by the courtesy of &nbsp;<br> 
+<a href="https://www.github.com" 
+   style="background:#FFFFFF; color: black; font-size: 2.5em; font-weight: bold; text-decoration: none; font-family: sans-serif;"> 
+&nbsp;GitHub&nbsp; 
+</a> 
+<!-- postprod:hosted:end -->
+</td><td style="text-align: center; width: 25%;" class="postmenu"> 
+<a href="/pol/stars_or_end.html">The stars ASAP</a> 
+<a href="/pol/stars_or_end.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/pol/etoiles_ou_fin.html"><img alt="francais" src="/flags/flag_small_france.png"></a> 
+<a href="/pol/estreillas_o_final.html"><img alt="spanish" src="/flags/flag_small_spanish.png"></a><br> 
+<a href="/intersideral/durees/">Dur&eacute;e du voyage intersid&eacute;ral</a>  
+<a href="/intersideral/durees/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/un/">R&eacute;solutions de l'ONU en HTML</a> 
+<a href="/un/"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html">Bussard Ramjet</a>  
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.en.html"><img alt="english" src="/flags/flag_small_english.png"></a> 
+<a href="/intersideral/bussard_ramjet/bussard_ramjet_ideal.fr.html"><img alt="francais" src="/flags/flag_small_france.png"></a><br> 
+</td><td style="text-align: center; vertical-align: middle; width: 25%;" class="postmenu"> 
+<a href="/code/dwarf2xml/">DWARF : dwarf2xml</a> 
+<a href="/code/dwarf2xml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/elf_examples/">ELF : libelf examples</a> 
+<a href="/elf_examples/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+<a href="/code/ctoohtml/">Code presentation : ctoohtml</a> 
+<a href="/code/ctoohtml/"><img alt="english" src="/flags/flag_small_english.png"></a><br> 
+</td></tr></tbody></table>
+<!-- postprod:bottom:end -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></body>
+</HTML>
